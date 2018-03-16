@@ -90,20 +90,24 @@ ul.form {
 	}
 
 	.form li a.profile {
-		border-left:5px solid #008747;
+		border-left:5px solid #fff;
 	}
 
 	.form li a.messages {
-			border-left:5px solid #fecf54;
+			border-left:5px solid #fff;
 	}
 		
 	.form li a.settings {
-			border-left:5px solid #cf2130;
+			border-left:5px solid #fff;
 	}
 
 	.form li a.logout {
-			border-left:5px solid #dde2d5;
+			border-left:5px solid #fff;
 	}	
+
+	.form li a:active {
+		border-left:5px solid RED;
+	}
 
 	.form li:first-child a:hover, .form li:first-child a {
 		-webkit-border-radius: 5px 5px 0 0;
