@@ -6,10 +6,6 @@ http://www.templatemo.com/preview/templatemo_391_botany
 /* How to do full page background image - http://css-tricks.com/perfect-full-page-background-image/ */
 /* carasmo's comment to hide horizontal scroll bar https://github.com/twbs/bootstrap/issues/10711 */
 
-body {
-	background-color: #222222;
-}
-
 a { color: #f55b1f; }
 a:hover, a:focus { color: #CCFF66; }
 
@@ -116,7 +112,7 @@ article { margin-top: 15px; margin-bottom: 15px; }
 }
 
 .credit { padding-bottom: 9px; padding-top: 12px; background-color: rgba(0, 0, 0, 0.5); }
-.container {  margin: 0 auto;  background-color: rgba(0, 0, 0, 0.5); }
+.transparent-container {  margin: 0 auto;  background-color: rgba(0, 0, 0, 0.5); }
 
 .left-inner-addon { position: relative; }
 .left-inner-addon input, .left-inner-addon textarea { padding-left: 30px; }

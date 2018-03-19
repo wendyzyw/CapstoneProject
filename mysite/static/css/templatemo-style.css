@@ -45,6 +45,10 @@ p {
 .nav-box {
   box-shadow: 0 19px 38px rgba(0,0,0,0.60), 0 20px 18px rgba(0,0,0,0.60);
 }
+
+.top-nav .ul .li{
+	float: right;
+}
 /* -------------------------------------*/
 /* vertical nav bar */
 
@@ -385,98 +389,8 @@ bootstrap.min.css:5
 		padding: 0px 15%;
 	}
 
-
-	#about .service-item {
-		margin-bottom: 80px;
-	} 
-
-	#portfolio .section-heading {
-		text-align: center;
-		padding-top: 100px;
-		padding-bottom: 100px;
-		background-color: #33c1cf;
-		height: 505px;
-		margin-left: -15px;
-		padding-left: 0vh;
-		margin-right: -15px;
-		padding-right: 0vh;
-		overflow: hidden;
-	}
-
-	#portfolio .section-heading .line-dec {
-		margin: 20px auto 15px auto;
-	}
-
-	#portfolio .section-heading p {
-		padding: 0px 20px;
-	}
-
-	.projects-holder {
-		text-align: center;
-		padding: 15px 0px;
-	}
-
-	#portfolio .project-item {
-		margin: 15px 0px;
-	}
-
-	#blog .section-heading {
-		text-align: center;
-		padding-top: 100px;
-		padding-bottom: 100px;
-		background-color: rgba(0, 0, 0, 0.5);
-		margin-left: -15px;
-		padding-left: 0vh;
-		margin-right: -15px;
-		padding-right: 0vh;
-		overflow: hidden!important;
-	}
-
-	#blog .section-heading .line-dec {
-		margin: 20px auto 15px auto;
-	}
-
-	#blog .section-heading p {
-		padding: 0px 30px;
-	}
-
 	.tabs {
 		padding: 0px 45px;
-	}
-
-	#first-tab-group {
-		margin-bottom: 30px;
-	}
-
-	#contact-us .section-heading p {
-		padding: 0px 10%;
-	}
-
-	footer {
-		text-align: center;
-	}
-
-	footer .logo {
-		margin-bottom: 30px;
-		padding-bottom: 30px;
-		border-bottom: 1px solid rgba(250, 250, 250, 0.1);
-	}
-
-	footer .location {
-		margin-bottom: 30px;
-		padding-bottom: 30px;
-		border-bottom: 1px solid rgba(250, 250, 250, 0.1);
-	}
-
-	footer .contact-info {
-		margin-bottom: 30px;
-		padding-bottom: 30px;
-		border-bottom: 1px solid rgba(250, 250, 250, 0.1);
-	}
-
-	footer .contact-info ul li {
-		margin-right: 10px;
-		margin-left: 10px;
 	}
 
 }
