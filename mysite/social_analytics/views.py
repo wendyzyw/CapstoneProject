@@ -7,8 +7,8 @@ def index(request):
 def login(request):
 	return render(request, 'Login.html')
 	
-def dataview(request):
-	return render(request, 'DataView.html')
+# def dataview(request):
+	# return render(request, 'DataView.html')
 
 def account(request):
 	return render(request, 'Account.html')
@@ -21,3 +21,6 @@ def manage2(request):
 
 def manage3(request):
 	return render(request, 'Manage3_social.html')
+	
+def data(request):
+	return render(request, 'data.html')
