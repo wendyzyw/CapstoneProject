@@ -1,92 +1,9 @@
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-	<meta name="viewport" content="width=device-width" />
-	<title>About - Botany Template</title>
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-    <!-- 
-    Botany Template 
-    http://www.templatemo.com/preview/templatemo_391_botany 
-    -->
-	<link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="../static/css/templatemo_style.css" rel="stylesheet" type="text/css">
-	<link href="../static/css/templatemo-style.css" rel="stylesheet" type="text/css">
-     <style>
-        .button1 {
-    background-color: black;
-    color: white;
-    border: 2px solid #000000;
-            font-size: 16px;
+{% extends 'account-base.html' %}
 
-}
+{% load staticfiles %}
 
-   .button1:hover {
-    background-color: #FF7F50;
-    color: white;
-       border: 2px solid #FF7F50;
-       font-size: 16px;
-}
-    </style>
-	<!-- HTML 5 shim for IE backwards compatibility -->
-		<!-- [if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
-		</script>
-		<![endif]-->
-	<!-- 
-	Credits
-	Equal Height Columns http://www.hongkiat.com/blog/css-equal-height/ -->
-</head>
-<body class="templatemo_flower_2">
-	<div class="header">
-		<div class="container" style="background-color: rgba(0,0,0,0);">
-			<nav class="navbar navbar-inverse" role="navigation">
-				<div class="navbar-header">
-					<button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a href="#" class="navbar-brand scroll-top"><em>T</em>inker</a>
-				</div>
-				<!--/.navbar-header-->
-				<div id="main-nav" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li><a href="#" class="scroll-link" data-id="contact-us" >Username</a></li>
-					</ul>
-				</div>
-				<!--/.navbar-collapse-->
-			</nav>
-			<!--/.navbar-->
-		</div>
-		<!--/.container-->
-	</div>
+{% block account_block %}
 
-	<div class="parallax-content baner-content col-lg-10" id="main_container" style="padding-top:100px;">
-		<div class="container transparent-container" id="about">
-            <!-- <button class="button button1"><span class="glyphicon glyphicon-home"></span>My Home</button> -->
-			<div class="row col-wrap">			 
-				<div id="left_container" class="col col-md-3 col-sm-12">
-					<div class="templatemo_logo">
-						<a href="#"><img src="../static/images/templatemo_logo.png" alt="Botany Theme"></a>
-					</div>
-					<nav id="main_nav">
-						<ul class="nav">
-							<li class="active"><a href="#">Home</a></li>
-                            <li><a href="/social_analytics/manage1">Change Password</a></li>
-                            <li><a href="/social_analytics/manage3">Authorized Social Media</a></li>
-							<li><a href="/social_analytics/manage2">Manage My Details</a></li>
-						</ul>
-					</nav> <!-- nav -->	
-
-					<!-- <div> -->
-						<!-- <a href="#"><img src="../static/img/fb.png" alt="Like us on Facebook"></a> -->
-						<!-- <a href="#"><img src="../static/img/tw.png" alt="Follow us on Twitter"></a> -->
-					<!-- </div> -->
-				</div>			  	
-				<div id="right_container" class="col col-md-9 col-sm-12">
 					<div class="row"><div class="col col-md-12"><h2>Change Your Password</h2></div></div>
                     <form role="form" action="#" method="post">
 						<div class="row">
@@ -109,16 +26,5 @@
                                 </div>
                             </div>
 
-		</div>
-
-	</div>
-             <footer class="row credit">
-				<div class="col col-md-12">
-					<div id="templatemo_footer">
-						Copyright © 2084 <a href="#">Company Name</a>
-					</div>
-				</div>
-			</footer>
-    <!-- templatemo 391 botany -->
-</body>
-</html>
+{% endblock %}
+	

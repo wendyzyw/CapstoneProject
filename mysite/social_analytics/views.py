@@ -11,7 +11,7 @@ def login(request):
 	# return render(request, 'DataView.html')
 
 def account(request):
-	return render(request, 'Account.html')
+	return render(request, 'account-home.html')
 	
 def manage1(request):
 	return render(request, 'Manage1_privacy.html')
