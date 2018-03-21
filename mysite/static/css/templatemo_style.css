@@ -92,11 +92,11 @@ article { margin-top: 15px; margin-bottom: 15px; }
 
 .btn { border-radius: 0px; font-family: Arial, sans-serif; }
 
-.btn-primary { background-color: #f55b1f; border-color: #c48c76; }
+.btn-primary { background-color:#337ab7; border-color: #265a88; }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { 
-	background-color: #e13916; 
-	border-color: #c48c76; 
+	background-color:  #265a88;
+	border-color: #265a88;
 }
 
 .nav > li > a:hover, .nav > li > a:focus { text-decoration: none; background-color: #f55b1f; color:white; }
