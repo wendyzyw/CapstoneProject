@@ -1,4 +1,6 @@
+{% load static %}
 <html>
+<!-- this page includes the top level menu bar and the background img for all pages  -->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -12,23 +14,22 @@
 		
 		<!-- css -->
 		<!-- bootstrap css -->
-		<link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" type="text/css">
-		<link href="../static/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}?v=00001" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}?v=00001"  type="text/css">
+		<link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}?v=00001" type="text/css">
 		<!-- other css -->
-        <link rel="stylesheet" href="../static/css/fontAwesome.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/hero-slider.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/owl-carousel.css" type="text/css">
-		<link rel="stylesheet" href="../static/css/lightbox.css" type="text/css">
-		<link rel="stylesheet" href="../static/css/flexslider.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{% static 'css/fontAwesome.css' %}?v=00001" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/hero-slider.css' %}?v=00001" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/owl-carousel.css' %}?v=00001" type="text/css">
+		<link rel="stylesheet" href="{% static 'css/lightbox.css' %}?v=00001" type="text/css">
+		<link rel="stylesheet" href="{% static 'css/flexslider.css' %}?v=00001" type="text/css" media="screen" />
 		<!-- our css -->
-        <link rel="stylesheet" href="../static/css/templatemo-style.css" type="text/css">
-		<link href="../static/css/templatemo_style.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="../static/css/project.css" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}?v=00001" type="text/css">
+		<link rel="stylesheet" href="{% static 'css/templatemo_style.css' %}?v=00001" type="text/css">
+		<link rel="stylesheet" href="{% static 'css/project.css' %}?v=00001" type="text/css">
 		
 		<!-- js -->
-        <script src="../static/js/slider/modernizr.js"></script>
-		<script src="../static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+		<script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
     </head>
 
 <body>
@@ -50,6 +51,7 @@
                         <li><a href="#" class="scroll-top">Home</a></li>
                         <li><a href="#" class="scroll-link" data-id="blog">Analysis</a></li>
                         <li><a href="#" class="scroll-link" data-id="contact-us">Contact Us</a></li>
+						<li><a href="#" class="scroll-link" data-id="contact-us">Login/Sign up</a></li>
                     </ul>
                 </div>
                 <!--/.navbar-collapse-->
@@ -60,10 +62,13 @@
     </div>
     <!--/.header-->
 	
-	<div class="parallax-content baner-content col-lg-10" id="home">
+	<div class="parallax-content baner-content" id="home">
         {% block content_block %}{% endblock %}
     </div>
 
+	<div class="index_page">
+	{% block index_block %}{% endblock %}
+	</div>
 	
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../static/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
