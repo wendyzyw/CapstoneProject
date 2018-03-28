@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content_block %}
+<div class="container media">
+  <ul class="form" style="float:right">
+	<li><a class="profile" href="#" style="background-image:url(../static/img/fb.png); background-size:contain;"></a></li>
+	<li><a class="messages" href="#" style="background-image:url(../static/img/tw.png); background-size:contain;"></a></li>
+	<li><a class="settings" href="#" style="background-image:url(../static/img/re.png); background-size:contain;"></a></li>
+	<li><a class="logout" href="#" style="background-image:url(../static/img/tu.png); background-size:contain;"></a></li>
+  </ul>
+</div>
+
+<!-- vertical menu -->
+<div class="col-lg-2" id="media-nav">
+	
+</ul>
+</div>
+
+<nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px;">
+	<div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;">
+		<div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav bottom-nav">
+			<li><a href="#">Data1</a></li>
+			<li><a href="#">Data2</a></li>
+			<li><a href="#">Data3</a></li>
+			<li><a href="#">Data4</a></li>
+		  </ul>
+		</div>
+	</div>
+</nav>
+{% endblock %}
