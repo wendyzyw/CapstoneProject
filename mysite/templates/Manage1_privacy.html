@@ -10,28 +10,36 @@
 
 	<div class="row">
 		<div class="col-md-8">
-		<form role="form" action="#" method="post">
-			<div class="form-group left-inner-addon">
+            <label>
+            <font size="2" color="red">{{ message }}</font>
+            </label>
+		    <form role="form" action="#" method="post">
+              <div class="form-group left-inner-addon">
 				<span class="glyphicon glyphicon-user"></span>
-				<input name="password" type="text" class="form-control" id="input_password" placeholder="New Password">
-		  </div>
-			<div class="form-group left-inner-addon">
+				<input name="old_password" type="password" class="form-control" id="old_password" placeholder="Old Password">
+		      </div>
+			  <div class="form-group left-inner-addon">
 				<span class="glyphicon glyphicon-user"></span>
-				<input name="password" type="text" class="form-control" id="input_password" placeholder="Confirm the New Password">
-		  </div>
-		  </form>
-		</div>
-	</div>
+				<input name="new_password1" type="password" class="form-control" id="new_password1" placeholder="New Password">
+		      </div>
+			  <div class="form-group left-inner-addon">
+				<span class="glyphicon glyphicon-user"></span>
+				<input name="new_password2" type="password" class="form-control" id="new_password2" placeholder="Confirm the New Password">
+		      </div>
 
-	<div class="row">
-	<div class="col-md-4">
-<div class="form-group">
-	<label class="col-md-4 control-label"></label>
-	
-		<button type="submit" class="btn btn-warning" >Submit <span class="glyphicon glyphicon-send"></span></button>
-	</div>
-</div>
-</div>
+
+            <div class="row">
+	          <div class="col-md-4">
+                 <div class="form-group">
+	               <label class="col-md-4 control-label"></label>
+                     <button type="submit" class="btn btn-warning" >Submit <span class="glyphicon glyphicon-send"></span></button>
+	             </div>
+              </div>
+            </div>
+        </form>
+        </div>
+    </div>
+
 
 {% endblock %}
 	

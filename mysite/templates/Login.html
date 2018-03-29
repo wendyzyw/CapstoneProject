@@ -7,28 +7,28 @@
 	<div class="col-md-offset-3 col-md-6">
 		<h1 class="margin-bottom-15">Log in to MH</h1>
 		<h3 class="margin-bottom-15">New to MH?<a href=""> Sign up</a></h3>
-		<form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" role="form" action="#" methond="past">
+		<form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" role="form" action="#" method="post">
 			<div class="form-group">
 				<div class="col-md-12">
 					<div class="control-wrapper">
 						<label for="username" class="control-label fa-label"><i class="fa fa-user fa-medium"></i></label>
-						<input type="text" class="form-control" id="username" placeholder="Username">
+						<input name="username" type="text" class="form-control" id="username" placeholder="Username">
 					</div>
 				</div>
-				<div class="col-md-12">
-					<a href="/social_analytics/account" class="btn btn-primary" role="button">Log In</a>
-				</div>
-			</div>
+            </div>
 
-			<div class="form-group">
-				<div class="col-md-12">
-					<div class="control-wrapper">
+
+			    <div class="form-group">
+				   <div class="col-md-12">
+					  <div class="control-wrapper">
 						<label for="password" class="control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
-						<input type="password" class="form-control" id="password" placeholder="Password">
-					</div>
+						<input name="password" type="password" class="form-control" id="password" placeholder="Password">
+					   </div>
+                   </div>
+			    </div>
+                <div class="col-md-12">
+					<button type="submit" class="btn btn-primary" >Log In </button>
 				</div>
-			</div>
-			
 			<div class="right-align">
 				<p><a href="">Forget password?</a></p>
 			</div>
