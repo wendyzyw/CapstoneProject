@@ -191,21 +191,6 @@ hr {
     border-width: 1px;
 }
 
-.connect-box {
-	width: 80px;
-	height: 80px;
-	padding: 10px 10px;
-	margin: 10px 50px;
-	position: absolute;
-}
-
-.connection {
-	height: auto;
-	margin: 0 auto;
-	padding: 10px;
-	position: relative;
-}
-
 /*-----------------------------------------------*/
 /* responsiveness */
 
