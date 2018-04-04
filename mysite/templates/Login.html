@@ -7,7 +7,7 @@
 	<div class="col-md-offset-3 col-md-6">
 		<h1 class="margin-bottom-15">Log in to MH</h1>
 		<h3 class="margin-bottom-15">New to MH?<a href=""> Sign up</a></h3>
-		<form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" role="form" action="#" methond="past">
+		<form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" role="form" action="#" methond="post">
 			<div class="form-group">
 				<div class="col-md-12">
 					<div class="control-wrapper">
@@ -39,7 +39,7 @@
 						<a class="btn btn-block btn-social btn-facebook margin-bottom-15 text-center">
 								<i class="fa fa-facebook"></i> Sign in with Facebook
 						</a>
-						<a class="btn btn-block btn-social btn-twitter margin-bottom-15">
+						<a class="btn btn-block btn-social btn-twitter margin-bottom-15" href="{% url 'social:begin' 'twitter' %}">
 								<i class="fa fa-twitter"></i> Sign in with Twitter
 						</a>
 						<a class="btn btn-block btn-social btn-tumblr margin-bottom-15">

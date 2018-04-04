@@ -116,10 +116,17 @@ AUTHENTICATION_BACKENDS = (
 	#Facebook
 	'social_core.backends.facebook.FacebookOAuth2',
 	#Reddit
-	'sociaol_core.backends.reddit.RedditOAuth2',
+	'social_core.backends.reddit.RedditOAuth2',
 	#Tumblr
 	'social_core.backends.tumblr.TumblrOAuth',
 )
+
+# social keys and tokens
+SOCIAL_AUTH_TWITTER_KEY = 'owCSHnblBoITQhCRZjNFqEuXd'
+SOCIAL_AUTH_TWITTER_SECRET = 'djD1JSM0ZZnSINxpLzTrXKlSAPvvCGd7UEy2pvfFcD2d4nV4R0'
+
+LOGIN_URL = 'social_login'
+LOGIN_REDIRECT_URL = 'account'
 
 
 # Internationalization

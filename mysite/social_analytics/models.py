@@ -6,3 +6,9 @@ class User(models.Model):
 	password = models.CharField(max_length=200)
 	def __str__(self):
 		return self.name_text
+
+#each user can has many social profiles including the one used for logging in 
+class Profile(models.Model):
+	user = models.ForeignKey('User',on_delete=models.CASCADE)
+	oauth_token = models.CharField(max_length=200)
+	oauth_secret = models.CharField(max_length=200)
