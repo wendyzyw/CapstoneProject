@@ -12,6 +12,8 @@ urlpatterns = [
 	path('', views.index, name='index'),
 	#normal login
 	path('login', views.login, name='login'),
+	path('signup', views.signup, name='signup'),
+	path('forgetPw', views.forgetPw, name='forgetPw'),
 	#social media login
 	url(r'^login/?$', twitter_login),
     url(r'^logout/?$', twitter_logout),

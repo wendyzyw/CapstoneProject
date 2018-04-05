@@ -27,18 +27,9 @@ h1 {
 	font-size: 36px;
 	line-height: normal;
 	margin: auto;
-	/* margin-top: 30px; */
+	margin-top: 30px;
 	margin-bottom: 10px;
 	text-align: center;
-}
-h2 {
-	font-weight: 500;
-	font-size: 20px;
-	line-height: normal;
-	margin: auto;
-	margin-bottom: 30px;
-	text-align: center;
-	color: #09F;
 }
 h3 {
 	font-weight: normal;
@@ -46,8 +37,10 @@ h3 {
 	line-height: normal;
 	margin: auto;
 	text-align: center;
-	color: black;
+	color: #fff;
 }
+
+h3 a:hover{ color:#ffff00; }
 
 .green { color: #3C3; }
 .gray { color: #999; }
@@ -71,26 +64,25 @@ h3 {
 	vertical-align: middle;
 }
 .templatemo-form-list-container { max-width: 600px; }
-.templatemo-input-icon-container { position: relative; }
-.templatemo-input-icon-container .fa {
+.Hou-input-icon-container { position: relative; }
+.Hou-input-icon-container .fa {
 	color: gray;
 	position: absolute;
 	left: 10px;
 	top: 10px;
 }
-.templatemo-input-icon-container input, 
-.templatemo-input-icon-container textarea {
-	padding-left: 30px;
+.Hou-input-icon-container input,
+.Hou-input-icon-container textarea {
+	padding-left: 15px;
 }
-.templatemo-container {
-	background-color: rgba(255,255,255,0.8);
-	border: 1px solid #dedede;
+.Hou-container {
 	border-radius: 8px;
 	margin: 0 auto;
 	padding: 30px;
+    padding-top: 15px;
 }
-.templatemo-bg-gray { background-color: #eee; }
-.templatemo-bg-gray h1 { color: red; }
+.Hou-bg-black { background-color: #000; }
+.Hou-bg-black h1 { color: #fff; }
 .templatemo-bg-image-1 {
 	background-color: rgb(60,60,60);
 	background-image: url(../images/templatemo-bg-1.jpg);	
@@ -108,8 +100,12 @@ h3 {
 .font-size-small { font-size: 0.8em; }
 .margin-bottom-15 {	margin-bottom: 15px; }
 .margin-bottom-30 {	margin-bottom: 30px; }
-.form-group { margin-bottom: 20px; }
-.form-group a {	line-height: 34px; }
+.form-group .form-group-left {  margin-bottom: 20px;  }
+.form-group .formgroup-left a {	line-height: 34px; }
+.form-group-left {
+	text-align: left;
+	margin-bottom: 20px;
+}
 .fa { font-size: 16px; }
 .fa.login-with {
 	font-size: 30px;
@@ -117,29 +113,32 @@ h3 {
 }
 .fa-medium { font-size: 20px; }
 .inline-block { display: inline-block; }
+.text-align-center { text-align: center; }
 
 
 /*-------------------------------------
-2. login-form-1
+2. Log in
 ---------------------------------------*/
-.templatemo-login-form-1 { max-width: 550px; text-align: center; }
-/* .templatemo-login-form-1 a { color: gray; } */
-.templatemo-login-form-1 a:hover {
-	color: black;
+.Hou-login-form { max-width: 550px; text-align: center; }
+.Hou-login-form a:hover {
+	color: #ffff00;
 	text-decoration: none;
 	cursor: pointer;
 }
-.templatemo-create-new {
+.Hou-create-new {
 	color: #58B4BB;
 	font-size: 18px;
 	font-weight: 300;
 }
-.templatemo-create-new:hover {
+.Hou-create-new:hover {
 	color: #138892;
 	text-decoration: none;
 }
-.demenstration{ margin: auto; }
-.other-signin { 
+.Hou-demonstration{
+	margin: auto;
+	color:#fff;
+}
+.other-sign-in {
 	max-width: 260px;
 	background-color: rgba(255,255,255,0);
 	border: 0px solid #dedede;
@@ -147,66 +146,45 @@ h3 {
 	margin: auto;
 	padding: 10px;
 }
-.right-align { 
-	text-align: right;
-}
+.middle-right a{ text-align: right; }
+.middle-right input{ margin:auto; }
+.login-margin-top { margin-top: 100px; }
+
 /*-------------------------------------
-3. login-form-2
+3. Sign up
 ---------------------------------------*/
-.templatemo-login-form-2 {
-	background-color: rgba(13,13,13,0.25);
-	border-radius: 8px;
-	color: #fff;
-	font-weight: 300;
-	max-width: 650px;
-	padding: 0 30px 30px 30px;
-	margin: 30px auto 0 auto;
-}
-.templatemo-login-form-2 h1 { color: #fff; margin-bottom: 40px; }
-.templatemo-login-form-2 a { color: #DBDBDB; }
-.templatemo-login-form-2 .form-control {
-	background-color: rgba(83, 78, 78, 0.35);
-	border: 1px solid rgba(255, 255, 255, 0.27);
-	color: rgb(255,255,255);
-}
-.templatemo-login-form-2 .templatemo-input-icon-container .fa {	color: rgb(190, 190, 190); }
-.templatemo-login-form-2 .control-label { margin-bottom: 10px; }
-.templatemo-login-form-2 .btn {	width: 100%; }
-.templatemo-login-form-2 .btn-social { max-width: 220px; }
-.templatemo-login-form-2 label { font-weight: 400; }
-.templatemo-login-form-2 .templatemo-one-signin { border-right: 1px solid rgba(200, 200, 200, 0.5); }
-
-
-/*-------------------------------------
-4. inline-login
---------------------------------------*/
-.templatemo-header {
-	background-color: #0B8290;
-	color: white;
-	min-height: 90px;
-}
-.templatemo-header .checkbox {
-	display: block;
-	margin-top: 5px;
-}
-.templatemo-header form { margin-top: 25px; }
-.templatemo-header .form-inline .form-group { vertical-align: top; }
-
-.logo { margin: 18px; }
-
-
-/*-------------------------------------
-5. create-account
----------------------------------------*/
-.templatemo-create-account {
-	background-color: #fff;
+.Hou-create-account {
+	background-color: rgba(0,0,0,0);
 	border: none;
 	max-width: 700px;	
 }
-.templatemo-create-account label { font-weight: 400; }
-.templatemo-create-account input[type='checkbox'] {
+.Hou-create-account label { font-weight: 400; }
+.Hou-create-account input[type='checkbox'] {
 	margin-right: 10px;
 	position: relative;
 	top: -1.5px;
 }
-.templatemo-radio-group { margin-top: 30px; }
+.Hou-radio-group { margin-top: 30px; }
+
+.Hou-create-account .col-md-12, .Hou-create-account .col-md-6 {
+		padding-top: 5px;
+		padding-bottom: 5px;
+}
+
+label.control-label { color: #fff; }
+.font-color { color: #fff; }
+.left-shift { padding-left: 5px; }
+
+/*-------------------------------------
+4. Forgot password
+---------------------------------------*/
+.Hou-forgot-password-form {
+	background-color: rgba(0,0,0,0);
+	max-width: 550px;
+	margin: 0 auto;
+	padding: 30px;
+    padding-top: 15px;
+    color: #fff;
+}
+.padding-top-15 { padding-top: 15px; }
+
