@@ -121,9 +121,12 @@ h3 a:hover{ color:#ffff00; }
 ---------------------------------------*/
 .Hou-login-form { max-width: 550px; text-align: center; }
 .Hou-login-form a:hover {
-	color: #ffff00;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+.change-color a:hover{
+	color: #ffff00;
 }
 .Hou-create-new {
 	color: #58B4BB;

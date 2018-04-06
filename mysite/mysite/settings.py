@@ -124,11 +124,10 @@ AUTHENTICATION_BACKENDS = (
 # social keys and tokens
 # SOCIAL_AUTH_TWITTER_KEY = 'owCSHnblBoITQhCRZjNFqEuXd'
 # SOCIAL_AUTH_TWITTER_SECRET = 'djD1JSM0ZZnSINxpLzTrXKlSAPvvCGd7UEy2pvfFcD2d4nV4R0'
-TWITTER_TOKEN = ''
-TWITTER_SECRET = ''
+TWITTER_TOKEN = 'AZU8kwktk3IHLdOPjhgZqtiOk'
+TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
 
-# LOGIN_URL = 'social_login'
-# LOGIN_REDIRECT_URL = 'account'
+AUTH_PROFILE_MODULE = 'social_analytics.Profile'
 
 
 # Internationalization

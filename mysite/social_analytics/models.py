@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 
 # Create your models here.
 class User(models.Model):
@@ -10,5 +12,6 @@ class User(models.Model):
 #each user can has many social profiles including the one used for logging in 
 class Profile(models.Model):
 	user = models.ForeignKey('User',on_delete=models.CASCADE)
-	oauth_token = models.CharField(max_length=200)
+	oauth_token = models.CharField(max_length=200, blank=True, null=True, editable=False)
 	oauth_secret = models.CharField(max_length=200)
+	profile_image_url = models.URLField(max_length=100, blank=True, null=True)
