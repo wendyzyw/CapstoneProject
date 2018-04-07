@@ -63,6 +63,8 @@ def twitter_login(request):
 		raise Excpeption("Request token request fail.")
 		
 	#step 2: store req tokken in a session
+	print("In Log in :")
+	print(request.session.items())
 	request_token = request.session['request_token'] = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
 	
 	# #step 3: redirect to authentication url
@@ -71,9 +73,10 @@ def twitter_login(request):
 	
 @login_required
 def twitter_logout(request):
+	print(request.session.items())
 	twt_logout(request)
 	#redirect back to homepage 
-	return HttpResponseRedirect('/social_analytics/account')
+	return HttpResponseRedirect('/social_analytics')
 	
 def twitter_authenticated(request):
 	#step 1: use the oauth-token to build new client

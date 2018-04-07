@@ -10,13 +10,14 @@
 		<hr>
 		<div class="media account-card col-md-5">
 			<div class="media-left">
-				<img src="../static/img/profile.jpg" class="media-object" style="width:60px">
+				<!-- <img src="../static/img/profile.jpg" class="media-object" style="width:60px"> -->
+				<img src="https://twitter.com/{{user.username}}/profile_image?size=bigger" class="media-object" style="width:60px; height:60px;">
 				<div class="social-box">
 					<img src="../static/img/re.png" style="border-radius:5px;">
 				</div>
 			</div>
 			<div class="media-body">
-				<h4 class="media-heading" style="text-align:left;">Wendy</h4>
+				<h4 class="media-heading" style="text-align:left;">{{user.username}}</h4>
 				<p>Linked date: 2017-03-31</p>
 				<div class="close-box">
 					<a><i class="fa fa-times" style="padding-top:2.5px;"></i></a>
