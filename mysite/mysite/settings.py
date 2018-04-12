@@ -30,14 +30,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-	'social_analytics.apps.SocialAnalyticsConfig',
+	'socialtracker.apps.SocialAnalyticsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	# 'social_analytics',
+	# 'socialtracker',
 	'social_django',
 ]
 
@@ -127,7 +127,7 @@ AUTHENTICATION_BACKENDS = (
 TWITTER_TOKEN = 'AZU8kwktk3IHLdOPjhgZqtiOk'
 TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
 
-AUTH_PROFILE_MODULE = 'social_analytics.Profile'
+AUTH_PROFILE_MODULE = 'socialtracker.Profile'
 
 
 # Internationalization

@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('social_analytics', '0002_profile'),
+        ('socialtracker', '0002_profile'),
     ]
 
     operations = [
