@@ -24,7 +24,7 @@ SECRET_KEY = 'qmp0zuh2g%4o)gyr3x#y3*qyl8anpqb80b!%kdy%f8+p9zusiv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wendyzeng.com','localhost']
 
 
 # Application definition
@@ -72,6 +72,18 @@ TEMPLATES = [
     },
 ]
 
+SOCIAL_AUTH_PIPELINE = (
+	'social_core.pipeline.social_auth.social_details',
+	'social_core.pipeline.social_auth.social_uid',
+	'social_core.pipeline.social_auth.social_user',
+	'social_core.pipeline.user.get_username',
+	'social_core.pipeline.user.create_user',
+	'social_core.pipeline.social_auth.associate_user',
+	'social_core.pipeline.social_auth.load_extra_data',
+	'social_core.pipeline.user.user_details',
+	'social_core.pipeline.social_auth.associate_by_email',
+)
+
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
@@ -104,6 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#in case of a custome namespace 
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',
 	'django.contrib.auth.backends.ModelBackend',
@@ -126,6 +141,12 @@ AUTHENTICATION_BACKENDS = (
 # SOCIAL_AUTH_TWITTER_SECRET = 'djD1JSM0ZZnSINxpLzTrXKlSAPvvCGd7UEy2pvfFcD2d4nV4R0'
 TWITTER_TOKEN = 'AZU8kwktk3IHLdOPjhgZqtiOk'
 TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '213217539436188'
+SOCIAL_AUTH_FACEBOOK_SECRET = '2f5d61e15d85dc58319c54b0e08aaeb0'
+
+SOCIAL_AUTH_TUMBLR_KEY = 'IZS8jZq3HRoODrqIIGryRrr78Ry58qavS4j3byCcEWeGkdCS9I'
+SOCIAL_AUTH_TUMBLR_SECRET = 'gjbfotuFl54PCaOjEZeVWLDfJy2Z4B4DQ215FKm22KFaDKVaNP'
 
 AUTH_PROFILE_MODULE = 'socialtracker.Profile'
 

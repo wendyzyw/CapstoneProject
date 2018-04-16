@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+	path('', include('social_django.urls',namespace='social')),
 	path('', views.index, name='index'),
 	#normal login
 	path('login', views.login, name='login'),
