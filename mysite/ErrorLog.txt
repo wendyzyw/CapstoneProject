@@ -1,0 +1,10 @@
+[WinError 10054] An existing connection was forcibly closed by the remote host
+
+App domains must match the domain of the Facebook Web Games URL (https)
+
+Page not found (404)
+Request Method:	GET
+Request URL:	http://127.0.0.1:8000/socialtracker/oauthlogin/facebook-oauth2/
+Raised by:	social_django.views.auth
+
+401 Client Error: Unauthorized for url: https://www.tumblr.com/oauth/request_token

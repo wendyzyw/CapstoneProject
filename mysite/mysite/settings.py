@@ -24,20 +24,21 @@ SECRET_KEY = 'qmp0zuh2g%4o)gyr3x#y3*qyl8anpqb80b!%kdy%f8+p9zusiv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wendyzeng.com','localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-	'social_analytics.apps.SocialAnalyticsConfig',
+	'socialtracker.apps.SocialAnalyticsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	# 'social_analytics',
+	# 'socialtracker',
+	'social_django',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'social_django.middleware.SocialAuthExceptionMiddleware', #social auth
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -63,10 +65,24 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+				'social_django.context_processors.backends',  # social auth
+                'social_django.context_processors.login_redirect', # social auth
             ],
         },
     },
 ]
+
+SOCIAL_AUTH_PIPELINE = (
+	'social_core.pipeline.social_auth.social_details',
+	'social_core.pipeline.social_auth.social_uid',
+	'social_core.pipeline.social_auth.social_user',
+	'social_core.pipeline.user.get_username',
+	'social_core.pipeline.user.create_user',
+	'social_core.pipeline.social_auth.associate_user',
+	'social_core.pipeline.social_auth.load_extra_data',
+	'social_core.pipeline.user.user_details',
+	'social_core.pipeline.social_auth.associate_by_email',
+)
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -99,6 +115,40 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+#in case of a custome namespace 
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+	'django.contrib.auth.backends.ModelBackend',
+	#Google
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+	#Twitter
+    'social_core.backends.twitter.TwitterOAuth',
+	#Facebook
+	'social_core.backends.facebook.FacebookOAuth2',
+	#Reddit
+	'social_core.backends.reddit.RedditOAuth2',
+	#Tumblr
+	'social_core.backends.tumblr.TumblrOAuth',
+)
+
+# social keys and tokens
+# SOCIAL_AUTH_TWITTER_KEY = 'owCSHnblBoITQhCRZjNFqEuXd'
+# SOCIAL_AUTH_TWITTER_SECRET = 'djD1JSM0ZZnSINxpLzTrXKlSAPvvCGd7UEy2pvfFcD2d4nV4R0'
+TWITTER_TOKEN = 'AZU8kwktk3IHLdOPjhgZqtiOk'
+TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '213217539436188'
+SOCIAL_AUTH_FACEBOOK_SECRET = '2f5d61e15d85dc58319c54b0e08aaeb0'
+
+SOCIAL_AUTH_TUMBLR_KEY = 'IZS8jZq3HRoODrqIIGryRrr78Ry58qavS4j3byCcEWeGkdCS9I'
+SOCIAL_AUTH_TUMBLR_SECRET = 'gjbfotuFl54PCaOjEZeVWLDfJy2Z4B4DQ215FKm22KFaDKVaNP'
+
+AUTH_PROFILE_MODULE = 'socialtracker.Profile'
 
 
 # Internationalization

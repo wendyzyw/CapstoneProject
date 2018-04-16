@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-	path('social_analytics/', include('social_analytics.urls')),
+	path('socialtracker/', include('socialtracker.urls')),
 	#include: reference other URLconfs 
 ]
