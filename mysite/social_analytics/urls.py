@@ -10,6 +10,7 @@ urlpatterns = [
 	path('manage1', views.manage1, name='manage1'),
 	path('manage2', views.manage2, name='manage2'),
 	path('manage3', views.manage3, name='manage3'),
+	path('signup',views.signup,name='signup'),
 	# try using block template
 	path('data', views.data, name='data'),
 ]

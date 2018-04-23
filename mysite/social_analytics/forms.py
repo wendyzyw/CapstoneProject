@@ -31,3 +31,9 @@ class EdituserinfoForm(forms.Form):
     gender = forms.CharField(required=True,max_length=100)
     zip_code = forms.CharField(required=True,label=u"zip code",max_length=100)
     state = forms.CharField(required=True,max_length=100)
+class RegisterForm(forms.Form):
+    username = forms.CharField(required=True,max_length=100,label=u"username")
+    first_name = forms.CharField(required=True,max_length=100,label=u"username")
+    last_name = forms.CharField(required=True,max_length=100,label=u"username")
+    email = forms.EmailField(max_length=100,label=u"email")
+    password = forms.CharField(required=True,label=u"old password",max_length=100,widget=forms.PasswordInput())

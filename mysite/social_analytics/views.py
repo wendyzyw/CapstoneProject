@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import LoginForm,ChangepassForm,EdituserinfoForm
+from .forms import LoginForm,ChangepassForm,EdituserinfoForm,RegisterForm
 from django.contrib import auth
 from django.http import HttpResponse
 from  .models import UserInfo
@@ -27,7 +27,9 @@ def login(request):
 				request.session['address'] = user.address
 				return render(request,'account-home.html')
 			else:
-				return render(request,'Login.html',{'uf':uf})
+				return render(request,'Login.html',{'uf':uf,'message':'username or password is not correct, please check or signup!'})
+		else:
+			return render(request,'Login.html',{'uf':uf,'message':'please fill in all the information!'})
 	else:
 		uf=LoginForm()
 		return render(request, 'Login.html',{'uf':uf})
@@ -47,13 +49,16 @@ def manage1(request):
 			user = auth.authenticate(username=username, password=old_password)
 			if user is not None and user.is_active:
 				new_password1 = request.POST.get('new_password1', '')
-				new_password2=request.POST.get('new_password2','')
-				if new_password1!=new_password2:
-					return render(request,'Manage1_privacy.html',{'uf':uf,'message':'The new passwords entered are inconsistent!'})
+				if new_password1 == old_password:
+					return render(request,'Manage1_privacy.html',{'uf':uf,'message':'Please set one different new password!'})
 				else:
-					user.set_password(new_password1)
-					user.save()
-					return render(request,'Manage1_privacy.html',{'uf':uf,'message':'success!'})
+					new_password2 = request.POST.get('new_password2', '')
+					if new_password1!=new_password2:
+						return render(request,'Manage1_privacy.html',{'uf':uf,'message':'Please confirm your new password!'})
+					else:
+					   user.set_password(new_password1)
+					   user.save()
+					   return render(request,'Manage1_privacy.html',{'uf':uf,'message':'success!'})
 			else:
 				return render(request,'Manage1_privacy.html',{'uf':uf,'message':'Your old password is not correct!'})
 		else:
@@ -86,7 +91,6 @@ def manage2(request):
 			request.session['zip_code'] = user.zip_code
 			request.session['address'] = user.address
 			return render(request, 'Manage2_Personal.html', {'uf': uf, 'message': 'success!'})
-
 		else:
 			return render(request, 'Manage2_Personal.html', {'uf': uf, 'message': 'Please fill in all your information!'})
 	else:
@@ -98,3 +102,27 @@ def manage3(request):
 	
 def data(request):
 	return render(request, 'data.html')
+def signup(request):
+    if request.method == 'POST':  # when submit the form
+        uf = RegisterForm(request.POST)  # include the data submitted
+        if uf.is_valid():  # if the data submitted is valid
+            username = request.POST.get('username','')
+            first_name = request.POST.get('first_name','')
+            last_name = request.POST.get('last_name','')
+            email = request.POST.get('email','')
+            password = request.POST.get('password','')
+            password_confirm =request.POST.get('password_confirm','')
+            if password!=password_confirm:
+               return render(request,'signup.html',{'uf':uf,'message':'please confirm your new password!'})
+            else:
+              try:
+                 UserInfo.objects.create_user(username=username, password=password, email=email,
+                                                      phone='00000000',first_name=first_name,last_name=last_name)
+                 return login(request)
+              except:
+                  return render(request, 'signup.html', {'uf': uf,'message':'user has existed！'})
+        else:
+            return render(request, 'signup.html', {'uf': uf, 'message': 'Please fill in all information!'})
+    else:
+        uf = RegisterForm()
+        return render(request, 'signup.html', {'uf': uf})
