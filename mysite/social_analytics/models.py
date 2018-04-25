@@ -11,7 +11,10 @@ class UserInfo(AbstractUser):
 	state = models.CharField(max_length=100,blank=True)
 	zip_code = models.CharField(max_length=100, blank=True)
 	gender = models.CharField(max_length=100, blank=True)
+	#is_superuser = models.BooleanField(default=False)
+
+	# objects = MyUserManager
 	class Meta:
 		db_table='UserInfo'
 	def __str__(self):
-	    return self.username
+	    return self.username #username and email are primary key, unique

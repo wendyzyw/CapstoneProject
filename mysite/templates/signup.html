@@ -14,12 +14,12 @@ http://www.templatemo.com/preview/templatemo_418_form_pack
 	<!-- Title -->
 	 <div class="col-md-12">
 		 <h1 class="margin-bottom-15">Sign up to MH</h1>
+		 <!-- Term and Policy -->
+		 <h3 class="margin-bottom-15">By signing up, you agree to MH's <a href="javascript:" data-toggle="modal" data-target="">Terms of Service</a> and <a href="">Privacy Policy.</a></h3>
          {% if message %}
                   <div class="alert alert-warning">{{ message }}</div>
          {% endif %}
-		 <!-- Term and Policy -->
-		 <h3 class="margin-bottom-15">By signing up, you agree to MH's <a href="javascript:" data-toggle="modal" data-target="">Terms of Service</a> and <a href="">Privacy Policy.</a></h3>
-		 <form class="form-horizontal Hou-create-account Hou-container" role="form" action="#" method="post">
+		 <form class="form-horizontal Hou-create-account Hou-container" role="form" action="#" method="post">{% csrf_token %}
 			 <div class="form-inner">
 				 <!-- Fisrt name and last name -->
 				 <div class="form-group">
@@ -59,13 +59,13 @@ http://www.templatemo.com/preview/templatemo_418_form_pack
 					 <div class="col-md-6">
 						 <div class="control-wrapper">
 							 <label for="password" class="control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
-							 <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+							 <input name="password" type="password" class="form-control" id="password" placeholder="Password (at least 8 characters, including both numbers and letters)">
 						 </div>
 					 </div>
 					 <div class="col-md-6">
 						 <div class="control-wrapper">
 							 <label for="password" class="control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
-							 <input name="password_confirm" type="password" class="form-control" id="password_confirm" placeholder="Confirm Password">
+							 <input name="password_confirm" type="password" class="form-control" id="password_confirm" placeholder="Confirm Password (at least 8 characters, including both numbers and letters)">
 						 </div>
 					 </div>
 				 </div>
@@ -73,7 +73,7 @@ http://www.templatemo.com/preview/templatemo_418_form_pack
 				 <div class="form-group left-shift">
 					 <div class="col-md-12">
 						 <input type="submit" value="Sign up" class="btn btn-info">
-						 <p class="pull-right font-color padding-top-15">Already have an account?<a href="login.html"> Login</a></p>
+						 <p class="pull-right font-color padding-top-15">Already have an account?<a href={% url "login" %}> Login</a></p>
 					 </div>
 				 </div>
 				 <!-- Sign up with social media -->
