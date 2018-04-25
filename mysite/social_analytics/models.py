@@ -22,3 +22,15 @@ class UserInfo(AbstractUser):
 
     def __str__(self):
         return self.username  # username and email are primary key, unique
+
+
+class FackbookProfile(models.Model):
+    user = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
+    facebookToken = models.CharField(max_length=100, blank=True)
+    result = models.CharField(max_length=100, blank=True)
+
+
+class TwitterProfile(models.Model):
+    user = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
+    twitterToken = models.CharField(max_length=100, blank=True)
+    result = models.CharField(max_length=100, blank=True)
