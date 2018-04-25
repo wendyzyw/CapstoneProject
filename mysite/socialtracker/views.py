@@ -2,6 +2,13 @@
 import oauth2 as oauth
 import cgi
 import urllib.parse
+import tweepy
+
+#plotting on data pages
+import matplotlib.pyplot as plt
+import pandas as pd
+from math import pi
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 #Django
 from django.shortcuts import render
@@ -12,6 +19,14 @@ from django.contrib.auth import login as twt_login
 from django.contrib.auth import authenticate as twt_authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+
+import random
+import datetime
+
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+from matplotlib.dates import DateFormatter
 
 #my app
 from socialtracker.models import Profile
@@ -56,11 +71,70 @@ def manage3(request):
 def data(request):
 	return render(request, 'data.html')
 
+def radarChart(request):
+		# # Set data
+	# df = pd.DataFrame({
+	# 'group': ['A','B','C','D'],
+	# 'var1': [38, 1.5, 30, 4],
+	# 'var2': [29, 10, 9, 34],
+	# 'var3': [8, 39, 23, 24],
+	# 'var4': [7, 31, 33, 14],
+	# 'var5': [28, 15, 32, 14]
+	# })
+	 
+	# # number of variable
+	# categories=list(df)[1:]
+	# N = len(categories)
+	 
+	# # We are going to plot the first line of the data frame.
+	# # But we need to repeat the first value to close the circular graph:
+	# values=df.loc[0].drop('group').values.flatten().tolist()
+	# values += values[:1]
+	# values
+	 
+	# # What will be the angle of each axis in the plot? (we divide the plot / number of variable)
+	# angles = [n / float(N) * 2 * pi for n in range(N)]
+	# angles += angles[:1]
+	 
+	# # Initialise the spider plot
+	# ax = plt.subplot(111, polar=True)
+	 
+	# # Draw one axe per variable + add labels labels yet
+	# plt.xticks(angles[:-1], categories, color='grey', size=8)
+	 
+	# # Draw ylabels
+	# ax.set_rlabel_position(0)
+	# plt.yticks([10,20,30], ["10","20","30"], color="grey", size=7)
+	# plt.ylim(0,40)
+	 
+	# # Plot data
+	# ax.plot(angles, values, linewidth=1, linestyle='solid')
+	 
+	# # Fill area
+	# ax.fill(angles, values, 'b', alpha=0.1)
+	from matplotlib.pyplot import figure, title, bar
+	import numpy as np
+	import mpld3
+
+	mpl_figure = figure(1, figsize=(6, 6))
+	xvalues = range(5)  # the x locations for the groups
+	yvalues = np.random.random_sample(5)
+
+	width = 0.5  # the width of the bars    
+	bar(xvalues, yvalues, width)
+	fig_html = mpld3.fig_to_html(mpl_figure)
+	plt.close()
+
+	return render('data.html',
+							  {'figure': fig_html, },
+							  context_instance = RequestContext(request))
+
+
 def twitter_login(request):
 	#step 1: send req token request to twitter
 	resp, content = client.request(request_token_url, "POST")
 	if resp['status'] != '200':
-		raise Excpeption("Request token request fail.")
+		raise Exception("Request token request fail.")
 		
 	#step 2: store req tokken in a session
 	print("In Log in :")
@@ -110,8 +184,14 @@ def twitter_authenticated(request):
 	#step 4: authenticate user and log them in 
 	# auth_user = twt_authenticate(username=access_token['screen_name'],
         # password=access_token['oauth_token_secret'])
-	print(user)
 	twt_login(request, user, 'django.contrib.auth.backends.ModelBackend')
+
+	# auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+	# auth.set_access_token(access_token['oauth_token'], access_token['oauth_token_secret'])
+	# api = tweepy.API(auth)
+
+	# for status in tweepy.Cursor(api.user_timeline, screen_name=access_token['screen_name']).items():
+		# print(status._json['text'])
 	
 	return HttpResponseRedirect('/socialtracker/account')
 

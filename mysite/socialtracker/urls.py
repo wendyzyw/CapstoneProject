@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+	# url('', include('django.contrib.auth.urls', namespace='auth')),
 	path('', include('social_django.urls',namespace='social')),
 	path('', views.index, name='index'),
 	#normal login
@@ -23,6 +24,7 @@ urlpatterns = [
 	path('manage3', views.manage3, name='manage3'),
 	# try using block template
 	path('data', views.data, name='data'),
+	path('radarChart', views.radarChart, name='radarChart'),
 	# social media login
 	path('oauth', include('social_django.urls', namespace='social')), 
 ]

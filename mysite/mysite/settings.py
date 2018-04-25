@@ -24,8 +24,12 @@ SECRET_KEY = 'qmp0zuh2g%4o)gyr3x#y3*qyl8anpqb80b!%kdy%f8+p9zusiv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['wendyzeng.com','localhost']
+ALLOWED_HOSTS = ['lorikeetanalysis.net','localhost']
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -39,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	# 'socialtracker',
 	'social_django',
+	'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -86,6 +91,12 @@ SOCIAL_AUTH_PIPELINE = (
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -144,6 +155,14 @@ TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '213217539436188'
 SOCIAL_AUTH_FACEBOOK_SECRET = '2f5d61e15d85dc58319c54b0e08aaeb0'
+SOCIAL_AUTH_FACEBOOK_APP_NAMESPACE = 'socialtracker'
+SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.12'
+# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'locale': 'ru_RU',
+  'fields': 'id, name, email, age_range'
+}
 
 SOCIAL_AUTH_TUMBLR_KEY = 'IZS8jZq3HRoODrqIIGryRrr78Ry58qavS4j3byCcEWeGkdCS9I'
 SOCIAL_AUTH_TUMBLR_SECRET = 'gjbfotuFl54PCaOjEZeVWLDfJy2Z4B4DQ215FKm22KFaDKVaNP'

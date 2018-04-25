@@ -2,6 +2,12 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+
 # Create your models here.
 class User(models.Model):
 	name_text = models.CharField(max_length=100)
@@ -15,3 +21,14 @@ class Profile(models.Model):
 	oauth_token = models.CharField(max_length=200, blank=True, null=True, editable=False)
 	oauth_secret = models.CharField(max_length=200)
 	profile_image_url = models.URLField(max_length=100, blank=True, null=True)
+
+class ExampleView(APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        content = {
+            'user': unicode(request.user),  # `django.contrib.auth.User` instance.
+            'auth': unicode(request.auth),  # None
+        }
+        return Response(content)

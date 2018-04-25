@@ -14,7 +14,7 @@
 		
 		<!-- css -->
 		<!-- bootstrap css -->
-		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}?v=00001" type="text/css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}?v=00001"  type="text/css">
 		<link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}?v=00001" type="text/css">
 		<!-- other css -->
@@ -31,31 +31,10 @@
 		
 		<!-- js -->
 		<script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+		<script src="https://connect.facebook.net/en_US/all.js"></script>
     </head>
 
 <body>
-
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{your-app-id}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{latest-api-version}'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
 
 	<div class="header">
         <div class="container">
@@ -79,7 +58,7 @@
 								<a class="scroll-link" href={% url 'account' %}>My Account</a>
 							</li>
 							<li>
-							<a class="scroll-link" href={% url 'data' %}>My Analysis</a>
+							<a class="scroll-link" href={% url 'radarChart' %}>My Analysis</a>
 							</li>
 							<li>
 								<a class="scroll-link" href={% url 'twitter_logout' %}>Log out</a>
