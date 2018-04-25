@@ -6,7 +6,6 @@ from .models import UserInfo
 from django.contrib.auth.views import PasswordResetView, PasswordChangeView, \
     PasswordResetDoneView, PasswordChangeDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
-
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -42,6 +41,11 @@ def login(request):
 
     # def dataview(request):
     # return render(request, 'DataView.html')
+
+def logout_view(request):
+    auth.logout(request)
+    # Redirect to a success page.
+    return render(request, 'index.html')
 
 
 def account(request):
