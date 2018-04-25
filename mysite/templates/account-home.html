@@ -1,0 +1,47 @@
+{% extends 'account-base.html' %}
+
+{% load staticfiles %}
+
+{% block account_block %}
+			<div class="row">
+				<div class="col col-md-12">
+				
+					<h2>Welcome {{ request.session.username }}!</h2>
+
+					<!-- <div class="flexslider"> -->
+					  <!-- <ul class="slides"> -->
+						<!-- <li><img src="../static/images/templatemo_slide_1.jpg" alt="slide 1" /></li> -->
+						<!-- <li><img src="../static/images/templatemo_slide_2.jpg" alt="slide 2" /></li> -->
+						<!-- <li><img src="../static/images/templatemo_slide_3.jpg" alt="slide 3" /></li> -->
+					  <!-- </ul> -->
+					<!-- </div> -->
+					
+				</div>
+			</div>
+			
+			<article class="row">
+				<div class="col col-md-12">
+
+					<h3>Change Your Password</h3>
+					<p>Since the system can link to your social media accounts which include lots of your information, the password is important for you. You can change your password here to secure your account.
+				</p>
+					<p><a href="/social_analytics/manage1" class="btn btn-primary" role="button">Change Now</a></p>
+				</div>								            
+			</article>
+			<article class="row">
+				<div class="col col-md-12">
+
+					<h3>Manage Your Authorized Social Media</h3>
+					<p>Here you can change your authorized social media.</p>
+					<p><a href="/social_analytics/manage3" class="btn btn-primary" role="button">Manage Now</a></p>
+				</div>							
+			</article>	
+			<article class="row">
+				<div class="col col-md-12">
+
+					<h3>Manage Your Details</h3>
+					<p>If you have new email, phone or address, you can update your details here.</p>
+					<p><a href="/social_analytics/manage2" class="btn btn-primary" role="button">Update Now</a></p>
+				</div>			            
+			</article>  
+{% endblock %}
