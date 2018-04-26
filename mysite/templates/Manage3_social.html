@@ -56,7 +56,11 @@
 				<img src="../static/img/fb.png" style="border-radius:5px;">
 			</div>
 			<div style="padding-top:80px;padding-left:0;">
+				{% if social_backend == "facebook" %}
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#4a6ea9;color:WHITE;" disabled>Connected</button>
+				{% else %}
 				<button class="btn" style="width: 100px;border-radius:5px;background-color:#4a6ea9;color:WHITE;">Connect</button>
+				{% endif %}
 			</div>
 		</div>
 		
@@ -65,7 +69,11 @@
 				<img src="../static/img/tw.png" style="border-radius:5px;">
 			</div>
 			<div style="padding-top:80px;padding-left:0;">
+				{% if social_backend == "twitter" %}
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#55acee;color:WHITE;" disabled>Connected</button>
+				{% else %}
 				<button class="btn" style="width: 100px;border-radius:5px;background-color:#55acee;color:WHITE;">Connect</button>
+				{% endif %}
 			</div>
 		</div>
 		

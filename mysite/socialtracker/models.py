@@ -19,16 +19,8 @@ class User(models.Model):
 class Profile(models.Model):
 	user = models.ForeignKey('User',on_delete=models.CASCADE)
 	oauth_token = models.CharField(max_length=200, blank=True, null=True, editable=False)
-	oauth_secret = models.CharField(max_length=200)
+	oauth_secret = models.CharField(max_length=200	)
 	profile_image_url = models.URLField(max_length=100, blank=True, null=True)
-
-class ExampleView(APIView):
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, format=None):
-        content = {
-            'user': unicode(request.user),  # `django.contrib.auth.User` instance.
-            'auth': unicode(request.auth),  # None
-        }
-        return Response(content)
+	social_use_id = models.CharField(max_length=200, blank=True, null=True)
+	social_email = models.CharField(max_length=200, blank=True, null=True)
+	social_usename = models.CharField(max_length=200, blank=True, null=True)

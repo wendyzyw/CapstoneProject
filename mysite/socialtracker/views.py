@@ -66,7 +66,8 @@ def manage2(request):
 	return render(request, 'Manage2_Personal.html')
 
 def manage3(request):
-	return render(request, 'Manage3_social.html')
+	social_backend = request.session['social_auth_last_login_backend']
+	return render(request, 'Manage3_social.html',{'social_backend': social_backend})
 	
 def data(request):
 	return render(request, 'data.html')

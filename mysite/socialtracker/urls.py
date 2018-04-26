@@ -14,9 +14,9 @@ urlpatterns = [
 	path('login', views.login, name='login'),
 	path('signup', views.signup, name='signup'),
 	path('forgetPw', views.forgetPw, name='forgetPw'),
-	url(r'^twitter_login/?$', views.twitter_login, name="twitter_login"),
+	# url(r'^twitter_login/?$', views.twitter_login, name="twitter_login"),
 	url(r'^twitter_logout/?$', views.twitter_logout, name="twitter_logout"),
-	url(r'^twitter_login/authenticated/?$', views.twitter_authenticated, name="twitter_authenticated"),
+	# url(r'^twitter_login/authenticated/?$', views.twitter_authenticated, name="twitter_authenticated"),
 	
 	path('account', views.account, name='account'),
 	path('manage1', views.manage1, name='manage1'),
