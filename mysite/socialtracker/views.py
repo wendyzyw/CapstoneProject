@@ -1,14 +1,115 @@
+# COMP90044 Distributed Computing Project
+# Web-based mental analytics app on social media
+# Author: Xin Wang, Yiwen Zeng, Yu Han, Chenxi Hou
+# Created on: 03/2018
+
+# Python Import
+import oauth2 as oauth
+import urllib.parse
+
+# Django Import
 from django.shortcuts import render
-from .forms import LoginForm, ChangepassForm, EdituserinfoForm, RegisterForm, MyPasswordResetForm
+from django.conf import settings
+from django.contrib.auth import logout as twt_logout, login as twt_login
 from django.contrib import auth
-from django.http import HttpResponse
-from .models import UserInfo
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordResetView, PasswordChangeView, \
     PasswordResetDoneView, PasswordChangeDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
+# App Import
+from .forms import LoginForm, ChangepassForm, EdituserinfoForm, RegisterForm, MyPasswordResetForm
+from .models import UserInfo, TwitterProfile, FackbookProfile
+
 # Create your views here.
+
+# app name
+app_name = 'socialtracker'
+# twitter login authentication
+consumer = oauth.Consumer(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+client = oauth.Client(consumer)
+
+# step 1
+request_token_url = 'https://api.twitter.com/oauth/request_token'
+# step 2
+authenticate_url = 'https://api.twitter.com/oauth/authenticate'
+# step 3
+access_token_url = 'https://api.twitter.com/oauth/access_token'
+
+
+# The main page.
 def index(request):
     return render(request, 'index.html')
+
+
+def twitter_login(request):
+    # step 1: send req token request to twitter
+    resp, content = client.request(request_token_url, "POST")
+    if resp['status'] != '200':
+        raise Exception("Request token request fail.")
+
+    # step 2: store req token in a session
+    print("In Log in :")
+    print(request.session.items())
+    request_token = request.session['request_token'] = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
+
+    # #step 3: redirect to authentication url
+    url = "%s?oauth_token=%s" % (authenticate_url, request.session['request_token']['oauth_token'])
+    return HttpResponseRedirect(url)
+
+
+@login_required
+def twitter_logout(request):
+    print(request.session.items())
+    twt_logout(request)
+    # redirect back to homepage
+    return HttpResponseRedirect('/social_analytics')
+
+
+def twitter_authenticated(request):
+    # step 1: use the oauth-token to build new client
+    token = oauth.Token(request.session['request_token']['oauth_token'],
+                        request.session['request_token']['oauth_token_secret'])
+    token.set_verifier(request.GET['oauth_verifier'])
+    client = oauth.Client(consumer, token)
+
+    # step 2: request the access token from twitter
+    resp, content = client.request(access_token_url, "POST")
+    if resp['status'] != '200':
+        print(content)
+        raise Exception("Access token request fail")
+
+    # step 3: store user id with screen name
+    access_token = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
+    try:
+        user = UserInfo.objects.get(username=access_token['screen_name'])
+    except UserInfo.DoNotExist:
+        # creat user if not already exist
+        user = UserInfo.objects.create_user(access_token['screen_name'], '%s@twitter.com' % access_token['screen_name'],
+                                        password=access_token['oauth_token_secret'])
+        print("After created")
+        print(user)
+
+        profile = TwitterProfile()
+        profile.user = user
+        profile.f_token = access_token['oauth_token']
+        profile.f_secret = access_token['oauth_token_secret']
+        profile.save()
+
+    # step 4: authenticate user and log them in
+    # auth_user = twt_authenticate(username=access_token['screen_name'],
+    # password=access_token['oauth_token_secret'])
+    twt_login(request, user, 'django.contrib.auth.backends.ModelBackend')
+
+    # auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+    # auth.set_access_token(access_token['oauth_token'], access_token['oauth_token_secret'])
+    # api = tweepy.API(auth)
+
+    # for status in tweepy.Cursor(api.user_timeline, screen_name=access_token['screen_name']).items():
+    # print(status._json['text'])
+
+    # return HttpResponseRedirect('/socialtracker/account')
+    return HttpResponseRedirect('/%s/account' % app_name)
 
 
 def login(request):
@@ -30,22 +131,14 @@ def login(request):
                 request.session['address'] = user.address
                 return render(request, 'account-home.html')
             else:
-                return render(request, 'Login.html',
+                return render(request, 'login.html',
                               {'uf': uf, 'message': 'username or password is not correct, please check or signup!'})
         else:
-            return render(request, 'Login.html', {'uf': uf,
+            return render(request, 'login.html', {'uf': uf,
                                                   'message': 'please fill in all the information or note the format of entered password!'})
     else:
         uf = LoginForm()
-        return render(request, 'Login.html', {'uf': uf})
-
-    # def dataview(request):
-    # return render(request, 'DataView.html')
-
-def logout_view(request):
-    auth.logout(request)
-    # Redirect to a success page.
-    return render(request, 'index.html')
+        return render(request, 'login.html', {'uf': uf})
 
 
 def account(request):
@@ -147,7 +240,8 @@ def register(request):
                     return render(request, 'signup.html', {'uf': uf, 'message': 'user has existed！'})
         else:
             return render(request, 'signup.html', {'uf': uf,
-                                                   'message': 'Please fill in all information or note the format of entered password!'})
+                                                   'message': 'Please fill in all information or note the format of '
+                                                              'entered password!'})
     else:
         uf = RegisterForm()
         return render(request, 'signup.html', {'uf': uf})
@@ -181,4 +275,4 @@ class MyPasswordResetCompleteView(PasswordResetCompleteView):
     # template_name = 'password_change.html'
 
     # class MyPasswordChangeDoneView(PasswordChangeDoneView):
-	# template_name = 'password_reset_complete.html'
+    # template_name = 'password_reset_complete.html'

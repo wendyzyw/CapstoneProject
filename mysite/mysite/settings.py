@@ -24,20 +24,43 @@ SECRET_KEY = 'qmp0zuh2g%4o)gyr3x#y3*qyl8anpqb80b!%kdy%f8+p9zusiv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+###################################
+############# local ###############
+###################################
 ALLOWED_HOSTS = []
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/socialtracker/account"
 
+###################################
+############# lorikeet ############
+###################################
+# ALLOWED_HOSTS = ['lorikeetanalysis.net', 'localhost']
+#
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # must be commented when using on localhost
+# SECURE_SSL_REDIRECT = True  # what are these gonna do?
+# SESSION_COOKIE_SECURE = True  # When true it causes exception: Session value state missing
+# CSRF_COOKIE_SECURE = True  # When true it causes exception: csrf token not set
+#
+# SOCIAL_AUTH_LOGIN_REDIRECT_URL = "https://lorikeetanalysis.net/socialtracker/account"
+
+#################################################################################
+TWITTER_TOKEN = 'AZU8kwktk3IHLdOPjhgZqtiOk'
+TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
+
+SOCIAL_AUTH_TWITTER_KEY = 'AZU8kwktk3IHLdOPjhgZqtiOk'
+SOCIAL_AUTH_TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
 
 # Application definition
 
 INSTALLED_APPS = [
-	'social_analytics.apps.SocialAnalyticsConfig',
+    'socialtracker.apps.SocialtrackerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	# 'social_analytics',
+    'social_django',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -48,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',  # social auth
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -55,7 +79,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,13 +87,33 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # social auth
+                'social_django.context_processors.login_redirect',  # social auth
             ],
         },
     },
 ]
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+)
+
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -81,10 +125,9 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
-AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -100,9 +143,45 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'social_analytics.UserInfo'
-# Internationalization
-# https://docs.djangoproject.com/en/2.0/topics/i18n/
+AUTH_USER_MODEL = 'socialtracker.UserInfo'
+
+# in case of a custom namespace
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.open_id.OpenIdAuth',
+    'django.contrib.auth.backends.ModelBackend',
+    # Google
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    # Twitter
+    'social_core.backends.twitter.TwitterOAuth',
+    # Facebook
+    'social_core.backends.facebook.FacebookOAuth2',
+    # Reddit
+    'social_core.backends.reddit.RedditOAuth2',
+    # Tumblr
+    'social_core.backends.tumblr.TumblrOAuth',
+]
+
+# social keys and tokens
+# SOCIAL_AUTH_TWITTER_KEY = 'owCSHnblBoITQhCRZjNFqEuXd'
+# SOCIAL_AUTH_TWITTER_SECRET = 'djD1JSM0ZZnSINxpLzTrXKlSAPvvCGd7UEy2pvfFcD2d4nV4R0'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '213217539436188'
+SOCIAL_AUTH_FACEBOOK_SECRET = '2f5d61e15d85dc58319c54b0e08aaeb0'
+SOCIAL_AUTH_FACEBOOK_APP_NAMESPACE = 'socialtracker'
+SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.12'
+# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'locale': 'ru_RU',
+    'fields': 'id, name, email, age_range'
+}
+
+SOCIAL_AUTH_TUMBLR_KEY = 'IZS8jZq3HRoODrqIIGryRrr78Ry58qavS4j3byCcEWeGkdCS9I'
+SOCIAL_AUTH_TUMBLR_SECRET = 'gjbfotuFl54PCaOjEZeVWLDfJy2Z4B4DQ215FKm22KFaDKVaNP'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -114,19 +193,18 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(__file__),'static')
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 # 设置图片等静态文件的路径
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
 # send emails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465

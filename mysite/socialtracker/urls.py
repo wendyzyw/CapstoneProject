@@ -1,9 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
 urlpatterns = [
 
+    # path('', include('social_django.urls', namespace='social')),  # ???
     path('', views.index, name='index'),
     path('login', views.login, name='login'),
     # path('dataview', views.dataview, name='dataview'),
@@ -12,6 +13,8 @@ urlpatterns = [
     path('manage2', views.manage2, name='manage2'),
     path('manage3', views.manage3, name='manage3'),
     path('signup', views.register, name='signup'),
+    # url(r'^twitter_logout/?$', views.twitter_logout, name="twitter_logout"),
+    path('twitter_logout/', views.twitter_logout, name="twitter_logout"),
     # try using block template
     path('data', views.data, name='data'),
     # reset password, say, send email
@@ -29,12 +32,13 @@ urlpatterns = [
          views.PasswordChangeDoneView.as_view(),
          name='change_password_done'),
     # confirm password reset
-
     path('reset/<uidb64>/<token>/',
          views.MyPasswordResetConfirmView.as_view(),
          name='password_reset_confirm'),
     path('reset/done/',
          views.MyPasswordResetCompleteView.as_view(),
          name='password_reset_complete'),
+    # social media login
+    path('oauth/', include('social_django.urls', namespace='social')),
 
 ]

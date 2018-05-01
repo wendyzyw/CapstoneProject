@@ -18,6 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-	path('social_analytics/', include('social_analytics.urls')),
-	#include: reference other URLconfs 
+	path('socialtracker/', include('socialtracker.urls')),
 ]
