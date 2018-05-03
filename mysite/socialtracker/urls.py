@@ -24,7 +24,6 @@ urlpatterns = [
 	path('manage3', views.manage3, name='manage3'),
 	# try using block template
 	path('data', views.data, name='data'),
-	path('radarChart', views.radarChart, name='radarChart'),
 	# social media login
 	path('oauth', include('social_django.urls', namespace='social')), 
 ]

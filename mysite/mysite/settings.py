@@ -89,6 +89,9 @@ SOCIAL_AUTH_PIPELINE = (
 	'social_core.pipeline.social_auth.associate_by_email',
 )
 
+# add extra var to communicate between session (in views) and pipeline 
+SOCIAL_AUTH_FIELDS_STORED_IN_SESSION = ['is_associated',]
+
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 REST_FRAMEWORK = {

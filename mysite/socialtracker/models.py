@@ -21,6 +21,23 @@ class Profile(models.Model):
 	oauth_token = models.CharField(max_length=200, blank=True, null=True, editable=False)
 	oauth_secret = models.CharField(max_length=200	)
 	profile_image_url = models.URLField(max_length=100, blank=True, null=True)
-	social_use_id = models.CharField(max_length=200, blank=True, null=True)
+	social_id = models.CharField(max_length=200, blank=True, null=True)
 	social_email = models.CharField(max_length=200, blank=True, null=True)
 	social_usename = models.CharField(max_length=200, blank=True, null=True)
+	# social_post
+
+class TwitterProfile(models.Model):
+	tw_user = models.ForeignKey('User',on_delete=models.CASCADE)
+	oauth_token = models.CharField(max_length=200, blank=True, null=True, editable=False)
+	oauth_secret = models.CharField(max_length=200	)
+	tw_image_url = models.URLField(max_length=100, blank=True, null=True)
+	tw_id = models.CharField(max_length=200, blank=True, null=True)
+	# tw_email = models.CharField(max_length=200, blank=True, null=True)
+	tw_username = models.CharField(max_length=200, blank=True, null=True)
+
+class FacebookProfile(models.Model):
+	fb_user = models.ForeignKey('User',on_delete=models.CASCADE)
+	fb_id = models.CharField(max_length=200, blank=True, null=True)
+	fb_email = models.CharField(max_length=200, blank=True, null=True)
+	fb_access_token = models.CharField(max_length=200, blank=True, null=True)
+	
