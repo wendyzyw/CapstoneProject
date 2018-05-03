@@ -1,3 +1,0 @@
-pip install django_facebook
-
-pip install uwsgi

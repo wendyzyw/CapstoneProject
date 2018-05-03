@@ -1,0 +1,81 @@
+{% extends 'account-base.html' %}
+
+{% load staticfiles %}
+
+{% block account_block %}
+<div class="row"><div class="col col-md-12"><h2>Update Your Details</h2></div></div>
+	<div class="row">
+		<div class="col-md-5">
+            {% if message %}
+                  <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            <form role="form" action="#" method="post">{% csrf_token %}
+			<div class="form-group left-inner-addon">
+				<span class="glyphicon glyphicon-user"></span>
+				<input name="first_name" type="text" class="form-control" id="first_name" placeholder="First Name" value="{{ request.session.first_name }}">
+			</div>
+			<div class="form-group left-inner-addon">
+				<span class="glyphicon glyphicon-user"></span>
+				<input name="last_name" type="text" class="form-control" id="last_name" placeholder="Last Name" value="{{ request.session.last_name}}">
+			</div>
+			<div class="form-group left-inner-addon">
+				<span class="glyphicon glyphicon-envelope"></span>
+				<input name="email" type="email" class="form-control" id="email" placeholder="Email Address" value="{{ request.session.email }}" readonly>
+			</div>
+			<div class="form-group left-inner-addon">
+				<span class="glyphicon glyphicon-earphone"></span>
+				<input name="phone" type="tel" class="form-control" id="phone" placeholder="Phone" value="{{ request.session.phone }}">
+			</div>
+			<div class="form-group left-inner-addon">
+				<span class="glyphicon glyphicon-home"></span>
+				<input name="address" type="text" class="form-control" id="address" placeholder="Address" value="{{ request.session.address}}">
+			</div>
+			<div class="form-group left-inner-addon">
+					<span class="glyphicon glyphicon-home"></span>
+					<input name="city" type="text" class="form-control" id="city" placeholder="City" value="{{ request.session.city}}">
+			</div>
+			<div class="form-group left-inner-addon">
+				<div class="col-md-18 selectContainer">
+				<select name="state" class="form-control selectpicker" >
+					<option value=" " >Please select your state</option>
+					                    <option>VIC</option>
+                                        <option>NSW</option>
+                                        <option>ACT</option>
+                                        <option>QLD</option>
+                                        <option>TAS</option>
+                                        <option>SA</option>
+                                        <option>WA</option>
+                                        <option>NT</option>
+				</select>
+				</div>
+			</div>
+			<div class="form-group left-inner-addon">
+					<span class="glyphicon glyphicon-home"></span>
+					<input name="zip_code" type="text" class="form-control" id="zip_code" placeholder="Zip Code" value="{{ request.session.zip_code}}">
+			</div>
+			<div class="form-group left-inner-addon">
+					  <label>
+						 <font size="3" color="White">Are you Male or Female?</font>
+					  </label>
+			  <div class="radio">
+					 <label>
+						 <input type="radio" name="gender" value="Male" />
+						 <font size="3" color="White">Male</font>
+					 </label>
+					 <label>
+						 <input type="radio" name="gender" value="Female" />
+						  <font size="3" color="White">FeMale</font>
+					 </label>
+
+			  </div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-4 control-label"></label>
+				<div class="col-md-4">
+					<button type="submit" class="btn btn-warning" >Update <span class="glyphicon glyphicon-send"></span></button>
+				</div>
+			</div>
+            </form>
+		</div>
+	</div><!-- row -->
+{% endblock %}

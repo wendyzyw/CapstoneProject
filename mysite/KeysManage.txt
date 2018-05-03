@@ -1,5 +1,0 @@
-Twitter:
-Consumer Key (API Key)	owCSHnblBoITQhCRZjNFqEuXd
-Consumer Secret (API Secret)	djD1JSM0ZZnSINxpLzTrXKlSAPvvCGd7UEy2pvfFcD2d4nV4R0
-Owner	wendyzeng94
-Owner ID	2755012400
