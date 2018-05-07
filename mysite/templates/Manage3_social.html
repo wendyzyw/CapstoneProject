@@ -12,11 +12,7 @@
 		{% if twitter_account is not None %}
 		<div class="media account-card col-md-5">
 			<div class="media-left">
-				<!-- <img src="../static/img/profile.jpg" class="media-object" style="width:60px"> -->
-				<img src="https://twitter.com/{{twitter_name}}/profile_image?size=original" class="media-object" style="width:60px; height:60px;">
-				<div class="social-box">
-					<img src="../static/img/tw.png" style="border-radius:5px;">
-				</div>
+				<img src="../static/img/tw.png" style="border-radius:5px; width: 60px;">
 			</div>
 			<div class="media-body">
 				<h4 class="media-heading" style="text-align:left;">{{ twitter_name }}</h4>
@@ -66,7 +62,7 @@
 				{% if facebook_account is not None %}
 				<button class="btn" style="width: 100px;border-radius:5px;background-color:#4a6ea9;color:WHITE;" disabled>Connected</button>
 				{% else %}
-				<button class="btn" style="width: 100px;border-radius:5px;background-color:#4a6ea9;color:WHITE;" href="{% url 'social:begin' 'facebook' %}">Connect</button>
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#4a6ea9;color:WHITE;"><a href="{% url 'social:begin' 'facebook' %}">Connect</a></button>
 				{% endif %}
 			</div>
 		</div>
