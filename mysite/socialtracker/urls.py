@@ -25,6 +25,7 @@ urlpatterns = [
 	# try using block template
 	path('data', views.data, name='data'),
 	path('user_values', views.user_values, name='user_values'),
+	path('user_personality', views.user_personality, name='user_personality'),
 	# social media login
 	path('oauth', include('social_django.urls', namespace='social')), 
 ]

@@ -106,6 +106,41 @@ def manage3(request):
 					{'social_backend': social_backend, 'twitter_account': twitter_account, 'twitter_date': twitter_date,
 					'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date,
 					'facebook_id': facebook_id})
+	
+def user_personality(request):
+	personality = request.session['user_personality']
+	sbData = {'name': 'Sources', 'color': "#d8c51d", 'percent': '', 'children': []}
+	totalScore = 0.0
+	# top level children list 
+	for eachPersonality in personality:
+		# to hold 5 traits within each personality
+		onePersonality = {'name': eachPersonality['name'], 'color': "#d8c51d", 'size': round(eachPersonality['raw_score'],4), 'percent': 0, 'children': []}
+		trait1 = eachPersonality['children'][0]
+		trait2 = eachPersonality['children'][1]
+		trait3 = eachPersonality['children'][2]
+		trait4 = eachPersonality['children'][3]
+		trait5 = eachPersonality['children'][4]
+		totalScore = trait1['raw_score'] + trait2['raw_score'] + trait3['raw_score'] + trait4['raw_score'] + trait5['raw_score']
+		child1 = {'name': trait1['name'], 'color': '#d8c51d', 'size': round(trait1['raw_score'],4), 'percentile': round(trait1['percentile'],4), 'percent': round(trait1['raw_score']/totalScore,4)}
+		child2 = {'name': trait2['name'], 'color': '#d8c51d', 'size': round(trait2['raw_score'],4), 'percentile': round(trait2['percentile'],4), 'percent': round(trait2['raw_score']/totalScore,4)}
+		child3 = {'name': trait3['name'], 'color': '#d8c51d', 'size': round(trait3['raw_score'],4), 'percentile': round(trait3['percentile'],4), 'percent': round(trait3['raw_score']/totalScore,4)}
+		child4 = {'name': trait4['name'], 'color': '#d8c51d', 'size': round(trait4['raw_score'],4), 'percentile': round(trait4['percentile'],4), 'percent': round(trait4['raw_score']/totalScore,4)}
+		child5 = {'name': trait5['name'], 'color': '#d8c51d', 'size': round(trait5['raw_score'],4), 'percentile': round(trait5['percentile'],4), 'percent': round(trait5['raw_score']/totalScore,4)}
+		onePersonality['children'].append(child1)
+		onePersonality['children'].append(child2)
+		onePersonality['children'].append(child3)
+		onePersonality['children'].append(child4)
+		onePersonality['children'].append(child5)
+		sbData['children'].append(onePersonality)
+		totalScore += eachPersonality['raw_score']
+	
+	sbData['children'][0]['percent'] = round(personality[0]['raw_score']/totalScore,4)
+	sbData['children'][1]['percent'] = round(personality[1]['raw_score']/totalScore,4)
+	sbData['children'][2]['percent'] = round(personality[2]['raw_score']/totalScore,4)
+	sbData['children'][3]['percent'] = round(personality[3]['raw_score']/totalScore,4)
+	sbData['children'][4]['percent'] = round(personality[4]['raw_score']/totalScore,4)
+	
+	return render(request, 'user_personality.html', {'sbData': sbData})
 
 def user_values(request):
 	values = request.session['user_values']
@@ -166,6 +201,7 @@ def data(request):
 				# store into session
 				request.session['user_values'] = values
 				request.session['user_needs'] = needs
+				request.session['user_personality'] = personality
 				
 			except WatsonApiException as ex:
 				print("Method failed with status code " + str(ex.code) + ": " + ex.message)
