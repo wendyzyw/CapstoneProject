@@ -83,14 +83,15 @@
 
     <script>
 
-    d3.wordcloud().size([800, 600]).fill(d3.scale.category20())
-                      .words(words)
-                      .onwordclick(function(d, i) {
+    d3.wordcloud().size([600, 400]).fill(d3.scale.category20())
+                     .words(words)
+                     .onwordclick(function(d, i) {
                           if (d.href) { window.location = d.href; }
                       })
-                      .start();
+                     .start();
     </script>
     <script type="text/javascript">
+
 
     $(document).ready(function() {
         // navigation click actions
