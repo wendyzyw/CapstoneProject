@@ -231,7 +231,7 @@ bootstrap.min.css:5
 
 .baner-content {
 	width: 100%;
-  	padding-top: 35vh;
+  	padding-top: 65px;
   	text-align: center;
   	background-image: url(../img/banner_bg.jpg);
   	vertical-align: middle;
