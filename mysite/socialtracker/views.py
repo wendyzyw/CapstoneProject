@@ -6,6 +6,11 @@
 # Python Import
 import oauth2 as oauth
 import urllib.parse
+import time
+import simplejson
+import tweepy
+from watson_developer_cloud import PersonalityInsightsV3
+from watson_developer_cloud import WatsonApiException
 
 # Django Import
 from django.shortcuts import render, redirect
@@ -29,7 +34,7 @@ from .models import UserInfo, TwitterProfile, FackbookProfile, GithubProfile
 
 # Create your views here.
 
-"""
+
 # app name
 app_name = 'socialtracker'
 # twitter login authentication
@@ -113,16 +118,43 @@ def twitter_authenticated(request):
     # return HttpResponseRedirect('/socialtracker/account')
     return HttpResponseRedirect('/%s/account' % app_name)
 
-"""
 
 # The main page.
 def index(request):
     return render(request, 'index.html')
 
 
+def register(request):
+    if request.method == 'POST':  # when submit the form
+        uf = RegisterForm(request.POST)  # include the data submitted
+        if uf.is_valid():  # if the data submitted is valid
+            username = request.POST.get('username', '')
+            first_name = request.POST.get('first_name', '')
+            last_name = request.POST.get('last_name', '')
+            email = request.POST.get('email', '')
+            password = request.POST.get('password', '')
+            password_confirm = request.POST.get('password_confirm', '')
+            if password != password_confirm:
+                return render(request, 'signup.html', {'uf': uf, 'message': 'please confirm your new password!'})
+            else:
+                try:
+                    UserInfo.objects.create_user(username=username, password=password, email=email,
+                                                 phone='0', first_name=first_name, last_name=last_name)
+                    return login(request)
+                except:
+                    return render(request, 'signup.html', {'uf': uf, 'message': 'user has existed！'})
+        else:
+            return render(request, 'signup.html', {'uf': uf,
+                                                   'message': 'Please fill in all information or note the format of '
+                                                              'entered password!'})
+    else:
+        uf = RegisterForm()
+        return render(request, 'signup.html', {'uf': uf})
+
+
 def login(request):
     if request.method == "POST":
-        uf = LoginForm(request.POST)
+        uf = LoginForm(request.POST, instance=profile)
         if uf.is_valid():
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
@@ -224,35 +256,43 @@ def manage2(request):
 
 @login_required(login_url='/socialtracker/')
 def manage3(request):
-    # social_backend = request.session['social_auth_last_login_backend']
-    # return render(request, 'Manage3_social.html', {'social_backend': social_backend})
-
     user = request.user
-    try:
-        github_login = user.social_auth.get(provider='github')
-        # github_json = github_login.extra_data
-        # GithubProfile.g_token = github_json['access_token']
-    except UserSocialAuth.DoesNotExist:
-        github_login = None
+    twitter_account = None
+    twitter_name = None
+    twitter_date = None
+    facebook_account = None
+    facebook_date = None
+    facebook_id = None
 
     try:
-        twitter_login = user.social_auth.get(provider='twitter')
+        twitter_account = user.social_auth.get(provider='twitter')
+        if twitter_account is not None:
+            twitter_json = twitter_account.extra_data
+            twitter_name = twitter_json['access_token']['screen_name']
+            twitter_date = time.strftime('%d/%m/%Y %H:%M:%S', time.gmtime(twitter_json['auth_time']))
+
     except UserSocialAuth.DoesNotExist:
-        twitter_login = None
+        twitter_account = None
 
     try:
-        facebook_login = user.social_auth.get(provider='facebook')
+        facebook_account = user.social_auth.get(provider='facebook')
+        if facebook_account is not None:
+            facebook_json = facebook_account.extra_data
+            facebook_date = time.strftime('%d/%m/%Y %H:%M:%S', time.gmtime(facebook_json['auth_time']))
+            facebook_id = facebook_json['id']
+            # get image url
+            fb_profile_url = url = "http://graph.facebook.com/%s/picture?type=large" % facebook_id
+
     except UserSocialAuth.DoesNotExist:
-        facebook_login = None
+        facebook_account = None
 
     can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
 
-    return render(request, 'Manage3_social.html', {
-        'github_login': github_login,
-        'twitter_login': twitter_login,
-        'facebook_login': facebook_login,
-        'can_disconnect': can_disconnect
-    })
+    social_backend = request.session['social_auth_last_login_backend']
+    return render(request, 'Manage3_social.html',
+                  {'social_backend': social_backend, 'twitter_account': twitter_account, 'twitter_date': twitter_date,
+                   'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date,
+                   'facebook_id': facebook_id, 'can_disconnect': can_disconnect})
 
 
 @login_required(login_url='/socialtracker/')
@@ -278,35 +318,64 @@ def password(request):
 
 @login_required(login_url='/socialtracker/')
 def data(request):
-    return render(request, 'data.html')
+    user = request.user
+    radarData = []
+    try:
+        twitter_account = user.social_auth.get(provider='twitter')
+        if twitter_account is not None:
+            twitter_json = twitter_account.extra_data
 
+            # retriev user timeline
+            auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+            auth.set_access_token(twitter_json['access_token']['oauth_token'],
+                                  twitter_json['access_token']['oauth_token_secret'])
+            api = tweepy.API(auth)
+            data = api.user_timeline()
+            reqJson = []
+            for each in data:
+                temp = {'content': each.text, 'contenttype': "text/plain", 'id': each.id, 'language': 'en'}
+                reqJson.append(temp)
+            json_input = {'contentItems': reqJson}
 
-def register(request):
-    if request.method == 'POST':  # when submit the form
-        uf = RegisterForm(request.POST)  # include the data submitted
-        if uf.is_valid():  # if the data submitted is valid
-            username = request.POST.get('username', '')
-            first_name = request.POST.get('first_name', '')
-            last_name = request.POST.get('last_name', '')
-            email = request.POST.get('email', '')
-            password = request.POST.get('password', '')
-            password_confirm = request.POST.get('password_confirm', '')
-            if password != password_confirm:
-                return render(request, 'signup.html', {'uf': uf, 'message': 'please confirm your new password!'})
-            else:
-                try:
-                    UserInfo.objects.create_user(username=username, password=password, email=email,
-                                                 phone='0', first_name=first_name, last_name=last_name)
-                    return login(request)
-                except:
-                    return render(request, 'signup.html', {'uf': uf, 'message': 'user has existed！'})
-        else:
-            return render(request, 'signup.html', {'uf': uf,
-                                                   'message': 'Please fill in all information or note the format of '
-                                                              'entered password!'})
-    else:
-        uf = RegisterForm()
-        return render(request, 'signup.html', {'uf': uf})
+            try:
+                personality_insights = PersonalityInsightsV3(
+                    version='2017-10-13',
+                    username='9576f431-9a16-435e-85d3-d9dcf455969d',
+                    password='0HOzAgnxjz3d'
+                )
+
+                profile = personality_insights.profile(
+                    content=json_input, content_type='application/json',
+                    raw_scores=True, consumption_preferences=True)
+                # print(json.dumps(profile["values"], indent=2))
+
+                personality = profile["personality"]
+                needs = profile["needs"]
+                values = profile["values"]
+                # behavior = profile["behavior"]
+                # print("h4")
+                consumption_preferences = profile["consumption_preferences"]
+
+                # format the values data to pipeline for radar chart
+                radarObj = []
+                for eachNeed in needs:
+                    temp = {"axis": "Need " + eachNeed["name"], "value": round(eachNeed["raw_score"], 2),
+                            "percentile": round(eachNeed["percentile"], 2)}
+                    radarObj.append(temp)
+                radarData = simplejson.dumps(radarObj)
+
+                # store into session
+                request.session['user_values'] = values
+                request.session['user_needs'] = needs
+                request.session['user_personality'] = personality
+
+            except WatsonApiException as ex:
+                print("Method failed with status code " + str(ex.code) + ": " + ex.message)
+
+    except:
+        twitter_account = None
+
+    return render(request, 'data.html', {'radarData': radarData})
 
 
 # Enter email address to reset password
@@ -338,3 +407,60 @@ class MyPasswordResetCompleteView(PasswordResetCompleteView):
 
     # class MyPasswordChangeDoneView(PasswordChangeDoneView):
     # template_name = 'password_reset_complete.html'
+
+
+def user_personality(request):
+    personality = request.session['user_personality']
+    sbData = {'name': 'Sources', 'color': "#d8c51d", 'percent': '', 'children': []}
+    totalScore = 0.0
+    # top level children list
+    for eachPersonality in personality:
+        # to hold 5 traits within each personality
+        onePersonality = {'name': eachPersonality['name'], 'color': "#d8c51d",
+                          'size': round(eachPersonality['raw_score'], 4), 'percent': 0, 'children': []}
+        trait1 = eachPersonality['children'][0]
+        trait2 = eachPersonality['children'][1]
+        trait3 = eachPersonality['children'][2]
+        trait4 = eachPersonality['children'][3]
+        trait5 = eachPersonality['children'][4]
+        totalScore = trait1['raw_score'] + trait2['raw_score'] + trait3['raw_score'] + trait4['raw_score'] + trait5[
+            'raw_score']
+        child1 = {'name': trait1['name'], 'color': '#d8c51d', 'size': round(trait1['raw_score'], 4),
+                  'percentile': round(trait1['percentile'], 4), 'percent': round(trait1['raw_score'] / totalScore, 4)}
+        child2 = {'name': trait2['name'], 'color': '#d8c51d', 'size': round(trait2['raw_score'], 4),
+                  'percentile': round(trait2['percentile'], 4), 'percent': round(trait2['raw_score'] / totalScore, 4)}
+        child3 = {'name': trait3['name'], 'color': '#d8c51d', 'size': round(trait3['raw_score'], 4),
+                  'percentile': round(trait3['percentile'], 4), 'percent': round(trait3['raw_score'] / totalScore, 4)}
+        child4 = {'name': trait4['name'], 'color': '#d8c51d', 'size': round(trait4['raw_score'], 4),
+                  'percentile': round(trait4['percentile'], 4), 'percent': round(trait4['raw_score'] / totalScore, 4)}
+        child5 = {'name': trait5['name'], 'color': '#d8c51d', 'size': round(trait5['raw_score'], 4),
+                  'percentile': round(trait5['percentile'], 4), 'percent': round(trait5['raw_score'] / totalScore, 4)}
+        onePersonality['children'].append(child1)
+        onePersonality['children'].append(child2)
+        onePersonality['children'].append(child3)
+        onePersonality['children'].append(child4)
+        onePersonality['children'].append(child5)
+        sbData['children'].append(onePersonality)
+        totalScore += eachPersonality['raw_score']
+
+    sbData['children'][0]['percent'] = round(personality[0]['raw_score'] / totalScore, 4)
+    sbData['children'][1]['percent'] = round(personality[1]['raw_score'] / totalScore, 4)
+    sbData['children'][2]['percent'] = round(personality[2]['raw_score'] / totalScore, 4)
+    sbData['children'][3]['percent'] = round(personality[3]['raw_score'] / totalScore, 4)
+    sbData['children'][4]['percent'] = round(personality[4]['raw_score'] / totalScore, 4)
+
+    return render(request, 'user_personality.html', {'sbData': sbData})
+
+
+def user_values(request):
+    values = request.session['user_values']
+    radarObj = []
+    for eachValue in values:
+        temp = {"axis": eachValue["name"], "value": round(eachValue["raw_score"], 2),
+                "percentile": round(eachValue["percentile"], 2)}
+        radarObj.append(temp)
+    print(radarObj)
+    radarData = simplejson.dumps(radarObj)
+    return render(request, 'user_values.html', {'radarData': radarData})
+
+

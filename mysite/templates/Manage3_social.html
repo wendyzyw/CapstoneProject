@@ -3,64 +3,101 @@
 {% load staticfiles %}
 
 {% block account_block %}
-<div class="row">
+<div class="row" style="height:500px;">
+	<!-- connected accounts -->
 	<div class="col col-md-12">
-		<h2>Authorized Social Media</h2>
+		<h2 class="heading-line" style="text-align:left; margin-top: 5px; margin-bottom:5px;">Authorized Social Media Accounts</h2>
+		<hr>
+		<!-- twitter card -->
+		{% if twitter_account is not None %}
+		<div class="media account-card col-md-5">
+			<div class="media-left">
+				<img src="../static/img/tw.png" style="border-radius:5px; width: 60px;">
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading" style="text-align:left;">{{ twitter_name }}</h4>
+				<p>{{twitter_date}}</p>
+				<div class="close-box">
+					<form action="{% url 'social:disconnect' 'twitter' %}" method="post">{% csrf_token %}<button class="btn btn-warning" style="padding-top:4px; padding-left:5px;"><i class="fa fa-times"></i></button></form>
+				</div>
+				<div class="refresh-box">
+					<a><i class="fa fa-refresh" aria-hidden="true" style="padding-top:2.5px;"></i></a>
+				</div>
+			</div>
+		</div>
+		{% endif %}
 
+		{% if facebook_account is not None %}
+		<div class="media account-card col-md-5">
+			<div class="media-left">
+				<img src="https://graph.facebook.com/{{facebook_id}}/picture?type=square&width=60&height=60" class="media-object" style="width:60px; ">
+				<div class="social-box">
+					<img src="../static/img/fb.png" style="border-radius:5px;">
+				</div>
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading" style="text-align:left;">{{ facebook_account }}</h4>
+				<p>{{ facebook_date }}</p>
+				<div class="close-box">
+					<form action="{% url 'social:disconnect' 'facebook' %}" method="post">{% csrf_token %}<button class="btn btn-warning" style="padding-top:4px; padding-left:5px;"><i class="fa fa-times"></i></button></form>
+				</div>
+				<div class="refresh-box">
+					<a><i class="fa fa-refresh" aria-hidden="true" style="padding-top:2.5px;"></i></a>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+
+	<!-- connection channel -->
+	<div class="col col-md-12">
+		<h2 class="heading-line" style="text-align:left; margin-bottom:5px;">Connection Channel</h2>
+		<hr>
+		<!-- facebook -->
+		<div class="connection col col-lg-3 col-md-2 col-sm-6">
+			<div class="connect-box">
+				<img src="../static/img/fb.png" style="border-radius:5px;">
+			</div>
+			<div style="padding-top:80px;padding-left:0;">
+				{% if facebook_account is not None %}
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#4a6ea9;color:WHITE;" disabled>Connected</button>
+				{% else %}
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#4a6ea9;color:WHITE;"><a href="{% url 'social:begin' 'facebook' %}">Connect</a></button>
+				{% endif %}
+			</div>
+		</div>
+
+		<!-- twitter -->
+		<div class="connection col col-lg-3 col-md-2 col-sm-6">
+			<div class="connect-box">
+				<img src="../static/img/tw.png" style="border-radius:5px;">
+			</div>
+			<div style="padding-top:80px;padding-left:0;">
+				{% if twitter_account is not None %}
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#55acee;color:WHITE;" disabled>Connected</button>
+				{% else %}
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#55acee;color:WHITE;"><a href="{% url 'social:begin' 'twitter' %}">Connect</a></button>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="connection col col-lg-3 col-md-2 col-sm-6">
+			<div class="connect-box">
+				<img src="../static/img/re.png" style="border-radius:5px;">
+			</div>
+			<div style="padding-top:80px;padding-left:0;">
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#ff4006;color:WHITE;">Connect</button>
+			</div>
+		</div>
+
+		<div class="connection col col-lg-3 col-md-2 col-sm-6">
+			<div class="connect-box">
+				<img src="../static/img/tu.png" style="border-radius:5px;">
+			</div>
+			<div style="padding-top:80px;padding-left:0;">
+				<button class="btn" style="width: 100px;border-radius:5px;background-color:#304e6c;color:WHITE;">Connect</button>
+			</div>
+		</div>
 	</div>
 </div>
-
-<article class="row">
-	<div class="col col-md-4">
-		<h4>Twitter</h4>
-		{% if twitter_login %}
-			<p>Connected as <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank">@{{ twitter_login.extra_data.access_token.screen_name }}</a></p>
-			{% if can_disconnect %}
-				<form method="post" action="{% url 'social:disconnect' 'twitter' %}">
-					{% csrf_token %}
-					<button type="submit">Disconnect from Twitter</button>
-				</form>
-			{% else %}
-				<button type="button" disabled>Disconnect from Twitter</button>
-				<p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Twitter.</p>
-			{% endif %}
-	  	{% else %}
-			<a href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
-	  	{% endif %}
-	</div>	
-	<div class="col col-md-4">
-		<h4>Facebook</h4>
-		{% if facebook_login %}
-			<p>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></p>
-			{% if can_disconnect %}
-				<form method="post" action="{% url 'social:disconnect' 'facebook' %}">
-					{% csrf_token %}
-					<button type="submit">Disconnect from Facebook</button>
-				</form>
-			{% else %}
-				<button type="button" disabled>Disconnect from Facebook</button>
-				<p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</p>
-			{% endif %}
-		{% else %}
-			<a href="{% url 'social:begin' 'facebook' %}">Connect to Facebook</a>
-		{% endif %}
-	</div>
-	<div class="col col-md-4">
-		<h4>GitHub</h4>
-		{% if github_login %}
-		<p>Connected as <a href="https://github.com/{{ github_login.extra_data.login }}/" target="_blank">{{ github_login.extra_data.login }}</a></p>
-			{% if can_disconnect %}
-				<form method="post" action="{% url 'social:disconnect' 'github' %}">
-					{% csrf_token %}
-					<button type="submit">Disconnect from GitHub</button>
-				</form>
-			{% else %}
-				<button type="button" disabled>Disconnect from GitHub</button>
-				<p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Github.</p>
-			{% endif %}
-		{% else %}
-			<a href="{% url 'social:begin' 'github' %}">Connect to GitHub</a>
-		{% endif %}
-	</div>
-</article> 		                          
 {% endblock %}
