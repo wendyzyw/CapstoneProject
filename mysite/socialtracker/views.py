@@ -8,21 +8,28 @@ import oauth2 as oauth
 import urllib.parse
 
 # Django Import
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
-from django.contrib.auth import logout as twt_logout, login as twt_login
+from django.contrib.auth import logout as twt_logout, login as twt_login, update_session_auth_hash
 from django.contrib import auth
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordResetView, PasswordChangeView, \
     PasswordResetDoneView, PasswordChangeDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+# Social_Django Import
+from social_django.models import UserSocialAuth
 
 # App Import
 from .forms import LoginForm, ChangepassForm, EdituserinfoForm, RegisterForm, MyPasswordResetForm
-from .models import UserInfo, TwitterProfile, FackbookProfile
+from .models import UserInfo, TwitterProfile, FackbookProfile, GithubProfile
 
 # Create your views here.
 
+"""
 # app name
 app_name = 'socialtracker'
 # twitter login authentication
@@ -35,11 +42,6 @@ request_token_url = 'https://api.twitter.com/oauth/request_token'
 authenticate_url = 'https://api.twitter.com/oauth/authenticate'
 # step 3
 access_token_url = 'https://api.twitter.com/oauth/access_token'
-
-
-# The main page.
-def index(request):
-    return render(request, 'index.html')
 
 
 def twitter_login(request):
@@ -58,12 +60,12 @@ def twitter_login(request):
     return HttpResponseRedirect(url)
 
 
-@login_required
+@login_required(login_url='/socialtracker/')
 def twitter_logout(request):
     print(request.session.items())
     twt_logout(request)
     # redirect back to homepage
-    return HttpResponseRedirect('/social_analytics')
+    return HttpResponseRedirect('/socialtracker')
 
 
 def twitter_authenticated(request):
@@ -92,8 +94,8 @@ def twitter_authenticated(request):
 
         profile = TwitterProfile()
         profile.user = user
-        profile.f_token = access_token['oauth_token']
-        profile.f_secret = access_token['oauth_token_secret']
+        profile.t_token = access_token['oauth_token']
+        profile.t_secret = access_token['oauth_token_secret']
         profile.save()
 
     # step 4: authenticate user and log them in
@@ -110,6 +112,12 @@ def twitter_authenticated(request):
 
     # return HttpResponseRedirect('/socialtracker/account')
     return HttpResponseRedirect('/%s/account' % app_name)
+
+"""
+
+# The main page.
+def index(request):
+    return render(request, 'index.html')
 
 
 def login(request):
@@ -141,10 +149,12 @@ def login(request):
         return render(request, 'login.html', {'uf': uf})
 
 
+@login_required(login_url='/socialtracker/')
 def account(request):
     return render(request, 'account-home.html')
 
 
+@login_required(login_url='/socialtracker/')
 def manage1(request):
     if request.method == "POST":
         uf = ChangepassForm(request.POST)
@@ -177,6 +187,7 @@ def manage1(request):
         return render(request, 'Manage1_privacy.html', {'uf': uf})
 
 
+@login_required(login_url='/socialtracker/')
 def manage2(request):
     if request.method == "POST":
         uf = EdituserinfoForm(request.POST)
@@ -211,10 +222,61 @@ def manage2(request):
         return render(request, 'Manage2_Personal.html', {'uf': uf})
 
 
+@login_required(login_url='/socialtracker/')
 def manage3(request):
-    return render(request, 'Manage3_social.html')
+    # social_backend = request.session['social_auth_last_login_backend']
+    # return render(request, 'Manage3_social.html', {'social_backend': social_backend})
+
+    user = request.user
+    try:
+        github_login = user.social_auth.get(provider='github')
+        # github_json = github_login.extra_data
+        # GithubProfile.g_token = github_json['access_token']
+    except UserSocialAuth.DoesNotExist:
+        github_login = None
+
+    try:
+        twitter_login = user.social_auth.get(provider='twitter')
+    except UserSocialAuth.DoesNotExist:
+        twitter_login = None
+
+    try:
+        facebook_login = user.social_auth.get(provider='facebook')
+    except UserSocialAuth.DoesNotExist:
+        facebook_login = None
+
+    can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
+
+    return render(request, 'Manage3_social.html', {
+        'github_login': github_login,
+        'twitter_login': twitter_login,
+        'facebook_login': facebook_login,
+        'can_disconnect': can_disconnect
+    })
 
 
+@login_required(login_url='/socialtracker/')
+def password(request):
+    if request.user.has_usable_password():
+        PasswordForm = PasswordChangeForm
+    else:
+        PasswordForm = AdminPasswordChangeForm
+
+    if request.method == 'POST':
+        form = PasswordForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordForm(request.user)
+    return render(request, 'password.html', {'form': form})
+
+
+@login_required(login_url='/socialtracker/')
 def data(request):
     return render(request, 'data.html')
 

@@ -39,7 +39,7 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/socialtracker/account"
 # SECURE_SSL_REDIRECT = True  # what are these gonna do?
 # SESSION_COOKIE_SECURE = True  # When true it causes exception: Session value state missing
 # CSRF_COOKIE_SECURE = True  # When true it causes exception: csrf token not set
-#
+
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = "https://lorikeetanalysis.net/socialtracker/account"
 
 #################################################################################
@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'rest_framework.authtoken'
+    # 'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -163,6 +163,8 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.reddit.RedditOAuth2',
     # Tumblr
     'social_core.backends.tumblr.TumblrOAuth',
+    # Github
+    'social_core.backends.github.GithubOAuth2',
 ]
 
 # social keys and tokens
@@ -183,6 +185,9 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 SOCIAL_AUTH_TUMBLR_KEY = 'IZS8jZq3HRoODrqIIGryRrr78Ry58qavS4j3byCcEWeGkdCS9I'
 SOCIAL_AUTH_TUMBLR_SECRET = 'gjbfotuFl54PCaOjEZeVWLDfJy2Z4B4DQ215FKm22KFaDKVaNP'
 
+SOCIAL_AUTH_GITHUB_KEY = '5d23365b5d5f8606b8c0'
+SOCIAL_AUTH_GITHUB_SECRET = '2ead7d5db8813fa502d3bed957d70de7c2ed5757'
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -202,6 +207,8 @@ STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # send emails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

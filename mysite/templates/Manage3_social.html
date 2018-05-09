@@ -12,19 +12,55 @@
 
 <article class="row">
 	<div class="col col-md-4">
-		<h4>Duis sed odio</h4>
-		<p class="text-center"><i class="fa fa-smile-o fa-5x"></i></p>							
-		<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
+		<h4>Twitter</h4>
+		{% if twitter_login %}
+			<p>Connected as <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank">@{{ twitter_login.extra_data.access_token.screen_name }}</a></p>
+			{% if can_disconnect %}
+				<form method="post" action="{% url 'social:disconnect' 'twitter' %}">
+					{% csrf_token %}
+					<button type="submit">Disconnect from Twitter</button>
+				</form>
+			{% else %}
+				<button type="button" disabled>Disconnect from Twitter</button>
+				<p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Twitter.</p>
+			{% endif %}
+	  	{% else %}
+			<a href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
+	  	{% endif %}
 	</div>	
 	<div class="col col-md-4">
-		<h4>Proin gravida nibh vel</h4>
-		<p class="text-center"><i class="fa fa-leaf fa-5x"></i></p>
-		<p>Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue.</p>
+		<h4>Facebook</h4>
+		{% if facebook_login %}
+			<p>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></p>
+			{% if can_disconnect %}
+				<form method="post" action="{% url 'social:disconnect' 'facebook' %}">
+					{% csrf_token %}
+					<button type="submit">Disconnect from Facebook</button>
+				</form>
+			{% else %}
+				<button type="button" disabled>Disconnect from Facebook</button>
+				<p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</p>
+			{% endif %}
+		{% else %}
+			<a href="{% url 'social:begin' 'facebook' %}">Connect to Facebook</a>
+		{% endif %}
 	</div>
 	<div class="col col-md-4">
-		<h4>Lorem Ipsum</h4>
-		<p class="text-center"><i class="fa fa-camera-retro fa-5x"></i></p>
-		<p>Etiam pharetra, erat sed fermentum feugiat. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
-	</div>				            
+		<h4>GitHub</h4>
+		{% if github_login %}
+		<p>Connected as <a href="https://github.com/{{ github_login.extra_data.login }}/" target="_blank">{{ github_login.extra_data.login }}</a></p>
+			{% if can_disconnect %}
+				<form method="post" action="{% url 'social:disconnect' 'github' %}">
+					{% csrf_token %}
+					<button type="submit">Disconnect from GitHub</button>
+				</form>
+			{% else %}
+				<button type="button" disabled>Disconnect from GitHub</button>
+				<p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Github.</p>
+			{% endif %}
+		{% else %}
+			<a href="{% url 'social:begin' 'github' %}">Connect to GitHub</a>
+		{% endif %}
+	</div>
 </article> 		                          
 {% endblock %}

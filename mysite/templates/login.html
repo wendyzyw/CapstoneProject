@@ -51,13 +51,13 @@ http://www.templatemo.com/preview/templatemo_418_form_pack
             <div class="Hou-demonstration text-align-center">
                 <label class="">You can also log in with your social media account.</label>
                 <div class="other-sign-in">
-                    <a class="btn btn-block btn-social btn-facebook margin-bottom-15">
+                    <a class="btn btn-block btn-social btn-facebook margin-bottom-15" href="{% url 'social:begin' 'facebook' %}">
                         <i class="fa fa-facebook"></i> Log in with Facebook
                     </a>
                     <a class="btn btn-block btn-social btn-twitter margin-bottom-15" href="{% url 'social:begin' 'twitter' %}">
                         <i class="fa fa-twitter"></i> Log in with Twitter
                     </a>
-                    <a class="btn btn-block btn-social btn-reddit margin-bottom-15">
+                    <a class="btn btn-block btn-social btn-reddit margin-bottom-15" href="{% url 'social:begin' 'github' %}">
                         <i class="fa fa-reddit"></i> Log in with Reddit
                     </a>
                     <a class="btn btn-block btn-social btn-tumblr margin-bottom-15">
