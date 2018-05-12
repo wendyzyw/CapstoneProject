@@ -1087,11 +1087,11 @@ ul.form {
 	float: left;
 	height: 53px;
 	background-color: transparent;
-	background: -webkit - gradient(linear, left top, right top, color - stop(80 % , transparent), color - stop(90 % ,  # f24533));
-	background: linear - gradient(90deg, transparent 80 % ,  # f24533 90 % );
+	background: -webkit-gradient(linear, left top, right top, color-stop(80%, transparent), color-stop(90%, #f24533));
+	background: linear-gradient(90deg, transparent 80%,  #f24533 90%);
 	font-weight: 400;
 	font-size: 1.6em;
-	color:  # fff;
+	color:  #fff;
 	letter-spacing: .2em;
 	text-align: center;
 	line-height: 53px
@@ -1120,7 +1120,7 @@ ul.form {
 
 #tool_tip .tt_score div.arrow_right img {
 	top: 0;
-	left: calc(86 % )
+	left: calc(86%)
 }
 
 #tool_tip .tt_score div.color_bg {
@@ -1129,24 +1129,24 @@ ul.form {
 	z-index: -1;
 	top: 0;
 	left: 22px;
-	width: calc(78 % );
-	background-color:  # f24533;
-	height: 100 %
+	width: calc(78%);
+	background-color:  #f24533;
+	height: 100%
 }
 
 #tool_tip .tt_score span {
 	display: block;
 	z-index: 2;
 	margin: 0 auto;
-	height: 100 % ;
+	height: 100% ;
 	padding: 0 6px 0 12px
 }
 
 #tool_tip .tt_score .flip {
 	float: right;
-	background-color:  # f24533;
-	background: -webkit - gradient(linear, left top, right top, color - stop(10 % ,  # f24533), color - stop(20 % , transparent));
-	background: linear - gradient(90deg,  # f24533 10 % , transparent 20 % )
+	background-color:  #f24533;
+	background: -webkit-gradient(linear, left top, right top, color-stop(10%,  #f24533), color-stop(20% , transparent));
+	background: linear-gradient(90deg, #f24533 10%, transparent 20%)
 }
 
 #tool_tip .tt_score .flip div.arrow_left {
@@ -1159,7 +1159,7 @@ ul.form {
 
 #tool_tip .tt_score .flip div.color_bg {
 	left: 0;
-	width: 86 %
+	width: 86%
 }
 
 #tool_tip .tt_score .flip span {
@@ -1171,14 +1171,14 @@ ul.form {
 	padding: 0 15px;
 	text-align: left;
 	height: 53px;
-	background-color:  # 151d1e
+	background-color:  #151d1e
 }
 
 #tool_tip .tt_stats .tt_brand {
 	font-weight: 700;
 	font-size: .8em;
 	letter-spacing: .22em;
-	color:  # fff;
+	color:  #fff;
 	text-transform: uppercase;
 	line-height: 53px
 }
