@@ -7,7 +7,7 @@ import json
 import tweepy
 import calendar
 import simplejson
-from watson_developer_cloud import PersonalityInsightsV3
+from watson_developer_cloud import PersonalityInsightsV3, ToneAnalyzerV3
 from watson_developer_cloud import WatsonApiException
 
 # Django
@@ -106,6 +106,25 @@ def manage3(request):
 					{'social_backend': social_backend, 'twitter_account': twitter_account, 'twitter_date': twitter_date,
 					'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date,
 					'facebook_id': facebook_id})
+
+def tone_analysis(request):
+	# user = request.user
+	# try:
+		# twitter_account = user.social_auth.get(provider='twitter')
+		# if twitter_account is not None:
+			# twitter_json = twitter_account.extra_data
+
+            # # retriev user timeline
+			# auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
+			# auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
+			# api = tweepy.API(auth)
+			# data = api.user_timeline()
+			
+
+	# except:
+		# twitter_account = None
+
+	return render(request, 'toneAnalysis.html')
 	
 def user_personality(request):
 	personality = request.session['user_personality']
@@ -166,6 +185,8 @@ def data(request):
 			auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
 			api = tweepy.API(auth)
 			data = api.user_timeline()
+			
+			# format timeline data from twitter for request format to PersonalityInsightsV3 api 
 			reqJson = []
 			for each in data:
 				temp = {'content': each.text, 'contenttype': "text/plain", 'id': each.id, 'language': 'en'}
@@ -173,6 +194,7 @@ def data(request):
 			json_input = {'contentItems': reqJson}
 				
 			try:
+				###############################################################
 				personality_insights = PersonalityInsightsV3(
 					version='2017-10-13',
 					username='9576f431-9a16-435e-85d3-d9dcf455969d',
@@ -202,6 +224,25 @@ def data(request):
 				request.session['user_values'] = values
 				request.session['user_needs'] = needs
 				request.session['user_personality'] = personality
+				request.session['preferences'] = consumption_preferences
+				
+				###############################################################		
+				reqStrList = []
+				for each in data:
+					reqStrList.append(each.text)
+				reqStr = '. '.join(reqStrList)
+				
+				tone_analyzer = ToneAnalyzerV3(
+					version='2017-09-21',
+					username='6c984f2f-56ea-4a07-a59c-9c86e5b5d00f',
+					password='GlMwVmKrNpwt'
+				)
+				tone_analyzer.set_default_headers({'x-watson-learning-opt-out': "true"})
+
+				content_type = 'application/json'
+				tone = tone_analyzer.tone({"text": reqStr},content_type)
+
+				print(json.dumps(tone, indent=2))
 				
 			except WatsonApiException as ex:
 				print("Method failed with status code " + str(ex.code) + ": " + ex.message)
