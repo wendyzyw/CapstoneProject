@@ -108,23 +108,48 @@ def manage3(request):
 					'facebook_id': facebook_id})
 
 def tone_analysis(request):
-	# user = request.user
-	# try:
-		# twitter_account = user.social_auth.get(provider='twitter')
-		# if twitter_account is not None:
-			# twitter_json = twitter_account.extra_data
+	tone = request.session['tone']
+	document_tone = tone['document_tone']
+	sentences_tone = tone['sentences_tone']
+	
+	# build data structure to stores aggregated scores for all 13 tones
+	allTones = []
+	t1 = {'Id': 1, 'DisplayName': 'Anger', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': []}
+	t2 = {'Id': 2, 'DisplayName': 'Disgust', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': [] }
+	t3 = {'Id': 3, 'DisplayName': 'Fear', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': [] }
+	t4 = {'Id': 4, 'DisplayName': 'Joy', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': [] }
+	t5 = {'Id': 5, 'DisplayName': 'Sadness', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': [] }
+	t6 = {'Id': 6, 'DisplayName': 'Analytical', 'category': 'Language Tone', 'IndexScore': 0.0, 'AllText': []}
+	t7 = {'Id': 7, 'DisplayName': 'Confident', 'category': 'Language Tone', 'IndexScore': 0.0, 'AllText': []}
+	t8 = {'Id': 8, 'DisplayName': 'Tentative', 'category': 'Language Tone', 'IndexScore': 0.0, 'AllText': []}
+	t9 = {'Id': 9, 'DisplayName': 'Openness', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+	t10 = {'Id': 10, 'DisplayName': 'Conscientiousness', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+	t11 = {'Id': 11, 'DisplayName': 'Extraversion', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+	t12 = {'Id': 12, 'DisplayName': 'Agreeableness', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+	t13 = {'Id': 13, 'DisplayName': 'Emotional Range', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+	allTones.extend([t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13])
+	
+	# calculate aggregated score for each tone
+	for sentence in sentences_tone:
+		categories = sentence['tone_categories']
+		emotion = categories[0]['tones']
+		language = categories[1]['tones']
+		social = categories[2]['tones']
+		counter1 = 0
+		for each in emotion:
+			allTones[counter1]['IndexScore'] += each['score']
+			counter1 += 1
+		counter2 = 5
+		for each in language:
+			allTones[counter2]['IndexScore'] += each['score']
+			counter2 += 1
+		counter3 = 8
+		for each in social: 
+			allTones[counter3]['IndexScore'] += each['score']
+			counter3 += 1
+	# print(allTones)
 
-            # # retriev user timeline
-			# auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
-			# auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
-			# api = tweepy.API(auth)
-			# data = api.user_timeline()
-			
-
-	# except:
-		# twitter_account = None
-
-	return render(request, 'toneAnalysis.html')
+	return render(request, 'toneAnalysis.html', { 'tone_data': allTones })
 	
 def user_personality(request):
 	personality = request.session['user_personality']
@@ -233,7 +258,7 @@ def data(request):
 				reqStr = '. '.join(reqStrList)
 				
 				tone_analyzer = ToneAnalyzerV3(
-					version='2017-09-21',
+					version='2016-05-19',
 					username='6c984f2f-56ea-4a07-a59c-9c86e5b5d00f',
 					password='GlMwVmKrNpwt'
 				)
@@ -242,7 +267,8 @@ def data(request):
 				content_type = 'application/json'
 				tone = tone_analyzer.tone({"text": reqStr},content_type)
 
-				print(json.dumps(tone, indent=2))
+				# print(json.dumps(tone, indent=2))
+				request.session['tone'] = tone
 				
 			except WatsonApiException as ex:
 				print("Method failed with status code " + str(ex.code) + ": " + ex.message)

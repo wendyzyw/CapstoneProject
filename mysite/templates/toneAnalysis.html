@@ -18,17 +18,17 @@
 	<div id="tool_tip">
 		<div class="tt_score uk_position_relative">
 			<div class="arrow_left">
-				<img src="../static/img/arrow-left-orange.png"></img>
+				<img class="orange" src="../static/img/arrow-left-orange.png" style="height:53px;"></img>
 			</div>
 			<div class="color_bg"></div>
 			<span></span>
 			
 			<div class="arrow_right">
-				<img src="../static/img/arrow-right-orange.png"></img>
+				<img class="orange" src="../static/img/arrow-right-orange.png"></img>
 			</div>
 		</div>
 		
-		<div class="tt_stat uk_position_relative">
+		<div class="tt_stats uk_position_relative">
 			<div class="tt_brand"></div>
 		</div>
 	</div>
@@ -58,7 +58,11 @@
 <script src="../static/js/sunburstChart.js"></script>
 
 <script>
-data = [{"Id":1,"DisplayName":"Ross Dress For Less","ScreenName":"","InstagramUserName":"rossdressforless","IndexScore":0,"MentionsPositive":0,"MentionsNegative":0,"AvgPostLength":0,"AvgUserStatuses":0,"GenderCountMale":0,"GenderCountFemale":0,"MostPostPeriod":null,"MostUserInfluencerScore":0,"MostPostContentType":null,"AssociatedBrands":[],"AssociatedHashtags":[]},{"Id":2,"DisplayName":"7-Eleven","ScreenName":"7eleven","InstagramUserName":"7eleven","IndexScore":0,"MentionsPositive":7,"MentionsNegative":0,"AvgPostLength":113,"AvgUserStatuses":7929,"GenderCountMale":1,"GenderCountFemale":3,"MostPostPeriod":"Early","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":[],"AssociatedHashtags":[]},{"Id":3,"DisplayName":"Abercrombie \u0026 Fitch","ScreenName":"Abercrombie","InstagramUserName":"Abercrombie","IndexScore":6.24,"MentionsPositive":30,"MentionsNegative":0,"AvgPostLength":134,"AvgUserStatuses":13523,"GenderCountMale":9,"GenderCountFemale":12,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":0,"MostPostContentType":"Words","AssociatedBrands":["Gap"],"AssociatedHashtags":["HappyThanksgiving","NEVERNOTWORKING","FAIL"]},{"Id":4,"DisplayName":"Academy Sports + Outdoors","ScreenName":"academy","InstagramUserName":"academy","IndexScore":12.8,"MentionsPositive":37,"MentionsNegative":0,"AvgPostLength":117,"AvgUserStatuses":21269,"GenderCountMale":12,"GenderCountFemale":4,"MostPostPeriod":"Early","MostUserInfluencerScore":0,"MostPostContentType":"Media","AssociatedBrands":["DICKS"],"AssociatedHashtags":["bassfishing","fishing","sales"]},{"Id":5,"DisplayName":"Ace Hardware","ScreenName":"acehardware","InstagramUserName":"acehardware","IndexScore":0,"MentionsPositive":0,"MentionsNegative":0,"AvgPostLength":0,"AvgUserStatuses":0,"GenderCountMale":0,"GenderCountFemale":0,"MostPostPeriod":null,"MostUserInfluencerScore":0,"MostPostContentType":null,"AssociatedBrands":[],"AssociatedHashtags":[]},{"Id":6,"DisplayName":"Adidas","ScreenName":"adidasUS","InstagramUserName":"adidas","IndexScore":0.64,"MentionsPositive":5,"MentionsNegative":2,"AvgPostLength":124,"AvgUserStatuses":93770,"GenderCountMale":1,"GenderCountFemale":0,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":0,"MostPostContentType":"Media","AssociatedBrands":[],"AssociatedHashtags":["Ultraboost","FF","eBay"]},{"Id":7,"DisplayName":"Advance Auto Parts","ScreenName":"advanceauto","InstagramUserName":"advanceautoparts","IndexScore":2.88,"MentionsPositive":12,"MentionsNegative":0,"AvgPostLength":135,"AvgUserStatuses":24576,"GenderCountMale":4,"GenderCountFemale":3,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":0,"MostPostContentType":"Words","AssociatedBrands":[],"AssociatedHashtags":["sale","DudesHateShopping","deal"]},{"Id":8,"DisplayName":"American Eagle","ScreenName":"aeo","InstagramUserName":"americaneagle","IndexScore":0.8,"MentionsPositive":13,"MentionsNegative":4,"AvgPostLength":111,"AvgUserStatuses":8068,"GenderCountMale":3,"GenderCountFemale":2,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":0,"MostPostContentType":"Words","AssociatedBrands":["bathbodyworks"],"AssociatedHashtags":["yxe","treatyoself","sweaterweather"]},{"Id":9,"DisplayName":"Aeropostale","ScreenName":"aeropostale","InstagramUserName":"aeropostale","IndexScore":2.64,"MentionsPositive":8,"MentionsNegative":0,"AvgPostLength":119,"AvgUserStatuses":16139,"GenderCountMale":0,"GenderCountFemale":2,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":["HollisterCo"],"AssociatedHashtags":["Sales","sale","Kissimmee"]},{"Id":10,"DisplayName":"Albertsons","ScreenName":"albertsons","InstagramUserName":"albertsons","IndexScore":0,"MentionsPositive":0,"MentionsNegative":0,"AvgPostLength":0,"AvgUserStatuses":0,"GenderCountMale":0,"GenderCountFemale":0,"MostPostPeriod":null,"MostUserInfluencerScore":0,"MostPostContentType":null,"AssociatedBrands":[],"AssociatedHashtags":[]},{"Id":11,"DisplayName":"Aldi","ScreenName":"AldiUSA","InstagramUserName":"AldiUSA","IndexScore":0.96,"MentionsPositive":5,"MentionsNegative":0,"AvgPostLength":111,"AvgUserStatuses":6911,"GenderCountMale":3,"GenderCountFemale":0,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":["Walgreens"],"AssociatedHashtags":["Irondequoit"]},{"Id":12,"DisplayName":"Alienware","ScreenName":"alienware","InstagramUserName":"alienware","IndexScore":7.2,"MentionsPositive":30,"MentionsNegative":0,"AvgPostLength":130,"AvgUserStatuses":25095,"GenderCountMale":11,"GenderCountFemale":2,"MostPostPeriod":"Evening","MostUserInfluencerScore":2,"MostPostContentType":"Words","AssociatedBrands":[],"AssociatedHashtags":["Werbung","startup","seriesr"]},{"Id":13,"DisplayName":"Amazon","ScreenName":"amazon","InstagramUserName":"amazon","IndexScore":28,"MentionsPositive":8466,"MentionsNegative":229,"AvgPostLength":129,"AvgUserStatuses":28179,"GenderCountMale":2180,"GenderCountFemale":2006,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":["eBay"],"AssociatedHashtags":["mesmerizing","Christian","audiobook"]},{"Id":14,"DisplayName":"AMC Theatres","ScreenName":"amctheatres","InstagramUserName":"amctheatres","IndexScore":1.92,"MentionsPositive":7,"MentionsNegative":0,"AvgPostLength":117,"AvgUserStatuses":8965,"GenderCountMale":4,"GenderCountFemale":1,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":[],"AssociatedHashtags":["FilmFriday","PixarCoco","NYC"]},{"Id":15,"DisplayName":"American Apparel","ScreenName":"americanapparel","InstagramUserName":"americanapparelusa","IndexScore":2.88,"MentionsPositive":13,"MentionsNegative":0,"AvgPostLength":136,"AvgUserStatuses":14152,"GenderCountMale":1,"GenderCountFemale":7,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":[],"AssociatedHashtags":["MadeInUSA","deals","christmas"]}];
+{% autoescape off %}
+var data = {{ tone_data }};
+console.log(data);
+{% endautoescape %}
+<!-- data = [{"Id":1,"DisplayName":"Ross Dress For Less","ScreenName":"","InstagramUserName":"rossdressforless","IndexScore":0,"MentionsPositive":0,"MentionsNegative":0,"AvgPostLength":0,"AvgUserStatuses":0,"GenderCountMale":0,"GenderCountFemale":0,"MostPostPeriod":null,"MostUserInfluencerScore":0,"MostPostContentType":null,"AssociatedBrands":[],"AssociatedHashtags":[]},{"Id":2,"DisplayName":"7-Eleven","ScreenName":"7eleven","InstagramUserName":"7eleven","IndexScore":0,"MentionsPositive":7,"MentionsNegative":0,"AvgPostLength":113,"AvgUserStatuses":7929,"GenderCountMale":1,"GenderCountFemale":3,"MostPostPeriod":"Early","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":[],"AssociatedHashtags":[]},{"Id":3,"DisplayName":"Abercrombie \u0026 Fitch","ScreenName":"Abercrombie","InstagramUserName":"Abercrombie","IndexScore":6.24,"MentionsPositive":30,"MentionsNegative":0,"AvgPostLength":134,"AvgUserStatuses":13523,"GenderCountMale":9,"GenderCountFemale":12,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":0,"MostPostContentType":"Words","AssociatedBrands":["Gap"],"AssociatedHashtags":["HappyThanksgiving","NEVERNOTWORKING","FAIL"]},{"Id":4,"DisplayName":"Academy Sports + Outdoors","ScreenName":"academy","InstagramUserName":"academy","IndexScore":12.8,"MentionsPositive":37,"MentionsNegative":0,"AvgPostLength":117,"AvgUserStatuses":21269,"GenderCountMale":12,"GenderCountFemale":4,"MostPostPeriod":"Early","MostUserInfluencerScore":0,"MostPostContentType":"Media","AssociatedBrands":["DICKS"],"AssociatedHashtags":["bassfishing","fishing","sales"]},{"Id":5,"DisplayName":"Ace Hardware","ScreenName":"acehardware","InstagramUserName":"acehardware","IndexScore":0,"MentionsPositive":0,"MentionsNegative":0,"AvgPostLength":0,"AvgUserStatuses":0,"GenderCountMale":0,"GenderCountFemale":0,"MostPostPeriod":null,"MostUserInfluencerScore":0,"MostPostContentType":null,"AssociatedBrands":[],"AssociatedHashtags":[]},{"Id":6,"DisplayName":"Adidas","ScreenName":"adidasUS","InstagramUserName":"adidas","IndexScore":0.64,"MentionsPositive":5,"MentionsNegative":2,"AvgPostLength":124,"AvgUserStatuses":93770,"GenderCountMale":1,"GenderCountFemale":0,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":0,"MostPostContentType":"Media","AssociatedBrands":[],"AssociatedHashtags":["Ultraboost","FF","eBay"]},{"Id":7,"DisplayName":"Advance Auto Parts","ScreenName":"advanceauto","InstagramUserName":"advanceautoparts","IndexScore":2.88,"MentionsPositive":12,"MentionsNegative":0,"AvgPostLength":135,"AvgUserStatuses":24576,"GenderCountMale":4,"GenderCountFemale":3,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":0,"MostPostContentType":"Words","AssociatedBrands":[],"AssociatedHashtags":["sale","DudesHateShopping","deal"]},{"Id":8,"DisplayName":"American Eagle","ScreenName":"aeo","InstagramUserName":"americaneagle","IndexScore":0.8,"MentionsPositive":13,"MentionsNegative":4,"AvgPostLength":111,"AvgUserStatuses":8068,"GenderCountMale":3,"GenderCountFemale":2,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":0,"MostPostContentType":"Words","AssociatedBrands":["bathbodyworks"],"AssociatedHashtags":["yxe","treatyoself","sweaterweather"]},{"Id":9,"DisplayName":"Aeropostale","ScreenName":"aeropostale","InstagramUserName":"aeropostale","IndexScore":2.64,"MentionsPositive":8,"MentionsNegative":0,"AvgPostLength":119,"AvgUserStatuses":16139,"GenderCountMale":0,"GenderCountFemale":2,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":["HollisterCo"],"AssociatedHashtags":["Sales","sale","Kissimmee"]},{"Id":10,"DisplayName":"Albertsons","ScreenName":"albertsons","InstagramUserName":"albertsons","IndexScore":0,"MentionsPositive":0,"MentionsNegative":0,"AvgPostLength":0,"AvgUserStatuses":0,"GenderCountMale":0,"GenderCountFemale":0,"MostPostPeriod":null,"MostUserInfluencerScore":0,"MostPostContentType":null,"AssociatedBrands":[],"AssociatedHashtags":[]},{"Id":11,"DisplayName":"Aldi","ScreenName":"AldiUSA","InstagramUserName":"AldiUSA","IndexScore":0.96,"MentionsPositive":5,"MentionsNegative":0,"AvgPostLength":111,"AvgUserStatuses":6911,"GenderCountMale":3,"GenderCountFemale":0,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":["Walgreens"],"AssociatedHashtags":["Irondequoit"]},{"Id":12,"DisplayName":"Alienware","ScreenName":"alienware","InstagramUserName":"alienware","IndexScore":7.2,"MentionsPositive":30,"MentionsNegative":0,"AvgPostLength":130,"AvgUserStatuses":25095,"GenderCountMale":11,"GenderCountFemale":2,"MostPostPeriod":"Evening","MostUserInfluencerScore":2,"MostPostContentType":"Words","AssociatedBrands":[],"AssociatedHashtags":["Werbung","startup","seriesr"]},{"Id":13,"DisplayName":"Amazon","ScreenName":"amazon","InstagramUserName":"amazon","IndexScore":28,"MentionsPositive":8466,"MentionsNegative":229,"AvgPostLength":129,"AvgUserStatuses":28179,"GenderCountMale":2180,"GenderCountFemale":2006,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":["eBay"],"AssociatedHashtags":["mesmerizing","Christian","audiobook"]},{"Id":14,"DisplayName":"AMC Theatres","ScreenName":"amctheatres","InstagramUserName":"amctheatres","IndexScore":1.92,"MentionsPositive":7,"MentionsNegative":0,"AvgPostLength":117,"AvgUserStatuses":8965,"GenderCountMale":4,"GenderCountFemale":1,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":[],"AssociatedHashtags":["FilmFriday","PixarCoco","NYC"]},{"Id":15,"DisplayName":"American Apparel","ScreenName":"americanapparel","InstagramUserName":"americanapparelusa","IndexScore":2.88,"MentionsPositive":13,"MentionsNegative":0,"AvgPostLength":136,"AvgUserStatuses":14152,"GenderCountMale":1,"GenderCountFemale":7,"MostPostPeriod":"Afternoon","MostUserInfluencerScore":1,"MostPostContentType":"Media","AssociatedBrands":[],"AssociatedHashtags":["MadeInUSA","deals","christmas"]}]; -->
 
 var endcolor = {
 		purple: "#8f01bf",
@@ -114,8 +118,7 @@ function CurveGen(e, t) {
 			<!-- "loved" != _mostLovedOrTalkedAbout ? $("#tool_tip .tt_score").addClass("talkedabout") : $("#tool_tip .tt_score").removeClass("talkedabout"),  -->
 			$("#tool_tip .tt_score span").html(function () {
 				var t = e[a][l];
-				<!-- return t = "loved" == _mostLovedOrTalkedAbout ? t < 0 ? Math.round(t) : "+" + Math.round(t) : formatNumber(Math.round(t)) -->
-				return t = formatNumber(Math.round(t))
+				return t = "+" + Math.round(t) /* : formatNumber(Math.round(t)) */
 			}), 
 			$("#tool_tip .tt_brand").html(function () {
 				return e[a].DisplayName
@@ -153,7 +156,11 @@ function CurveGen(e, t) {
 				return d3.event.pageY - 23 + "px"
 			},
 			left: function () {
-				return d3.event.pageX + 20 + 1.1 * $("#tool_tip").width() > window.innerWidth ? ($("#tool_tip .tt_score").addClass("flip"), $("#tool_tip .tt_stats").addClass("flip"), $("#tool_tip .tt_brand").addClass("flip"), d3.event.pageX - 20 - $("#tool_tip").width() + "px") : ($("#tool_tip .flip").removeClass("flip"), d3.event.pageX + 20 + "px")
+				return d3.event.pageX + 20 + 1.1 * $("#tool_tip").width() > window.innerWidth ? 
+				($("#tool_tip .tt_score").addClass("flip"), 
+				$("#tool_tip .tt_stats").addClass("flip"), 
+				$("#tool_tip .tt_brand").addClass("flip"), 
+				d3.event.pageX - 20 - $("#tool_tip").width() + "px") : ($("#tool_tip .flip").removeClass("flip"), d3.event.pageX + 20 + "px")
 			}
 		})
 	}
@@ -162,8 +169,8 @@ function CurveGen(e, t) {
 		$("#tool_tip").fadeOut(500),
 		d3.selectAll(".curve").transition().duration(750).attr("d", A),
 		setTimeout(function () {
-			$("#graph").fadeOut(500),
-			curveClick(e[a])
+			$("#graph").fadeOut(500)
+			<!-- curveClick(e[a]) -->
 		}, 750)
 	}
 	function i(e) {
@@ -213,7 +220,7 @@ function CurveGen(e, t) {
 		bottom: 30,
 		left: 150
 	},
-	m = h - v.right - v.left - 200,
+	m = h - v.right - v.left - 320,
 	g = f - v.top - v.bottom - 400,
 	b = !1,
 	<!-- y = !(!isMobile.phone && !isMobile.tablet), -->

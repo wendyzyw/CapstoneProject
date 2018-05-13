@@ -1078,12 +1078,22 @@ ul.form {
 	
 }
 /*****************************************************************************/
+#tool_tip {
+	display: none;
+	top: 0;
+	left: 0;
+	position: absolute;
+	-webkit-filter: drop-shadow(4px 4px 4px #000);
+	filter: drop-shadow(4px 4px 4px #000);
+	z-index: 3
+}
+
 #tool_tip .tt_score, #tool_tip .tt_stats .tt_brand {
 	font-family: azo-sans-web, sans-serif
 }
 
 #tool_tip .tt_score {
-	display: inline - block;
+	display: inline-block;
 	float: left;
 	height: 53px;
 	background-color: transparent;
@@ -1167,11 +1177,11 @@ ul.form {
 }
 
 #tool_tip .tt_stats {
-	display: inline - block;
+	display: inline-block;
 	padding: 0 15px;
 	text-align: left;
 	height: 53px;
-	background-color:  #151d1e
+	background-color: #151d1e
 }
 
 #tool_tip .tt_stats .tt_brand {
