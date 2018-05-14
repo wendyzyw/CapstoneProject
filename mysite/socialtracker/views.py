@@ -9,6 +9,8 @@ import urllib.parse
 import time
 import simplejson
 import tweepy
+import requests
+from datetime import datetime
 from watson_developer_cloud import PersonalityInsightsV3
 from watson_developer_cloud import WatsonApiException
 
@@ -325,17 +327,20 @@ def data(request):
         if twitter_account is not None:
             twitter_json = twitter_account.extra_data
 
-            # retriev user timeline
+            # retriev user timeline from twitter
             auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
             auth.set_access_token(twitter_json['access_token']['oauth_token'],
                                   twitter_json['access_token']['oauth_token_secret'])
             api = tweepy.API(auth)
             data = api.user_timeline()
             reqJson = []
+
             for each in data:
                 temp = {'content': each.text, 'contenttype': "text/plain", 'id': each.id, 'language': 'en'}
                 reqJson.append(temp)
+
             json_input = {'contentItems': reqJson}
+
 
             try:
                 personality_insights = PersonalityInsightsV3(
@@ -368,6 +373,7 @@ def data(request):
                 request.session['user_values'] = values
                 request.session['user_needs'] = needs
                 request.session['user_personality'] = personality
+
 
             except WatsonApiException as ex:
                 print("Method failed with status code " + str(ex.code) + ": " + ex.message)
@@ -462,5 +468,77 @@ def user_values(request):
     print(radarObj)
     radarData = simplejson.dumps(radarObj)
     return render(request, 'user_values.html', {'radarData': radarData})
+
+
+# create a dictionary to count user's posts number from Twitter and Facebook.
+def tf_count():
+    days = list(range(1,8))
+    hours = list(range(1,25))
+    dic = {}
+    for day in days:
+        for hour in hours:
+            dic[str(day)+str(hour)] = 0
+    return dic
+
+
+def user_post_count(request):
+    user = request.user
+    tfCount = tf_count()
+    # count  number of Tweets
+    try:
+        twitter_account = user.social_auth.get(provider='twitter')
+        if twitter_account is not None:
+            twitter_json = twitter_account.extra_data
+
+            # retriev user timeline from twitter
+            auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+            auth.set_access_token(twitter_json['access_token']['oauth_token'],
+                                  twitter_json['access_token']['oauth_token_secret'])
+            api = tweepy.API(auth)
+            data = api.user_timeline()
+
+
+            for each in data:
+                created_time = each.created_at
+                weekday = created_time.isoweekday()
+                hour = created_time.hour
+                if hour == 0:
+                    hour = 24
+                tfCount[str(weekday) + str(hour)] += 1
+    except:
+        twitter_account = None
+
+    # cont number of Fackbook posts
+    try:
+        fackbook_account = user.social_auth.get(provider='facebook')
+        if fackbook_account is not None:
+            fackbook_json = fackbook_account.extra_data
+            # temperory fackbook token
+            facebook_token = 'EAACEdEose0cBAHH9KlhGpDtH1mvJQrPuhXqlSGZC88FfccdGizFZBZC2ODs9jRul1UJeSW968GLn7ClfM7KhrtXYx2ZBZBcpXZAvujH0F4gTPagF6YVa72gkOMYg0eaT6r6LPEUh49iDKHXUNrwZCZA6UZBpDuzekqNWJK36YKog3LtZB27t6R174ekCGXCR0QJT8xZADO8PGisEgZDZD'
+            person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
+            f_posts = requests.get(person).json().get('data')
+            for post in f_posts:
+                message = post.get('message')
+                created_time = post.get('created_time')
+                datetime_object = datetime.strptime(created_time, '%Y-%m-%dT%H:%M:%S+%f')
+
+                if message != None:
+                    weekday = datetime_object.isoweekday()
+                    hour = datetime_object.hour
+                    if hour == 0:
+                        hour = 24
+                    string = str(weekday) + str(hour)
+                    # print('string = ', string)
+                    tfCount[string] += 1
+    except:
+        fackbook_account = None
+    request.session['user_postNum'] = tfCount
+    return render(request, 'data.html', {'heatmapData': tfCount})
+
+
+def user_post_num(request):
+    post_num = request.session['user_postNum']
+    heatmapData = simplejson.dumps(post_num)
+    return render(request, 'data.html', {'heatmapData': heatmapData})
 
 
