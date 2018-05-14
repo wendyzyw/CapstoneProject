@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content_block %}
+<ul class="form" style="float:left; margin-top: 50px;">
+	<li><a class="profile" href="#" style="background-image:url(../static/img/fb.png); background-size:contain;"></a></li>
+	<li><a class="messages" href="#" style="background-image:url(../static/img/tw.png); background-size:contain;"></a></li>
+	<li><a class="settings" href="#" style="background-image:url(../static/img/re.png); background-size:contain;"></a></li>
+	<li><a class="logout" href={% url 'tone_analysis' %} style="background-image:url(../static/img/tu.png); background-size:contain;"></a></li>
+</ul>
+
+<div class="row">
+	
+</div>
+
+<!-- vertical menu -->
+<div class="col-lg-2" id="media-nav">
+	
+</div>
+
+<!-- <nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px;"> -->
+	<!-- <div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;"> -->
+		<!-- <div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1"> -->
+		  <!-- <ul class="nav navbar-nav bottom-nav"> -->
+			<!-- <li><a href={% url 'data' %}>Needs</a></li> -->
+			<!-- <li><a href={% url 'user_values' %}>Values</a></li> -->
+			<!-- <li><a href={% url 'user_personality' %}>Personality</a></li> -->
+			<!-- <li><a href="#">Behavior</a></li> -->
+			<!-- <li><a href="#">Preferences</a></li> -->
+		  <!-- </ul> -->
+		<!-- </div> -->
+	<!-- </div> -->
+<!-- </nav> -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+<!-- <script src="../static/js/multiCurves.js"></script> -->
+
+<script>
+{% autoescape off %}
+
+{% endautoescape %}
+
+
+</script>
+{% endblock %}
