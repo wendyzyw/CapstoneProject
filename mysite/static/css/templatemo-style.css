@@ -227,7 +227,7 @@ bootstrap.min.css:5
 	width: 100%;
   	padding-top: 10vh;
   	text-align: center;
-  	background-image: url(../img/banner_bg.jpg);
+  	background-image: url(../img/dark1.jpg);
   	vertical-align: middle;
 }
 
@@ -1181,7 +1181,7 @@ ul.form {
 	padding: 0 15px;
 	text-align: left;
 	height: 53px;
-	background-color: #151d1e
+	background-color: #151D50
 }
 
 #tool_tip .tt_stats .tt_brand {

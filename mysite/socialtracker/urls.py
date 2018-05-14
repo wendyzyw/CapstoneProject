@@ -27,6 +27,8 @@ urlpatterns = [
 	path('user_values', views.user_values, name='user_values'),
 	path('user_personality', views.user_personality, name='user_personality'),
 	path('tone_analysis', views.tone_analysis, name='tone_analysis'),
+	path('keywords', views.keywords, name='keywords'),
+	path('callapi', views.callapi, name='callapi'),
 	# social media login
 	path('oauth', include('social_django.urls', namespace='social')), 
 ]

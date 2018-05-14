@@ -7,9 +7,13 @@ import json
 import tweepy
 import calendar
 import simplejson
+import facebook
 from watson_developer_cloud import PersonalityInsightsV3, ToneAnalyzerV3
-from watson_developer_cloud import WatsonApiException
-
+from watson_developer_cloud import WatsonApiException 
+from watson_developer_cloud import NaturalLanguageUnderstandingV1
+from watson_developer_cloud.natural_language_understanding_v1 \
+  import Features, KeywordsOptions, ConceptsOptions
+  
 # Django
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -106,6 +110,9 @@ def manage3(request):
 					{'social_backend': social_backend, 'twitter_account': twitter_account, 'twitter_date': twitter_date,
 					'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date,
 					'facebook_id': facebook_id})
+					
+def keywords(request):
+	return render(request, 'keywords.html')
 
 def tone_analysis(request):
 	tone = request.session['tone']
@@ -269,6 +276,19 @@ def data(request):
 
 				# print(json.dumps(tone, indent=2))
 				request.session['tone'] = tone
+				###############################################################
+				natural_language_understanding = NaturalLanguageUnderstandingV1(
+					  username='fc0c4c4c-a1aa-4428-b624-1d995c7d4183',
+					  password='m6QGBRl7hG3w',
+					  version='2018-03-16')
+				
+				response = natural_language_understanding.analyze(
+					  text=reqStr,
+					   features=Features(
+							concepts=ConceptsOptions(
+							  limit=10)))
+				
+				# print(json.dumps(response, indent=2))
 				
 			except WatsonApiException as ex:
 				print("Method failed with status code " + str(ex.code) + ": " + ex.message)
@@ -277,7 +297,65 @@ def data(request):
 		twitter_account = None
 
 	return render(request, 'data.html', { 'radarData': radarData })
+	
+def callapi(request):
+	# get friends from twitter
+	consumer_key = "hgijLaRwrPerjxst71EjoL04W"
+	consumer_secret = "8OSsk0Jl9QB1cf75yrJ6Y6J4kBVuddulLsse6E24soD6yQnYlw"
+	access_token = "3307035747-oLrZE09RH0wkeYtQIXlm5aqZ9nZ5X9PKUi7fjhl"
+	access_token_secret = "DYrUq9Y0q66TOEnCgZbjgTtCCGYZfM9XSPpAR6ylhtDvh"
+	  
+	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 
+	auth.set_access_token(access_token, access_token_secret)
+
+	api = tweepy.API(auth)
+
+	my_followers = api.followers()
+	my_friends = api.friends()
+	my = api.me()
+	friends = []
+	edges = []
+	info = dict(nodes=friends, links=edges)
+	user = {'id': my.screen_name, 'group': 1}
+	twitter_dict = {'id': 'twitter', 'group': 2}
+	facebook_dict = {'id': 'facebook', 'group': 3}
+	tumblr_dict = {'id':'tumblr','group':6}
+	reddit_dict = {'id':'reddit','group':7}
+	edges1 = {'source': my.screen_name, 'target': 'facebook', 'value': 2}
+	edges2 = {'source': my.screen_name, 'target': 'twitter', 'value': 2}
+	edges3 = {'source':my.screen_name,'target':'tumblr','value':2}
+	edges4 = {'source':my.screen_name,'target':'reddit','value':2}
+	friends.append(twitter_dict)
+	friends.append(user)
+	friends.append(facebook_dict)
+	friends.append(tumblr_dict)
+	friends.append(reddit_dict)
+	for follower in my_followers:
+		for friend in my_friends:
+			if friend.id == follower.id:
+				temp = {'id': friend.screen_name, 'group': 4}
+				friends.append(temp)
+	for line in friends:
+		if line['id'] != 'facebook' and line['id'] != 'twitter' and line['id'] != my.screen_name and line['id']!='tumblr' and line['id']!='reddit':
+			temp2 = {'source': 'twitter', 'target': line['id'], 'value': 2}
+			edges.append(temp2)
+	edges.append(edges1)
+	edges.append(edges2)
+	edges.append(edges3)
+	edges.append(edges4)
+	# get friends from facebook
+	token ='EAACEdEose0cBADDDOyNXQ3YVBrUZCmxl1ZBW2ZBjZCvj9VfjGybKfFxW8UUB7VvKgc8dK4AcZClwtllWi9yy49I1I5qth4zAZC5MLsIugHZBNIX9bwuGywnPLryQnHULPTuYPYsZB5FwqG4122k7iNDq7BQeUOqrStlUSyO87v9FHmArbKjpn2AB3tEZAOFimnkBzZAx6KDNdGmwZDZD'
+	graph = facebook.GraphAPI(access_token=token)
+	facebook_friends = graph.get_connections(id='me', connection_name='friends')
+	for post in facebook_friends["data"]:
+		temp3 = {'id':post["name"],'group':5}
+		friends.append(temp3)
+	for post2 in facebook_friends["data"]:
+		temp4 = {'source':'facebook','target':post2["name"],'value':2}
+		edges.append(temp4)
+	# return JsonResponse(info,safe = False)
+	return render(request, 'social_network.html', { 'network_info': info })
 
 def twitter_login(request):
 	# step 1: send req token request to twitter
