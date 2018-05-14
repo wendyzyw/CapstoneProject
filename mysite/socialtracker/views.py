@@ -8,6 +8,7 @@ import tweepy
 import calendar
 import simplejson
 import facebook
+import requests
 from watson_developer_cloud import PersonalityInsightsV3, ToneAnalyzerV3
 from watson_developer_cloud import WatsonApiException 
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
@@ -206,6 +207,8 @@ def user_values(request):
 					
 def data(request):
 	user = request.user
+	facebook_account = None
+	twitter_account = None
 	radarData = []
 	try:
 		twitter_account = user.social_auth.get(provider='twitter')
@@ -215,6 +218,9 @@ def data(request):
             # retriev user timeline
 			auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
 			auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
+			# store twitter tokens to request.session
+			request.session['twitter_token'] = twitter_json['access_token']['oauth_token']
+			request.session['twitter_secret'] = twitter_json['access_token']['oauth_token_secret']
 			api = tweepy.API(auth)
 			data = api.user_timeline()
 			
@@ -295,15 +301,26 @@ def data(request):
 
 	except:
 		twitter_account = None
+		
+	###########################################################################
+	# retrieve facebook account information 
+	try:
+		facebook_account = user.social_auth.get(provider='facebook')
+		if facebook_account is not None:
+			facebook_json = facebook_account.extra_data
+			request.session['facebook_token'] = facebook_json['access_token']
+
+	except UserSocialAuth.DoesNotExist:
+		facebook_account is None
 
 	return render(request, 'data.html', { 'radarData': radarData })
 	
-def callapi(request):
+def social_network(request):
 	# get friends from twitter
-	consumer_key = "hgijLaRwrPerjxst71EjoL04W"
-	consumer_secret = "8OSsk0Jl9QB1cf75yrJ6Y6J4kBVuddulLsse6E24soD6yQnYlw"
-	access_token = "3307035747-oLrZE09RH0wkeYtQIXlm5aqZ9nZ5X9PKUi7fjhl"
-	access_token_secret = "DYrUq9Y0q66TOEnCgZbjgTtCCGYZfM9XSPpAR6ylhtDvh"
+	consumer_key = settings.TWITTER_TOKEN
+	consumer_secret = settings.TWITTER_SECRET
+	access_token = request.session['twitter_token']
+	access_token_secret = request.session['twitter_secret']
 	  
 	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 
@@ -345,7 +362,7 @@ def callapi(request):
 	edges.append(edges3)
 	edges.append(edges4)
 	# get friends from facebook
-	token ='EAACEdEose0cBADDDOyNXQ3YVBrUZCmxl1ZBW2ZBjZCvj9VfjGybKfFxW8UUB7VvKgc8dK4AcZClwtllWi9yy49I1I5qth4zAZC5MLsIugHZBNIX9bwuGywnPLryQnHULPTuYPYsZB5FwqG4122k7iNDq7BQeUOqrStlUSyO87v9FHmArbKjpn2AB3tEZAOFimnkBzZAx6KDNdGmwZDZD'
+	token = request.session['facebook_token']
 	graph = facebook.GraphAPI(access_token=token)
 	facebook_friends = graph.get_connections(id='me', connection_name='friends')
 	for post in facebook_friends["data"]:
@@ -356,6 +373,63 @@ def callapi(request):
 		edges.append(temp4)
 	# return JsonResponse(info,safe = False)
 	return render(request, 'social_network.html', { 'network_info': info })
+	
+def time_heatmap(request):
+	user = request.user
+	twitter_account = user.social_auth.get(provider='twitter')
+	twitter_json = twitter_account.extra_data
+	# retriev user timeline
+	auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
+	auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
+	api = tweepy.API(auth)
+	data = api.user_timeline()
+	array = [[0] * 24 for _ in range(7)]
+
+	for each in data:
+		created_time = each.created_at
+		weekday = created_time.isoweekday()
+		hour = created_time.hour
+		if hour == 0:
+			hour = 24
+		array[weekday-1][hour-1] += 1
+
+	facebook_token = request.session['facebook_token']
+	user = 'BillGates'
+
+	person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
+
+	posts = requests.get(person).json().get('data')
+	reqJson_f = []
+	for post in posts:
+		message = post.get('message')
+		created_time = post.get('created_time')
+		datetime_object = datetime.strptime(created_time, '%Y-%m-%dT%H:%M:%S+%f')
+
+        # print('message = ', message)
+        # print('created_time = ', created_time)
+        # print('datetime = ', datetime_object)
+        # print(type(datetime_object))
+        # print('weekday = ', )
+
+		if message != None:
+			weekday = datetime_object.isoweekday()
+			hour = datetime_object.hour
+			if hour == 0:
+				hour = 24
+			array[weekday-1][hour - 1] += 1
+
+	tf_list = []
+
+	for i in range(7):
+		for j in range(24):
+
+			ele = {'day': i + 1, 'hour': j + 1, 'value': array[i][j]}
+			tf_list.append(ele)
+
+	heatmapData = simplejson.dumps(tf_list)
+	# print('tf_list = ', tf_list)
+
+	return render(request, 'heatmap.html', {'heatmapData': heatmapData})
 
 def twitter_login(request):
 	# step 1: send req token request to twitter
