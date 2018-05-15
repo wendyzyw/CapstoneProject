@@ -124,7 +124,39 @@ def manage3(request):
 					'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date, 'facebook_id': facebook_id})
 					
 def keywords(request):
-	return render(request, 'keywords.html')
+	keywords = request.session['keywords']
+	# create nodes data
+	node_data = {'name': 'outermost', 'children': [
+			{'name': 'positive', 'children': []},
+			{'name': 'negative', 'children': []}
+		]}
+	#construct data with emotion values 
+	data_by_id = {}
+	id_by_name = {}
+	data_with_values = {}
+	for keyword in keywords:
+		temp = {'name': keyword['text'], 'ID': '', 'relevance': int(keyword['relevance']*100)}
+		if keyword['sentiment']['label'] == 'positive':
+			id = '1.1.'+str(len(node_data['children'][0]['children'])+1)
+			temp['ID'] = id
+			node_data['children'][0]['children'].append(temp)
+
+		else:
+			id = '1.2.'+str(len(node_data['children'][0]['children'])+1)
+			temp['ID'] = id
+			node_data['children'][1]['children'].append(temp)
+			
+		id_by_name[keyword['text']] = id
+		value_obj = {'key': id, 'values': []}
+		sadness = {'ID': id, 'emotion': 'sadness', 'value': keyword['emotion']['sadness']}
+		joy = {'ID': id, 'emotion': 'joy', 'value': keyword['emotion']['joy']}
+		fear = {'ID': id, 'emotion': 'fear', 'value': keyword['emotion']['fear']}
+		disgust = {'ID': id, 'emotion': 'disgust', 'value': keyword['emotion']['disgust']}
+		anger = {'ID': id, 'emotion': 'anger', 'value': keyword['emotion']['anger']}
+		value_obj['values'].extend([sadness,joy,fear,disgust,anger])
+		data_with_values[id] = value_obj
+	
+	return render(request, 'keywords.html', { 'node_data': node_data, 'id_by_name': id_by_name, 'data_with_values': data_with_values})
 
 def tone_analysis(request):
 	tone = request.session['tone']
@@ -305,7 +337,7 @@ def data(request):
 							keywords=KeywordsOptions(
 								emotion=True,
 								sentiment=True,
-								limit=30)))
+								limit=50)))
 				
 				# print(json.dumps(response, indent=2))
 				request.session['keywords'] = response['keywords']
