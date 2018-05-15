@@ -133,16 +133,19 @@ def keywords(request):
 	#construct data with emotion values 
 	data_by_id = {}
 	id_by_name = {}
+	id_by_name['outermost'] = ''
+	id_by_name['positive'] = '1'
+	id_by_name['negative'] = '2'
 	data_with_values = {}
 	for keyword in keywords:
 		temp = {'name': keyword['text'], 'ID': '', 'relevance': int(keyword['relevance']*100)}
 		if keyword['sentiment']['label'] == 'positive':
-			id = '1.1.'+str(len(node_data['children'][0]['children'])+1)
+			id = '1.'+str(len(node_data['children'][0]['children'])+1)
 			temp['ID'] = id
 			node_data['children'][0]['children'].append(temp)
 
 		else:
-			id = '1.2.'+str(len(node_data['children'][0]['children'])+1)
+			id = '2.'+str(len(node_data['children'][0]['children'])+1)
 			temp['ID'] = id
 			node_data['children'][1]['children'].append(temp)
 			

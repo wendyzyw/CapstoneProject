@@ -13,23 +13,19 @@
 	text-align: center;
 	cursor: default;
 }
-
 a,
 a:hover {
 	color: #333333;
 }
-
 .title {
 	font-family: 'Oswald', sans-serif;
 	color: #1c1c1c;
 	text-align: left;
 }
-
 #topTitle {
 	font-size: 36px;
 	line-height: 1.2;
 }
-
 #subTitle {
 	text-align: left;
 	margin-bottom: 20px;
@@ -38,7 +34,6 @@ a:hover {
 	font-family: 'Oswald', sans-serif;
 	font-weight: 300;
 }
-
 #topText{
 	text-align: left;
 	font-family: 'Merriweather Sans', sans-serif;
@@ -47,28 +42,23 @@ a:hover {
 	line-height: 1.5;
 	color: #7D7D7D;
 }
-
 #searchTitle {
 	font-size: 20px;
 	margin-bottom: 10px;
 }
-
 .form-control {
 	font-size: 11px;
 	font-family: 'Merriweather Sans', sans-serif;
 }
-
 .dropdown-menu {
 	font-size: 11px;
 	font-family: 'Merriweather Sans', sans-serif;
 }
-
 .dropdown-menu>.active>a,
 .dropdown-menu>.active>a:hover,
 .dropdown-menu>.active>a:focus  {
 	background-color: #7D7D7D;
 }
-
 #legendTitle {
 	text-align: left;
 	font-family: 'Oswald', sans-serif;
@@ -76,7 +66,6 @@ a:hover {
 	font-size: 13px;
 	color: #1c1c1c;
 }
-
 #legendText {
 	text-align: left;
 	margin-bottom: 10px;
@@ -85,27 +74,23 @@ a:hover {
 	font-family: 'Merriweather Sans', sans-serif;
 	color: #7D7D7D;
 }
-
 .legendCircle {
 	stroke-width:1;
 	stroke:#757575;
 	stroke-dasharray:2 2;
 	fill:none;
 }
-
 .legendLine {
 	stroke-width: 1;
 	stroke: #E0E0E0;
 	shape-rendering: crispEdges;
 }
-
 .legendTitle {
 	fill: #333333;
 	font-family: 'Oswald', sans-serif;
 	text-anchor: middle;
 	font-size: 14px;
 }
-
 .legendSubTitle {
 	color: #BFBFBF;
 	text-anchor: middle;
@@ -113,12 +98,10 @@ a:hover {
 	line-height: 1.2;
 	font-family: 'Merriweather Sans', sans-serif;
 }
-
 .legendText {
 	text-anchor: start;
 	font-size: 9px;
 }
-
 #attribution {
 	text-align: left;
 	margin-bottom: 20px;
@@ -129,14 +112,12 @@ a:hover {
 	color: #bfbfbf;
 	font-family: 'Merriweather Sans', sans-serif;
 }
-
 @media (min-width: 768px) {
 	#loadText {
 		font-size: 24px;
 		top:40%;
 	}
 }
-
 .nodeTooltip {
 	color: #333333;
 	font-family: 'Oswald', sans-serif;
@@ -144,7 +125,6 @@ a:hover {
 	font-size: 12px;
 	text-align: center;
 }
-
 .popover{
 	text-align: center;
 	pointer-events: none;
@@ -160,17 +140,16 @@ a:hover {
 </ul>
 
 <div class="row text-center" style="margin-top: 40px;">
+	<div class="col-md-8">
+		<div id="chart"></div>
+	</div>
 	<div class="col-md-4">
-		<!-- <div id="searchTitle" class="title">Find an Occupation</div> -->
+		<div id="searchTitle" class="title">Find an Occupation</div>
 		<div class="form-group">			
 			<select id="searchBox" class="combobox input-large form-control" style="display: none;" onchange="searchEvent(this.value)">
 				 <option value="" selected="selected">Search...</option>
 			</select>
 		</div>
-	</div>
-	
-	<div class="col-md-8">
-		<div id="chart"></div>
 	</div>
 </div>
 
@@ -191,18 +170,51 @@ var data_with_values = {{data_with_values}};
 var id_by_name = {{id_by_name}};
 {% endautoescape %}
 
-drawAll(data_with_values, id_by_name, node_data);
+drawAll(data_with_values, id_by_name, node_data); 
 	
 //Initiates practically everything
 function drawAll(dataValues, IDbyName, nodeData) {
-	var padding = 20,
-		width = Math.max($("#chart").innerWidth(),350) - padding,
-		<!-- height = window.innerWidth < 768 ? width : (window.innerHeight - 90); -->
-		height = 420;
 
+	var nextCol = 1;
+	function genColor(){
+		var ret = [];
+		// via http://stackoverflow.com/a/15804183
+		if(nextCol < 16777215){
+		  ret.push(nextCol & 0xff); // R
+		  ret.push((nextCol & 0xff00) >> 8); // G 
+		  ret.push((nextCol & 0xff0000) >> 16); // B
+		  nextCol += 100; // This is exagerated for this example and would ordinarily be 1.
+		}
+		var col = "rgb(" + ret.join(',') + ")";
+		return col;
+	}//function genColor
+	//From http://stackoverflow.com/questions/2936112/text-wrap-in-a-canvas-element
+	function getLines(ctx, text, maxWidth, fontSize, titleFont) {
+		var words = text.split(" ");
+		var lines = [];
+		var currentLine = words[0];
+		for (var i = 1; i < words.length; i++) {
+			var word = words[i];
+			ctx.font = fontSize + "px " + titleFont;
+			var width = ctx.measureText(currentLine + " " + word).width;
+			if (width < maxWidth) {
+				currentLine += " " + word;
+			} else {
+				lines.push(currentLine);
+				currentLine = word;
+			}
+		}
+		lines.push(currentLine);
+		return lines;
+	}//function getLines
+
+	var padding = 20,
+		<!-- width = Math.max($("#chart").innerWidth(),350) - padding, -->
+		<!-- height = window.innerWidth < 768 ? width : (window.innerHeight - 90); -->
+		width = 450
+		height = 450;
 	var centerX = width/2,
 		centerY = height/2;
-
 	//Create the visible canvas and context
 	var canvas  = d3.select("#chart").append("canvas")
 		.attr("id", "canvas")
@@ -224,8 +236,8 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		hiddenContext.clearRect(0, 0, width, height);
 
 	var mainTextColor = [74,74,74],//"#4A4A4A",
-		titleFont = "Oswald",
-		bodyFont = "Merriweather Sans";
+		titleFont = "azo-sans-web",
+		bodyFont = "azo-sans-web";
 	
 	var colorCircle = d3.scale.ordinal()
 			.domain([0,1])
@@ -234,7 +246,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 	var colorBar = d3.scale.ordinal()
 		.domain(["sadness","joy","fear","disgust","anger"])
 		.range(["#EFB605", "#E3690B", "#CF003E", "#991C71", "#4F54A8"]);	
-
 	var diameter = Math.min(width*0.95, height*0.95),
 		radius = diameter / 2;
 		
@@ -254,12 +265,10 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		.size([diameter, diameter])
 		.value(function(d) { return d.relevance; })
 		.sort(function(d) { return d.ID; });
-
 	var nodes = pack.nodes(nodeData),
 		root = nodeData,
 		focus = root,
 		nodeCount = nodes.length;
-
 	var nodeByName = {};
 	nodes.forEach(function(d,i) {
 		nodeByName[d.name] = d;
@@ -268,15 +277,9 @@ function drawAll(dataValues, IDbyName, nodeData) {
 	var elementsPerBar = 5,
 		barChartHeight = 0.7,
 		barChartHeightOffset = 0.15;
-		
-		//Listen for clicks on the main canvas
-	//document.getElementById("canvas").addEventListener("click", clickFunction);
-	$("#canvas").on("click", clickFunction);
-	$("#canvas").on("mousemove", mousemoveFunction);
 	
 	//The draw function of the canvas that gets called on each frame
 	function drawCanvas(chosenContext, hidden) {
-
 		//Clear canvas
 		chosenContext.fillStyle = "WHITE";
 		chosenContext.rect(0,0,width,height);
@@ -287,7 +290,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		// It's slightly faster than nodes.forEach()
 		for (var i = 0; i < nodeCount; i++) {
 			node = nodes[i];
-
 			//If the hidden canvas was send into this function and it does not yet have a color, generate a unique one
 			if(hidden) {
 				if(node.color == null) {
@@ -324,7 +326,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 					var drawTitle = true;
 					var fontSizeTitle = Math.round(nodeR / 10);
 					if (fontSizeTitle < 8) drawTitle = false;
-
 					//Only draw the title if the font size is big enough
 					if(drawTitle & showText) {	
 						//First the light grey total text
@@ -346,7 +347,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 						})//forEach
 						
 					}//if
-
 					//The barscale differs per node
 					var barScale = d3.scale.linear()
 						.domain([0, 1]) //max value of bar charts in circle
@@ -442,7 +442,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 				}//if
 				counter = counter + 1;
 			}//if
-
 		}//for i
 		
 	}//function drawCanvas
@@ -460,14 +459,13 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		//Figure out where the mouse click occurred.
 		var mouseX = e.offsetX; //e.layerX;
 		var mouseY = e.offsetY; //e.layerY;
-
+		console.log(e);
 		// Get the corresponding pixel color on the hidden canvas and look up the node in our map.
 		// This will return that pixel's color
 		var col = hiddenContext.getImageData(mouseX, mouseY, 1, 1).data;
 		//Our map uses these rgb strings as keys to nodes.
 		var colString = "rgb(" + col[0] + "," + col[1] + ","+ col[2] + ")";
 		var node = colToCircle[colString];
-
 		//If there was an actual node clicked on, zoom into this
 		if(node) {
 			//If the same node is clicked twice, set it to the top (root) level
@@ -488,6 +486,10 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		
 	}//function clickFunction
 	
+	//Listen for clicks on the main canvas
+	//document.getElementById("canvas").addEventListener("click", clickFunction);
+	$("#canvas").on("click", clickFunction);
+	
 	var nodeOld = root;
 	
 	//Listen for mouse moves on the main canvas
@@ -495,14 +497,12 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		//Figure out where the mouse click occurred.
 		var mouseX = e.offsetX; //e.layerX;
 		var mouseY = e.offsetY; //e.layerY;
-		
 		// Get the corresponding pixel color on the hidden canvas and look up the node in our map.
 		// This will return that pixel's color
 		var col = hiddenContext.getImageData(mouseX, mouseY, 1, 1).data;
 		//Our map uses these rgb strings as keys to nodes.
 		var colString = "rgb(" + col[0] + "," + col[1] + ","+ col[2] + ")";
 		var node = colToCircle[colString];
-
 		//Only change the popover if the user mouses over something new
 		if(node !== nodeOld) {
 			//Remove all previous popovers
@@ -523,12 +523,11 @@ function drawAll(dataValues, IDbyName, nodeData) {
 					var div = document.createElement('div');
 					div.setAttribute('class', 'popoverWrapper');
 					document.getElementById('chart').appendChild(div);
-
 					//Position the wrapper right above the circle
 					$(".popoverWrapper").css({
 						'position':'absolute',
-						'top':nodeY-nodeR,
-						'left':nodeX+padding*5/4
+						'top':nodeY-nodeR+padding,
+						'left':nodeX+padding*10.5
 					});
 					
 					//Show the tooltip
@@ -549,8 +548,8 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		nodeOld = node;
 	}//function mousemoveFunction
 	
+	$("#canvas").on("mousemove", mousemoveFunction);
 	//document.getElementById("canvas").addEventListener("mousemove", mousemoveFunction);
-
 	
 	//Based on the generous help by Stephan Smola
 	//http://bl.ocks.org/smoli/d7e4f9199c15d71258b5
@@ -575,13 +574,16 @@ function drawAll(dataValues, IDbyName, nodeData) {
 					
 		//Save the ID of the clicked on node (or its parent, if it is a leaf node)
 		//Only the nodes close to the currentID will have bar charts drawn
-		if (focusNode === focus) currentID = ""; 
-		else currentID = (typeof focusNode.ID === "undefined" ? IDbyName[focusNode.name] : focusNode.ID.replace(/\.([^\.]*)$/, ""));
+		if (focusNode === focus) {
+			currentID = ""; 
+		} else {
+			console.log("hi");
+			currentID = (typeof focusNode.ID === "undefined" ? IDbyName[focusNode.name] : focusNode.ID.replace(/\.([^\.]*)$/, ""));
+		}
 		
 		//Set the new focus
 		focus = focusNode;
 		var v = [focus.x, focus.y, focus.r * 2.05]; //The center and width of the new "viewport"
-
 		//Create interpolation between current and new "viewport"
 		interpolator = d3.interpolateZoom(vOld, v);
 			
@@ -596,6 +598,7 @@ function drawAll(dataValues, IDbyName, nodeData) {
 			d3.select("#legendRowWrapper").style("opacity", 0);
 			d3.select(".legendWrapper").transition().duration(1000).style("opacity", 0);
 		} else {
+			console.log("he");
 			d3.select("#legendRowWrapper").style("opacity", 1);
 			d3.select(".legendWrapper").transition().duration(1000).delay(duration).style("opacity", 1);
 		}//else
@@ -636,7 +639,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 			}//if -> timeElapsed >= duration
 		}//if -> interpolator
 	}//function zoomToCanvas
-
 	//Text fading variables
 	var	showText = true, //Only show the text while you're not zooming
 		textAlpha = 1, //After a zoom is finished fade in the text;
@@ -670,7 +672,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		ctx.textAlign = 'center'; // Ensure we draw in exact center
 		ctx.font = fontSize + "px " + titleFont;
 		ctx.fillStyle = "rgba(255,255,255," + textAlpha +")";
-
 		startAngle = startAngle * (Math.PI / 180); // convert to radians
 		text = text.split("").reverse().join(""); // Reverse letters
 		
@@ -679,7 +680,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 			var charWid = ctx.measureText(text[j]).width;
 			startAngle += ((charWid + (j == text.length-1 ? 0 : kerning)) / radius) / 2;
 		}//for j
-
 		ctx.save(); //Save the default state before doing any transformations
 		ctx.translate(centerX, centerY); // Move to center
 		ctx.rotate(startAngle); //Rotate into final start position
@@ -697,11 +697,9 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		
 		ctx.restore(); //Restore to state as it was before transformations
 	}//function drawCircularText
-
 	////////////////////////////////////////////////////////////// 
 	///////////////////// Create Search Box ////////////////////// 
 	////////////////////////////////////////////////////////////// 
-
 	//Create options - all the occupations
 	var options = nodes.map(function(d) { return d.name; });
 	
@@ -715,7 +713,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		el.value = opt;
 		select.appendChild(el);
 	}
-
 	//Create search combo box
 	<!-- $('.combobox').Combobox(); -->
 	
@@ -734,6 +731,7 @@ function drawAll(dataValues, IDbyName, nodeData) {
 			
 	//First zoom to get the circles to the right location
 	zoomToCanvas(root);
+
 	//Draw the hidden canvas at least once
 	drawCanvas(hiddenContext, true);
 	//Draw the legend
@@ -754,48 +752,11 @@ function drawAll(dataValues, IDbyName, nodeData) {
 			interpolateFadeText(elapsed - dt);
 			dt = elapsed;
 			drawCanvas(context);
-
 			return stopTimer;
 		});
 	}//function animate
 		
 }//drawAll
-
-var nextCol = 1;
-function genColor(){
-	var ret = [];
-	// via http://stackoverflow.com/a/15804183
-	if(nextCol < 16777215){
-	  ret.push(nextCol & 0xff); // R
-	  ret.push((nextCol & 0xff00) >> 8); // G 
-	  ret.push((nextCol & 0xff0000) >> 16); // B
-
-	  nextCol += 100; // This is exagerated for this example and would ordinarily be 1.
-	}
-	var col = "rgb(" + ret.join(',') + ")";
-	return col;
-}//function genColor
-
-//From http://stackoverflow.com/questions/2936112/text-wrap-in-a-canvas-element
-function getLines(ctx, text, maxWidth, fontSize, titleFont) {
-	var words = text.split(" ");
-	var lines = [];
-	var currentLine = words[0];
-
-	for (var i = 1; i < words.length; i++) {
-		var word = words[i];
-		ctx.font = fontSize + "px " + titleFont;
-		var width = ctx.measureText(currentLine + " " + word).width;
-		if (width < maxWidth) {
-			currentLine += " " + word;
-		} else {
-			lines.push(currentLine);
-			currentLine = word;
-		}
-	}
-	lines.push(currentLine);
-	return lines;
-}//function getLines
 
 </script>
 {% endblock %}
