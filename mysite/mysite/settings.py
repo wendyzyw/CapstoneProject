@@ -166,9 +166,14 @@ SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.12'
 # SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'locale': 'ru_RU',
-  'fields': 'id, name, email, age_range'
+	'locale': 'ru_RU',
+	'fields': 'id, name, email, age_range'
 }
+SOCIAL_AUTH_FACEBOOK_SCOPE = [
+	'email',
+	'user_friends',
+	'friends_location',
+]
 
 SOCIAL_AUTH_TUMBLR_KEY = 'IZS8jZq3HRoODrqIIGryRrr78Ry58qavS4j3byCcEWeGkdCS9I'
 SOCIAL_AUTH_TUMBLR_SECRET = 'gjbfotuFl54PCaOjEZeVWLDfJy2Z4B4DQ215FKm22KFaDKVaNP'

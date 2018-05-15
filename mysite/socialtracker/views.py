@@ -291,10 +291,13 @@ def data(request):
 				response = natural_language_understanding.analyze(
 					  text=reqStr,
 					   features=Features(
-							concepts=ConceptsOptions(
-							  limit=10)))
+							keywords=KeywordsOptions(
+								emotion=True,
+								sentiment=True,
+								limit=30)))
 				
 				# print(json.dumps(response, indent=2))
+				request.session['keywords'] = response['keywords']
 				
 			except WatsonApiException as ex:
 				print("Method failed with status code " + str(ex.code) + ": " + ex.message)
@@ -308,6 +311,7 @@ def data(request):
 		facebook_account = user.social_auth.get(provider='facebook')
 		if facebook_account is not None:
 			facebook_json = facebook_account.extra_data
+
 			request.session['facebook_token'] = facebook_json['access_token']
 
 	except UserSocialAuth.DoesNotExist:
