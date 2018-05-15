@@ -26,6 +26,7 @@ urlpatterns = [
 	path('data', views.data, name='data'),
 	path('user_values', views.user_values, name='user_values'),
 	path('user_personality', views.user_personality, name='user_personality'),
+	path('user_preferences', views.user_preferences, name='user_preferences'), 
 	path('tone_analysis', views.tone_analysis, name='tone_analysis'),
 	path('keywords', views.keywords, name='keywords'),
 	path('social_network', views.social_network, name='social_network'),

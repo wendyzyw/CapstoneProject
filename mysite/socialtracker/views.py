@@ -9,6 +9,7 @@ import calendar
 import simplejson
 import facebook
 import requests
+import random
 from watson_developer_cloud import PersonalityInsightsV3, ToneAnalyzerV3
 from watson_developer_cloud import WatsonApiException 
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
@@ -122,7 +123,31 @@ def manage3(request):
 	return render(request, 'Manage3_social.html',
 					{'twitter_account': twitter_account, 'twitter_date': twitter_date,
 					'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date, 'facebook_id': facebook_id})
-					
+				
+def user_preferences(request):
+	likely = []
+	unlikely = []
+	final_likely =[]
+	final_unlikely=[]
+	preferences = request.session['preferences']
+	for preference in preferences:
+				for consumption_preference in preference["consumption_preferences"]:
+					if (consumption_preference["score"] == 1) :
+						consumption_preference2 = consumption_preference["name"]
+						consumption_preference3 = consumption_preference2.replace('Likely to', ' ')
+						likely.append(consumption_preference3)
+					else:
+						consumption_preference4 = consumption_preference["name"]
+						consumption_preference5=consumption_preference4.replace('Likely to',' ')
+						unlikely.append(consumption_preference5)
+	for i in range(0, 4):
+		r = random.randint(0, len(likely))
+		final_likely.append(likely[r])
+	for i in range(0, 4):
+		r = random.randint(0, len(unlikely))
+		final_unlikely.append(unlikely[r])
+	return render(request, 'user_preferences.html', {'likely': final_likely, 'unlikely': final_unlikely})
+	
 def keywords(request):
 	keywords = request.session['keywords']
 	# create nodes data
