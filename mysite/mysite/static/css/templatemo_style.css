@@ -133,7 +133,7 @@ article { margin-top: 15px; margin-bottom: 15px; }
 
 #templatemo_footer { color: #FFFFFF; font-size: 0.8em; text-align: center; font-family: Arial, sans-serif; }
 
-/*-----------------------------------------------*/
+/*-----------------------------------------------*
 /* social media auth page */
 .account-card {
 	background-color:WHITE; 
@@ -145,6 +145,10 @@ article { margin-top: 15px; margin-bottom: 15px; }
 	text-decoration: none;
 	box-shadow: 3px 3px 6px rgba(0, 109, 146, 1);
 	position: relative;
+}
+
+.media-left {
+	width: 60px;
 }
 
 .media-body .p {
@@ -167,14 +171,6 @@ article { margin-top: 15px; margin-bottom: 15px; }
 	position: absolute;
 	top: 25px;
 	right: 0px;
-}
-
-.social-box {
-	height: 25px;
-	width: 25px;
-	position: absolute;
-	top: 50px;
-	right: 78%;
 }
 
 .heading-line {

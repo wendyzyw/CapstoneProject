@@ -30,7 +30,7 @@ p {
 
 .parallax-content {
   width: 100%;
-  min-height: 100vh;
+  min-height: 60vh;
   background-size: cover;
 }
 
@@ -223,17 +223,11 @@ bootstrap.min.css:5
     }
 }
 
-.parallax-content {
-  width: 100%;
-  min-height: 100vh;
-  background-size: cover;
-}
-
 .baner-content {
 	width: 100%;
-  	padding-top: 35vh;
+  	padding-top: 10vh;
   	text-align: center;
-  	background-image: url(../img/banner_bg.jpg);
+  	background-image: url(../img/dark1.jpg);
   	vertical-align: middle;
 }
 
@@ -952,12 +946,13 @@ footer .connect-us ul li a:hover {
   display: inline-block;
   float: none;
   vertical-align: top;
-
+	
   border: 0px;
 }
 
 .bottom-box .bottom-nav {
   text-align: center;
+  width: 100:
 }	
 
 .nav-box {
@@ -973,7 +968,7 @@ footer .connect-us ul li a:hover {
 ul.form {
 		position:relative;
 		background:#fff;
-		width:60px;
+		width:120px;
 		margin:auto;
 		padding:0;
 		list-style: none;
@@ -989,7 +984,7 @@ ul.form {
 	}
 
 	.form li a {
-		width:225px;
+		width:100px;
 		padding-left:20px;
 		height:50px;
 		line-height:50px;
@@ -1081,4 +1076,358 @@ ul.form {
 .account-card {
 	background-color: #000;
 	
+}
+/*****************************************************************************/
+#tool_tip {
+	display: none;
+	top: 0;
+	left: 0;
+	position: absolute;
+	-webkit-filter: drop-shadow(4px 4px 4px #000);
+	filter: drop-shadow(4px 4px 4px #000);
+	z-index: 3
+}
+
+#tool_tip .tt_score, #tool_tip .tt_stats .tt_brand {
+	font-family: azo-sans-web, sans-serif
+}
+
+#tool_tip .tt_score {
+	display: inline-block;
+	float: left;
+	height: 53px;
+	background-color: transparent;
+	background: -webkit-gradient(linear, left top, right top, color-stop(80%, transparent), color-stop(90%, #f24533));
+	background: linear-gradient(90deg, transparent 80%,  #f24533 90%);
+	font-weight: 400;
+	font-size: 1.6em;
+	color:  #fff;
+	letter-spacing: .2em;
+	text-align: center;
+	line-height: 53px
+}
+
+#tool_tip .tt_score img {
+	display: block;
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	height: 100 %
+}
+
+#tool_tip .tt_score img.orange {
+	display: block
+}
+
+#tool_tip .tt_score div.arrow_left {
+	display: block
+}
+
+#tool_tip .tt_score div.arrow_right {
+	display: none
+}
+
+#tool_tip .tt_score div.arrow_right img {
+	top: 0;
+	left: calc(86%)
+}
+
+#tool_tip .tt_score div.color_bg {
+	display: block;
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 22px;
+	width: calc(78%);
+	background-color:  #f24533;
+	height: 100%
+}
+
+#tool_tip .tt_score span {
+	display: block;
+	z-index: 2;
+	margin: 0 auto;
+	height: 100% ;
+	padding: 0 6px 0 12px
+}
+
+#tool_tip .tt_score .flip {
+	float: right;
+	background-color:  #f24533;
+	background: -webkit-gradient(linear, left top, right top, color-stop(10%,  #f24533), color-stop(20% , transparent));
+	background: linear-gradient(90deg, #f24533 10%, transparent 20%)
+}
+
+#tool_tip .tt_score .flip div.arrow_left {
+	display: none
+}
+
+#tool_tip .tt_score .flip div.arrow_right {
+	display: block
+}
+
+#tool_tip .tt_score .flip div.color_bg {
+	left: 0;
+	width: 86%
+}
+
+#tool_tip .tt_score .flip span {
+	padding: 0 6px
+}
+
+#tool_tip .tt_stats {
+	display: inline-block;
+	padding: 0 15px;
+	text-align: left;
+	height: 53px;
+	background-color: #151D50
+}
+
+#tool_tip .tt_stats .tt_brand {
+	font-weight: 700;
+	font-size: .8em;
+	letter-spacing: .22em;
+	color:  #fff;
+	text-transform: uppercase;
+	line-height: 53px
+}
+
+#tool_tip .tt_stats .tt_brand.flip {
+	text-align: right
+}
+
+#tool_tip .tt_stats .flip {
+	float: right;
+	padding-right: 18px
+}
+
+path.path_padding {
+	stroke: transparent;
+	stroke-width: 10px;
+	fill: none;
+	cursor: pointer
+}
+path.curve {
+	fill: none;
+	stroke - width: 2px;
+	shape - rendering: auto;
+	opacity: 1;
+	padding: 0;
+	margin: 0;
+	-webkit - transition: stroke - width.5s ease;
+	transition: stroke - width.5s ease
+}
+path.curve.negative_1-10 {
+	stroke: url(#gradient_negative_oneten)
+}
+path.curve.negative_2-10 {
+	stroke: url(#gradient_negative_twoten)
+}
+path.curve.negative_3-10 {
+	stroke: url( # gradient_negative_threeten)
+}
+path.curve.negative_4-10 {
+	stroke: url(#gradient_negative_fourten)
+}
+path.curve.negative_5-10 {
+	stroke: url(#gradient_negative_fiveten)
+}
+path.curve.negative_6-10 {
+	stroke: url(#gradient_negative_sixten)
+}
+path.curve.negative_7-10 {
+	stroke: url(#gradient_negative_seventen)
+}
+path.curve.negative_8-10 {
+	stroke: url(#gradient_negative_eightten)
+}
+path.curve.negative_9-10 {
+	stroke: url(#gradient_negative_nineten)
+}
+path.curve.negative_10-10 {
+	stroke: url(#gradient_negative_tenten)
+}
+path.curve.negative_left {
+	stroke: url(#gradient_negative_left)
+}
+path.curve.Lnegative_1-10 {
+	stroke: url(#Lgradient_negative_oneten)
+}
+path.curve.Lnegative_2-10 {
+	stroke: url(#Lgradient_negative_twoten)
+}
+path.curve.Lnegative_3-10 {
+	stroke: url(#Lgradient_negative_threeten)
+}
+path.curve.Lnegative_4-10 {
+	stroke: url(#Lgradient_negative_fourten)
+}
+path.curve.Lnegative_5-10 {
+	stroke: url(#Lgradient_negative_fiveten)
+}
+path.curve.Lnegative_6-10 {
+	stroke: url(#Lgradient_negative_sixten)
+}
+path.curve.Lnegative_7-10 {
+	stroke: url(#Lgradient_negative_seventen)
+}
+path.curve.Lnegative_8-10 {
+	stroke: url(#Lgradient_negative_eightten)
+}
+path.curve.Lnegative_9-10 {
+	stroke: url(#Lgradient_negative_nineten)
+}
+path.curve.Lnegative_10-10 {
+	stroke: url(#Lgradient_negative_tenten)
+}
+path.curve.Rnegative_1-10 {
+	stroke: url(#Rgradient_negative_oneten)
+}
+path.curve.Rnegative_2-10 {
+	stroke: url(#Rgradient_negative_twoten)
+}
+path.curve.Rnegative_3-10 {
+	stroke: url(#Rgradient_negative_threeten)
+}
+path.curve.Rnegative_4-10 {
+	stroke: url(#Rgradient_negative_fourten)
+}
+path.curve.Rnegative_5-10 {
+	stroke: url(#Rgradient_negative_fiveten)
+}
+path.curve.Rnegative_6-10 {
+	stroke: url(#Rgradient_negative_sixten)
+}
+path.curve.Rnegative_7-10 {
+	stroke: url(#Rgradient_negative_seventen)
+}
+path.curve.Rnegative_8-10 {
+	stroke: url(#Rgradient_negative_eightten)
+}
+path.curve.Rnegative_9-10 {
+	stroke: url(#Rgradient_negative_nineten)
+}
+path.curve.Rnegative_10-10 {
+	stroke: url(#Rgradient_negative_tenten)
+}
+path.curve.positive_1-10 {
+	stroke: url(#gradient_positive_oneten)
+}
+path.curve.positive_2-10 {
+	stroke: url(#gradient_positive_twoten)
+}
+path.curve.positive_3-10 {
+	stroke: url(#gradient_positive_threeten)
+}
+path.curve.positive_4-10 {
+	stroke: url(#gradient_positive_fourten)
+}
+path.curve.positive_5-10 {
+	stroke: url(#gradient_positive_fiveten)
+}
+path.curve.positive_6-10 {
+	stroke: url(#gradient_positive_sixten)
+}
+path.curve.positive_7-10 {
+	stroke: url(#gradient_positive_seventen)
+}
+path.curve.positive_8-10 {
+	stroke: url(#gradient_positive_eightten)
+}
+path.curve.positive_9-10 {
+	stroke: url(#gradient_positive_nineten)
+}
+path.curve.positive_10-10 {
+	stroke: url(#gradient_positive_tenten)
+}
+path.curve.positive_right {
+	stroke: url(#gradient_positive_right)
+}
+path.curve.Lpositive_1-10 {
+	stroke: url(#Lgradient_positive_oneten)
+}
+path.curve.Lpositive_2-10 {
+	stroke: url(#Lgradient_positive_twoten)
+}
+path.curve.Lpositive_3-10 {
+	stroke: url(#Lgradient_positive_threeten)
+}
+path.curve.Lpositive_4-10 {
+	stroke: url(#Lgradient_positive_fourten)
+}
+path.curve.Lpositive_5-10 {
+	stroke: url(#Lgradient_positive_fiveten)
+}
+path.curve.Lpositive_6-10 {
+	stroke: url(#Lgradient_positive_sixten)
+}
+path.curve.Lpositive_7-10 {
+	stroke: url(#Lgradient_positive_seventen)
+}
+path.curve.Lpositive_8-10 {
+	stroke: url(#Lgradient_positive_eightten)
+}
+path.curve.Lpositive_9-10 {
+	stroke: url(#Lgradient_positive_nineten)
+}
+path.curve.Lpositive_10-10 {
+	stroke: url(#Lgradient_positive_tenten)
+}
+path.curve.Rpositive_1-10 {
+	stroke: url(#Rgradient_positive_oneten)
+}
+path.curve.Rpositive_2-10 {
+	stroke: url(#Rgradient_positive_twoten)
+}
+path.curve.Rpositive_3-10 {
+	stroke: url(#Rgradient_positive_threeten)
+}
+path.curve.Rpositive_4-10 {
+	stroke: url(#Rgradient_positive_fourten)
+}
+path.curve.Rpositive_5-10 {
+	stroke: url(#Rgradient_positive_fiveten)
+}
+path.curve.Rpositive_6-10 {
+	stroke: url(#Rgradient_positive_sixten)
+}
+path.curve.Rpositive_7-10 {
+	stroke: url(#Rgradient_positive_seventen)
+}
+path.curve.Rpositive_8-10 {
+	stroke: url(#Rgradient_positive_eightten)
+}
+path.curve.Rpositive_9-10 {
+	stroke: url(#Rgradient_positive_nineten)
+}
+path.curve.Rpositive_10-10 {
+	stroke: url(#Rgradient_positive_tenten)
+}
+line.vertical_line {
+	stroke: url(#vertical_gradient);
+	stroke - width: 1.5px
+}
+rect.bar_padding {
+	cursor: pointer
+}
+.uk - container {
+	max - width: 100 %
+}
+.uk - container - small {
+	max - width: 650px
+}
+.uk - container - medium {
+	max - width: 1024px
+}
+.uk - container - large {
+	max - width: 1599px
+}
+.uk - container - custom {
+	max - width: 1280px
+}
+.uk - overlay - panel {
+	-ms - flex - align: start;
+	-webkit - box - align: start;
+	align - items: flex - start
 }

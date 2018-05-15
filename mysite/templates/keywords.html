@@ -152,10 +152,11 @@ a:hover {
 </style>
 
 <ul class="form" style="float:left; margin-top: 50px;">
-	<li><a class="profile" href="#" style="background-image:url(../static/img/fb.png); background-size:contain;"></a></li>
-	<li><a class="messages" href="#" style="background-image:url(../static/img/tw.png); background-size:contain;"></a></li>
-	<li><a class="settings" href="#" style="background-image:url(../static/img/re.png); background-size:contain;"></a></li>
-	<li><a class="logout" href={% url 'tone_analysis' %} style="background-image:url(../static/img/tu.png); background-size:contain;"></a></li>
+	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Personality</a></li>
+	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Tone Analysis</a></li>
+	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Words Use</a></li>
+	<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Social Network</a></li>
+	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Life Pattern</a></li>
 </ul>
 
 <div class="row text-center" style="margin-top: 20px;">
@@ -180,6 +181,7 @@ a:hover {
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="../static/js/bootstrap-combobox.js"></script>
+<script type="text/javascript" src="../static/js/control.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
 <script src="https://d3js.org/queue.v1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r14/Stats.js"></script>
@@ -264,6 +266,7 @@ function drawAll(error, ageCSV, idCSV, occupations) {
 	nodes.forEach(function(d,i) {
 		nodeByName[d.name] = d;
 	});
+	console.log(nodeByName);
 
 	/*************************************************************************/
 	
