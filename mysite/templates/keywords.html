@@ -265,9 +265,7 @@ function drawAll(error, ageCSV, idCSV, occupations) {
 		nodeByName[d.name] = d;
 	});
 
-	////////////////////////////////////////////////////////////// 
-	///////////////// Create Bar Chart Data //////////////////////
-	////////////////////////////////////////////////////////////// 
+	/*************************************************************************/
 	
 	//Turn the value into an actual numeric value
 	ageCSV.forEach(function(d) { d.value = +d.value; });
@@ -295,9 +293,7 @@ function drawAll(error, ageCSV, idCSV, occupations) {
 		IDbyName[d.name] = d.ID; 
 	});	
 	
-	////////////////////////////////////////////////////////////// 
-	///////////////// Canvas draw function ///////////////////////
-	////////////////////////////////////////////////////////////// 
+	/*************************************************************************/
 		
 	var elementsPerBar = 7,
 		barChartHeight = 0.7,
@@ -475,10 +471,6 @@ function drawAll(error, ageCSV, idCSV, occupations) {
 		}//for i
 		
 	}//function drawCanvas
-
-	////////////////////////////////////////////////////////////// 
-	/////////////////// Click functionality ////////////////////// 
-	////////////////////////////////////////////////////////////// 
 	
 	//Default values for variables - set to root
 	var currentID = "",
@@ -524,10 +516,6 @@ function drawAll(error, ageCSV, idCSV, occupations) {
 	//Listen for clicks on the main canvas
 	//document.getElementById("canvas").addEventListener("click", clickFunction);
 	$("#canvas").on("click", clickFunction);
-	
-	////////////////////////////////////////////////////////////// 
-	//////////////// Mousemove functionality ///////////////////// 
-	////////////////////////////////////////////////////////////// 
 	
 	//Only run this if the user actually has a mouse
 	if (true) {
@@ -597,9 +585,6 @@ function drawAll(error, ageCSV, idCSV, occupations) {
 	
 	}//if !mobileSize
 
-	////////////////////////////////////////////////////////////// 
-	///////////////////// Zoom Function //////////////////////////
-	////////////////////////////////////////////////////////////// 
 	
 	//Based on the generous help by Stephan Smola
 	//http://bl.ocks.org/smoli/d7e4f9199c15d71258b5
