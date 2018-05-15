@@ -82,7 +82,8 @@ SOCIAL_AUTH_PIPELINE = (
 	'social_core.pipeline.social_auth.social_uid',
 	'social_core.pipeline.social_auth.social_user',
 	'social_core.pipeline.user.get_username',
-	'social_core.pipeline.user.create_user',
+	# 'social_core.pipeline.user.create_user',
+	'mysite.pipeline.create_new_user',
 	'social_core.pipeline.social_auth.associate_user',
 	'social_core.pipeline.social_auth.load_extra_data',
 	'social_core.pipeline.user.user_details',
@@ -169,11 +170,9 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 	'locale': 'ru_RU',
 	'fields': 'id, name, email, age_range'
 }
-SOCIAL_AUTH_FACEBOOK_SCOPE = [
-	'email',
-	'user_friends',
-	'friends_location',
-]
+# SOCIAL_AUTH_FACEBOOK_SCOPE = [
+	# 'email'
+# ]
 
 SOCIAL_AUTH_TUMBLR_KEY = 'IZS8jZq3HRoODrqIIGryRrr78Ry58qavS4j3byCcEWeGkdCS9I'
 SOCIAL_AUTH_TUMBLR_SECRET = 'gjbfotuFl54PCaOjEZeVWLDfJy2Z4B4DQ215FKm22KFaDKVaNP'

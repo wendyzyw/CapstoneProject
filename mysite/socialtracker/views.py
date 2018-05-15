@@ -16,12 +16,13 @@ from watson_developer_cloud.natural_language_understanding_v1 \
   import Features, KeywordsOptions, ConceptsOptions
   
 # Django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
-from django.contrib.auth import logout as logout
-from django.contrib.auth import login as twt_login
-from django.contrib.auth import authenticate as twt_authenticate
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate as auth_authenticate
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
@@ -58,7 +59,18 @@ def login(request):
 
 
 def signup(request):
-	return render(request, 'signup.html')
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			raw_password = form.cleaned_data.get('password1')
+			user = auth_authenticate(username=username, password=raw_password)
+			auth_login(request, user)
+			return redirect('/socialtracker/account')
+	else:
+		form = UserCreationForm()
+	return render(request, 'signup.html', {'form': form })
 
 
 def forgetPw(request):
@@ -106,11 +118,10 @@ def manage3(request):
 	except UserSocialAuth.DoesNotExist:
 		facebook_account is None
 
-	social_backend = request.session['social_auth_last_login_backend']
+	# social_backend = request.session['social_auth_last_login_backend']
 	return render(request, 'Manage3_social.html',
-					{'social_backend': social_backend, 'twitter_account': twitter_account, 'twitter_date': twitter_date,
-					'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date,
-					'facebook_id': facebook_id})
+					{'twitter_account': twitter_account, 'twitter_date': twitter_date,
+					'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date, 'facebook_id': facebook_id})
 					
 def keywords(request):
 	return render(request, 'keywords.html')
@@ -506,7 +517,7 @@ def twitter_login(request):
 
 @login_required
 def twitter_logout(request):
-	logout(request)
+	auth_logout(request)
 	# redirect back to homepage
 	return HttpResponseRedirect('/socialtracker')
 
