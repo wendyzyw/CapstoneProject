@@ -19,7 +19,7 @@ a:hover {
 }
 .title {
 	font-family: 'Oswald', sans-serif;
-	color: #1c1c1c;
+	color: WHITE;
 	text-align: left;
 }
 #topTitle {
@@ -30,7 +30,7 @@ a:hover {
 	text-align: left;
 	margin-bottom: 20px;
 	font-size: 16px;
-	color: #BFBFBF;
+	color: WHITE;
 	font-family: 'Oswald', sans-serif;
 	font-weight: 300;
 }
@@ -134,17 +134,16 @@ a:hover {
 <ul class="form" style="float:left; margin-top: 50px;">
 	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Personality</a></li>
 	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Tone Analysis</a></li>
-	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Words Use</a></li>
-	<li class="data-leftnav"><a class="data-leftnav-link" href=/socialtracker/tone_analysis>Social Network</a></li>
+	<li class="data-leftnav" id="#keywords"><a class="data-leftnav-link" href={% url 'keywords' %}>Words Use</a></li>
+	<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
 	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Life Pattern</a></li>
 </ul>
 
 <div class="row text-center" style="margin-top: 40px;">
-	<div class="col-md-8">
+	<div class="col-lg-8">
 		<div id="chart"></div>
 	</div>
-	<div class="col-md-4">
-		<div id="searchTitle" class="title">Find an Occupation</div>
+	<div class="col-lg-6">
 		<div class="form-group">			
 			<select id="searchBox" class="combobox input-large form-control" style="display: none;" onchange="searchEvent(this.value)">
 				 <option value="" selected="selected">Search...</option>
@@ -241,12 +240,15 @@ function drawAll(dataValues, IDbyName, nodeData) {
 	
 	var colorCircle = d3.scale.ordinal()
 			.domain([0,1])
-			.range(['#f03b20', '#feb24c']);
+			.range(['#feb24c', '#f03b20']);
+	
+	var negColor = '#0375b4';
+	var posColor = '#f03b20';
 			
 	var colorBar = d3.scale.ordinal()
 		.domain(["sadness","joy","fear","disgust","anger"])
 		.range(["#EFB605", "#E3690B", "#CF003E", "#991C71", "#4F54A8"]);	
-	var diameter = Math.min(width*0.95, height*0.95),
+	var diameter = Math.min(width, height),
 		radius = diameter / 2;
 		
 	var commaFormat = d3.format(',');
@@ -290,6 +292,7 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		// It's slightly faster than nodes.forEach()
 		for (var i = 0; i < nodeCount; i++) {
 			node = nodes[i];
+
 			//If the hidden canvas was send into this function and it does not yet have a color, generate a unique one
 			if(hidden) {
 				if(node.color == null) {
@@ -300,7 +303,15 @@ function drawAll(dataValues, IDbyName, nodeData) {
 				// On the hidden canvas each rectangle gets a unique color.
 				chosenContext.fillStyle = node.color;
 			} else {
-				chosenContext.fillStyle = node.children ? colorCircle(node.depth) : "white";
+				if (node.children){
+					if (node.name == 'negative'){
+						chosenContext.fillStyle = negColor;
+					} else {
+						chosenContext.fillStyle = colorCircle(node.depth);
+					}
+				} else {
+					chosenContext.fillStyle = "white";
+				}
 			}//else
 	
 			var nodeX = ((node.x - zoomInfo.centerX) * zoomInfo.scale) + centerX,
@@ -670,8 +681,8 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		//Setup letters and positioning
 		ctx.textBaseline = 'alphabetic';
 		ctx.textAlign = 'center'; // Ensure we draw in exact center
-		ctx.font = fontSize + "px " + titleFont;
-		ctx.fillStyle = "rgba(255,255,255," + textAlpha +")";
+		ctx.font = 20 + "px " + titleFont;
+		ctx.fillStyle = "rgba(0,0,0," + textAlpha +")";
 		startAngle = startAngle * (Math.PI / 180); // convert to radians
 		text = text.split("").reverse().join(""); // Reverse letters
 		

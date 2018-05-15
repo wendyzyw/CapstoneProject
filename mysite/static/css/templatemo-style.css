@@ -987,7 +987,7 @@ ul.form {
 		background-color: #6C5B7B;
 	}
 	
-	.data-leftnav:active{
+	.data-leftnav .active{
 		background-color: #efefef;
 	}
 
