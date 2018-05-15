@@ -1,87 +1,8 @@
+{% extends 'base.html' %}
 
-<html>
-<!-- this page includes the top level menu bar and the background img for all pages  -->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		
-        <title>Social Media Analytics</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-		
-		<!-- css -->
-		<!-- bootstrap css -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-        <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css?v=00001"  type="text/css">
-		<link rel="stylesheet" href="/static/css/bootstrap-social.css?v=00001" type="text/css">
-		<link rel="stylesheet" href="/static/css/vendor.min.css?v=00001" type="text/css">
-		<!-- other css -->
-        <!-- <link rel="stylesheet" href="/static/css/fontAwesome.css?v=00001" type="text/css"> -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-		<link rel="stylesheet" href="/static/css/bootstrap-combobox.css?v=00001" type="text/css">
-        <!-- <link rel="stylesheet" href="/static/css/hero-slider.css?v=00001" type="text/css"> -->
-        <link rel="stylesheet" href="/static/css/owl-carousel.css?v=00001" type="text/css">
-		<link rel="stylesheet" href="/static/css/lightbox.css?v=00001" type="text/css">
-		<link rel="stylesheet" href="/static/css/flexslider.css?v=00001" type="text/css" media="screen" />
-		<!-- our css -->
-        <link rel="stylesheet" href="/static/css/templatemo-style.css?v=00001" type="text/css">
-		<link rel="stylesheet" href="/static/css/templatemo_style.css?v=00001" type="text/css">
-		<link rel="stylesheet" href="/static/css/project.css?v=00001" type="text/css">
-		
-		<!-- js -->
-		<script src="/static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-		<script src="https://connect.facebook.net/en_US/all.js"></script>
+{% load staticfiles %}
 
-		<!-- D3.js -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-    </head>
-
-<body>
-
-	<div class="header">
-        <div class="container">
-            <nav class="navbar navbar-inverse" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href=/socialtracker/ class="navbar-brand"><em>S-</em>analysis</a>
-                </div>
-                <!--/.navbar-header-->
-                <div id="main-nav" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a class="scroll-top" href=/socialtracker/>Home</a></li>
-                        <li><a class="scroll-link" data-id="contact-us">Contact Us</a></li>
-						
-							<li>
-								<a class="scroll-link" href=/socialtracker/account>My Account</a>
-							</li>
-							<li>
-							<a class="scroll-link" href=/socialtracker/data>My Analysis</a>
-							</li>
-							<li>
-								<a class="scroll-link" href=/socialtracker/twitter_logout>Log out</a>
-							</li>
-						
-                    </ul>
-                </div>
-                <!--/.navbar-collapse-->
-            </nav>
-            <!--/.navbar-->
-        </div>
-        <!--/.container-->
-    </div>
-    <!--/.header-->
-	
-	<div class="parallax-content baner-content" id="home" style="height:1000px;">
-        
+{% block content_block %}
 <style>
 #chart {
 	font-family: 'Merriweather Sans', sans-serif;
@@ -263,15 +184,12 @@ a:hover {
 <script type="text/javascript" src="../static/js/control.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
 <script src="https://d3js.org/queue.v1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r14/Stats.js"></script>
-<!-- <script src="../static/js/multiCurves.js"></script> -->
-
 <script>
-
-var node_data = {'name': 'outermost', 'children': [{'name': 'positive', 'children': [{'name': 'night market', 'ID': '1.1.1', 'relevance': 97}, {'name': 'winter victoria night', 'ID': '1.1.2', 'relevance': 93}, {'name': 'good recommendation', 'ID': '1.1.3', 'relevance': 78}, {'name': 'real boost', 'ID': '1.1.4', 'relevance': 75}, {'name': 'cooking skills', 'ID': '1.1.5', 'relevance': 75}, {'name': 'Wonderland display', 'ID': '1.1.6', 'relevance': 74}, {'name': 'best thing', 'ID': '1.1.7', 'relevance': 74}, {'name': 'childhood dream', 'ID': '1.1.8', 'relevance': 73}, {'name': 'particular programming', 'ID': '1.1.9', 'relevance': 73}, {'name': 'good health', 'ID': '1.1.10', 'relevance': 73}, {'name': 'good skin', 'ID': '1.1.11', 'relevance': 73}, {'name': 'time machine', 'ID': '1.1.12', 'relevance': 72}, {'name': 'big data', 'ID': '1.1.13', 'relevance': 71}, {'name': 'craziness', 'ID': '1.1.14', 'relevance': 56}, {'name': 'ACMI', 'ID': '1.1.15', 'relevance': 56}, {'name': 'Melbourne', 'ID': '1.1.16', 'relevance': 54}, {'name': 'leaves', 'ID': '1.1.17', 'relevance': 54}, {'name': 'tutor', 'ID': '1.1.18', 'relevance': 54}]}, {'name': 'negative', 'children': [{'name': 'mood e… https://t.co/RvExvQq4IN', 'ID': '1.2.1', 'relevance': 99}, {'name': 'expensive skincare', 'ID': '1.2.8', 'relevance': 74}, {'name': 'good vibe', 'ID': '1.2.8', 'relevance': 74}, {'name': 'good place', 'ID': '1.2.10', 'relevance': 73}, {'name': 'hard subjects', 'ID': '1.2.12', 'relevance': 72}, {'name': 'life balance', 'ID': '1.2.12', 'relevance': 72}, {'name': 'fair mark', 'ID': '1.2.12', 'relevance': 72}, {'name': 'crazy projects', 'ID': '1.2.12', 'relevance': 72}, {'name': 'group project', 'ID': '1.2.12', 'relevance': 72}, {'name': 'm… https://t.co/OeUSdUXhaJ', 'ID': '1.2.13', 'relevance': 71}, {'name': 'visualization tools', 'ID': '1.2.13', 'relevance': 71}, {'name': 'api calls', 'ID': '1.2.14', 'relevance': 71}, {'name': 'big project', 'ID': '1.2.14', 'relevance': 71}, {'name': 'hard time', 'ID': '1.2.14', 'relevance': 71}, {'name': 'semester', 'ID': '1.2.14', 'relevance': 60}, {'name': 'campus', 'ID': '1.2.14', 'relevance': 58}, {'name': 'vacation', 'ID': '1.2.14', 'relevance': 57}, {'name': 'Homesickness', 'ID': '1.2.14', 'relevance': 57}, {'name': 'grudges', 'ID': '1.2.14', 'relevance': 56}, {'name': 'complains', 'ID': '1.2.16', 'relevance': 56}, {'name': 'FB', 'ID': '1.2.16', 'relevance': 55}, {'name': 'memes', 'ID': '1.2.16', 'relevance': 55}, {'name': 'slaves', 'ID': '1.2.16', 'relevance': 55}, {'name': 'nightmares', 'ID': '1.2.17', 'relevance': 54}, {'name': 'nightmare', 'ID': '1.2.17', 'relevance': 54}, {'name': 'Twitter', 'ID': '1.2.17', 'relevance': 54}, {'name': 'cats', 'ID': '1.2.17', 'relevance': 54}, {'name': 'relationship', 'ID': '1.2.18', 'relevance': 54}, {'name': 'Spider', 'ID': '1.2.18', 'relevance': 54}, {'name': 'family', 'ID': '1.2.18', 'relevance': 54}, {'name': 'University', 'ID': '1.2.18', 'relevance': 54}, {'name': 'hell', 'ID': '1.2.19', 'relevance': 54}]}]};
-var id_by_name = {'mood e… https://t.co/RvExvQq4IN': '1.2.1', 'night market': '1.1.1', 'winter victoria night': '1.1.2', 'good recommendation': '1.1.3', 'real boost': '1.1.4', 'cooking skills': '1.1.5', 'Wonderland display': '1.1.6', 'best thing': '1.1.7', 'expensive skincare': '1.2.8', 'good vibe': '1.2.8', 'childhood dream': '1.1.8', 'particular programming': '1.1.9', 'good place': '1.2.10', 'good health': '1.1.10', 'good skin': '1.1.11', 'hard subjects': '1.2.12', 'life balance': '1.2.12', 'fair mark': '1.2.12', 'crazy projects': '1.2.12', 'group project': '1.2.12', 'time machine': '1.1.12', 'm… https://t.co/OeUSdUXhaJ': '1.2.13', 'visualization tools': '1.2.13', 'big data': '1.1.13', 'api calls': '1.2.14', 'big project': '1.2.14', 'hard time': '1.2.14', 'semester': '1.2.14', 'campus': '1.2.14', 'vacation': '1.2.14', 'Homesickness': '1.2.14', 'grudges': '1.2.14', 'craziness': '1.1.14', 'ACMI': '1.1.15', 'complains': '1.2.16', 'FB': '1.2.16', 'memes': '1.2.16', 'slaves': '1.2.16', 'Melbourne': '1.1.16', 'nightmares': '1.2.17', 'nightmare': '1.2.17', 'Twitter': '1.2.17', 'cats': '1.2.17', 'leaves': '1.1.17', 'relationship': '1.2.18', 'Spider': '1.2.18', 'family': '1.2.18', 'University': '1.2.18', 'tutor': '1.1.18', 'hell': '1.2.19'};
-var data_with_values = {'1.2.1': {'key': '1.2.1', 'values': [{'ID': '1.2.1', 'emotion': 'sadness', 'value': 0.967512}, {'ID': '1.2.1', 'emotion': 'joy', 'value': 0.008777}, {'ID': '1.2.1', 'emotion': 'fear', 'value': 0.100405}, {'ID': '1.2.1', 'emotion': 'disgust', 'value': 0.037638}, {'ID': '1.2.1', 'emotion': 'anger', 'value': 0.054107}]}, '1.1.1': {'key': '1.1.1', 'values': [{'ID': '1.1.1', 'emotion': 'sadness', 'value': 0.105916}, {'ID': '1.1.1', 'emotion': 'joy', 'value': 0.81435}, {'ID': '1.1.1', 'emotion': 'fear', 'value': 0.027206}, {'ID': '1.1.1', 'emotion': 'disgust', 'value': 0.003654}, {'ID': '1.1.1', 'emotion': 'anger', 'value': 0.042361}]}, '1.1.2': {'key': '1.1.2', 'values': [{'ID': '1.1.2', 'emotion': 'sadness', 'value': 0.20057}, {'ID': '1.1.2', 'emotion': 'joy', 'value': 0.712142}, {'ID': '1.1.2', 'emotion': 'fear', 'value': 0.025089}, {'ID': '1.1.2', 'emotion': 'disgust', 'value': 0.009434}, {'ID': '1.1.2', 'emotion': 'anger', 'value': 0.040997}]}, '1.1.3': {'key': '1.1.3', 'values': [{'ID': '1.1.3', 'emotion': 'sadness', 'value': 0.098371}, {'ID': '1.1.3', 'emotion': 'joy', 'value': 0.726226}, {'ID': '1.1.3', 'emotion': 'fear', 'value': 0.03896}, {'ID': '1.1.3', 'emotion': 'disgust', 'value': 0.079797}, {'ID': '1.1.3', 'emotion': 'anger', 'value': 0.021642}]}, '1.1.4': {'key': '1.1.4', 'values': [{'ID': '1.1.4', 'emotion': 'sadness', 'value': 0.06202}, {'ID': '1.1.4', 'emotion': 'joy', 'value': 0.61364}, {'ID': '1.1.4', 'emotion': 'fear', 'value': 0.047367}, {'ID': '1.1.4', 'emotion': 'disgust', 'value': 0.022445}, {'ID': '1.1.4', 'emotion': 'anger', 'value': 0.112927}]}, '1.1.5': {'key': '1.1.5', 'values': [{'ID': '1.1.5', 'emotion': 'sadness', 'value': 0.06202}, {'ID': '1.1.5', 'emotion': 'joy', 'value': 0.61364}, {'ID': '1.1.5', 'emotion': 'fear', 'value': 0.047367}, {'ID': '1.1.5', 'emotion': 'disgust', 'value': 0.022445}, {'ID': '1.1.5', 'emotion': 'anger', 'value': 0.112927}]}, '1.1.6': {'key': '1.1.6', 'values': [{'ID': '1.1.6', 'emotion': 'sadness', 'value': 0.186308}, {'ID': '1.1.6', 'emotion': 'joy', 'value': 0.177555}, {'ID': '1.1.6', 'emotion': 'fear', 'value': 0.105614}, {'ID': '1.1.6', 'emotion': 'disgust', 'value': 0.157869}, {'ID': '1.1.6', 'emotion': 'anger', 'value': 0.101773}]}, '1.1.7': {'key': '1.1.7', 'values': [{'ID': '1.1.7', 'emotion': 'sadness', 'value': 0.032423}, {'ID': '1.1.7', 'emotion': 'joy', 'value': 0.595649}, {'ID': '1.1.7', 'emotion': 'fear', 'value': 0.02916}, {'ID': '1.1.7', 'emotion': 'disgust', 'value': 0.014823}, {'ID': '1.1.7', 'emotion': 'anger', 'value': 0.020314}]}, '1.2.8': {'key': '1.2.8', 'values': [{'ID': '1.2.8', 'emotion': 'sadness', 'value': 0.215322}, {'ID': '1.2.8', 'emotion': 'joy', 'value': 0.613089}, {'ID': '1.2.8', 'emotion': 'fear', 'value': 0.193998}, {'ID': '1.2.8', 'emotion': 'disgust', 'value': 0.021328}, {'ID': '1.2.8', 'emotion': 'anger', 'value': 0.01257}]}, '1.1.8': {'key': '1.1.8', 'values': [{'ID': '1.1.8', 'emotion': 'sadness', 'value': 0.147221}, {'ID': '1.1.8', 'emotion': 'joy', 'value': 0.689603}, {'ID': '1.1.8', 'emotion': 'fear', 'value': 0.039797}, {'ID': '1.1.8', 'emotion': 'disgust', 'value': 0.007045}, {'ID': '1.1.8', 'emotion': 'anger', 'value': 0.022785}]}, '1.1.9': {'key': '1.1.9', 'values': [{'ID': '1.1.9', 'emotion': 'sadness', 'value': 0.032423}, {'ID': '1.1.9', 'emotion': 'joy', 'value': 0.595649}, {'ID': '1.1.9', 'emotion': 'fear', 'value': 0.02916}, {'ID': '1.1.9', 'emotion': 'disgust', 'value': 0.014823}, {'ID': '1.1.9', 'emotion': 'anger', 'value': 0.020314}]}, '1.2.10': {'key': '1.2.10', 'values': [{'ID': '1.2.10', 'emotion': 'sadness', 'value': 0.121597}, {'ID': '1.2.10', 'emotion': 'joy', 'value': 0.552586}, {'ID': '1.2.10', 'emotion': 'fear', 'value': 0.054775}, {'ID': '1.2.10', 'emotion': 'disgust', 'value': 0.12608}, {'ID': '1.2.10', 'emotion': 'anger', 'value': 0.179098}]}, '1.1.10': {'key': '1.1.10', 'values': [{'ID': '1.1.10', 'emotion': 'sadness', 'value': 0.062709}, {'ID': '1.1.10', 'emotion': 'joy', 'value': 0.843144}, {'ID': '1.1.10', 'emotion': 'fear', 'value': 0.047503}, {'ID': '1.1.10', 'emotion': 'disgust', 'value': 0.015426}, {'ID': '1.1.10', 'emotion': 'anger', 'value': 0.008202}]}, '1.1.11': {'key': '1.1.11', 'values': [{'ID': '1.1.11', 'emotion': 'sadness', 'value': 0.062709}, {'ID': '1.1.11', 'emotion': 'joy', 'value': 0.843144}, {'ID': '1.1.11', 'emotion': 'fear', 'value': 0.047503}, {'ID': '1.1.11', 'emotion': 'disgust', 'value': 0.015426}, {'ID': '1.1.11', 'emotion': 'anger', 'value': 0.008202}]}, '1.2.12': {'key': '1.2.12', 'values': [{'ID': '1.2.12', 'emotion': 'sadness', 'value': 0.215322}, {'ID': '1.2.12', 'emotion': 'joy', 'value': 0.613089}, {'ID': '1.2.12', 'emotion': 'fear', 'value': 0.193998}, {'ID': '1.2.12', 'emotion': 'disgust', 'value': 0.021328}, {'ID': '1.2.12', 'emotion': 'anger', 'value': 0.01257}]}, '1.1.12': {'key': '1.1.12', 'values': [{'ID': '1.1.12', 'emotion': 'sadness', 'value': 0.499454}, {'ID': '1.1.12', 'emotion': 'joy', 'value': 0.192718}, {'ID': '1.1.12', 'emotion': 'fear', 'value': 0.202}, {'ID': '1.1.12', 'emotion': 'disgust', 'value': 0.046843}, {'ID': '1.1.12', 'emotion': 'anger', 'value': 0.109288}]}, '1.2.13': {'key': '1.2.13', 'values': [{'ID': '1.2.13', 'emotion': 'sadness', 'value': 0.246203}, {'ID': '1.2.13', 'emotion': 'joy', 'value': 0.288084}, {'ID': '1.2.13', 'emotion': 'fear', 'value': 0.104512}, {'ID': '1.2.13', 'emotion': 'disgust', 'value': 0.183487}, {'ID': '1.2.13', 'emotion': 'anger', 'value': 0.058274}]}, '1.1.13': {'key': '1.1.13', 'values': [{'ID': '1.1.13', 'emotion': 'sadness', 'value': 0.174573}, {'ID': '1.1.13', 'emotion': 'joy', 'value': 0.646112}, {'ID': '1.1.13', 'emotion': 'fear', 'value': 0.103068}, {'ID': '1.1.13', 'emotion': 'disgust', 'value': 0.055578}, {'ID': '1.1.13', 'emotion': 'anger', 'value': 0.030469}]}, '1.2.14': {'key': '1.2.14', 'values': [{'ID': '1.2.14', 'emotion': 'sadness', 'value': 0.121597}, {'ID': '1.2.14', 'emotion': 'joy', 'value': 0.552586}, {'ID': '1.2.14', 'emotion': 'fear', 'value': 0.054775}, {'ID': '1.2.14', 'emotion': 'disgust', 'value': 0.12608}, {'ID': '1.2.14', 'emotion': 'anger', 'value': 0.179098}]}, '1.1.14': {'key': '1.1.14', 'values': [{'ID': '1.1.14', 'emotion': 'sadness', 'value': 0.186308}, {'ID': '1.1.14', 'emotion': 'joy', 'value': 0.177555}, {'ID': '1.1.14', 'emotion': 'fear', 'value': 0.105614}, {'ID': '1.1.14', 'emotion': 'disgust', 'value': 0.157869}, {'ID': '1.1.14', 'emotion': 'anger', 'value': 0.101773}]}, '1.1.15': {'key': '1.1.15', 'values': [{'ID': '1.1.15', 'emotion': 'sadness', 'value': 0.186308}, {'ID': '1.1.15', 'emotion': 'joy', 'value': 0.177555}, {'ID': '1.1.15', 'emotion': 'fear', 'value': 0.105614}, {'ID': '1.1.15', 'emotion': 'disgust', 'value': 0.157869}, {'ID': '1.1.15', 'emotion': 'anger', 'value': 0.101773}]}, '1.2.16': {'key': '1.2.16', 'values': [{'ID': '1.2.16', 'emotion': 'sadness', 'value': 0.392709}, {'ID': '1.2.16', 'emotion': 'joy', 'value': 0.285414}, {'ID': '1.2.16', 'emotion': 'fear', 'value': 0.187546}, {'ID': '1.2.16', 'emotion': 'disgust', 'value': 0.221073}, {'ID': '1.2.16', 'emotion': 'anger', 'value': 0.051239}]}, '1.1.16': {'key': '1.1.16', 'values': [{'ID': '1.1.16', 'emotion': 'sadness', 'value': 0.098371}, {'ID': '1.1.16', 'emotion': 'joy', 'value': 0.726226}, {'ID': '1.1.16', 'emotion': 'fear', 'value': 0.03896}, {'ID': '1.1.16', 'emotion': 'disgust', 'value': 0.079797}, {'ID': '1.1.16', 'emotion': 'anger', 'value': 0.021642}]}, '1.2.17': {'key': '1.2.17', 'values': [{'ID': '1.2.17', 'emotion': 'sadness', 'value': 0.226068}, {'ID': '1.2.17', 'emotion': 'joy', 'value': 0.240363}, {'ID': '1.2.17', 'emotion': 'fear', 'value': 0.39252}, {'ID': '1.2.17', 'emotion': 'disgust', 'value': 0.189614}, {'ID': '1.2.17', 'emotion': 'anger', 'value': 0.155086}]}, '1.1.17': {'key': '1.1.17', 'values': [{'ID': '1.1.17', 'emotion': 'sadness', 'value': 0.042433}, {'ID': '1.1.17', 'emotion': 'joy', 'value': 0.845805}, {'ID': '1.1.17', 'emotion': 'fear', 'value': 0.089871}, {'ID': '1.1.17', 'emotion': 'disgust', 'value': 0.011636}, {'ID': '1.1.17', 'emotion': 'anger', 'value': 0.031437}]}, '1.2.18': {'key': '1.2.18', 'values': [{'ID': '1.2.18', 'emotion': 'sadness', 'value': 0.101241}, {'ID': '1.2.18', 'emotion': 'joy', 'value': 0.029988}, {'ID': '1.2.18', 'emotion': 'fear', 'value': 0.832098}, {'ID': '1.2.18', 'emotion': 'disgust', 'value': 0.152221}, {'ID': '1.2.18', 'emotion': 'anger', 'value': 0.065007}]}, '1.1.18': {'key': '1.1.18', 'values': [{'ID': '1.1.18', 'emotion': 'sadness', 'value': 0.032423}, {'ID': '1.1.18', 'emotion': 'joy', 'value': 0.595649}, {'ID': '1.1.18', 'emotion': 'fear', 'value': 0.02916}, {'ID': '1.1.18', 'emotion': 'disgust', 'value': 0.014823}, {'ID': '1.1.18', 'emotion': 'anger', 'value': 0.020314}]}, '1.2.19': {'key': '1.2.19', 'values': [{'ID': '1.2.19', 'emotion': 'sadness', 'value': 0.916667}, {'ID': '1.2.19', 'emotion': 'joy', 'value': 0.0}, {'ID': '1.2.19', 'emotion': 'fear', 'value': 0.931034}, {'ID': '1.2.19', 'emotion': 'disgust', 'value': 0.931034}, {'ID': '1.2.19', 'emotion': 'anger', 'value': 0.931034}]}};
-
+{% autoescape off %}
+var node_data = {{node_data}};
+var data_with_values = {{data_with_values}};
+var id_by_name = {{id_by_name}};
+{% endautoescape %}
 
 drawAll(data_with_values, id_by_name, node_data);
 	
@@ -350,6 +268,11 @@ function drawAll(dataValues, IDbyName, nodeData) {
 	var elementsPerBar = 5,
 		barChartHeight = 0.7,
 		barChartHeightOffset = 0.15;
+		
+		//Listen for clicks on the main canvas
+	//document.getElementById("canvas").addEventListener("click", clickFunction);
+	$("#canvas").on("click", clickFunction);
+	$("#canvas").on("mousemove", mousemoveFunction);
 	
 	//The draw function of the canvas that gets called on each frame
 	function drawCanvas(chosenContext, hidden) {
@@ -564,78 +487,69 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		}//if -> node
 		
 	}//function clickFunction
-
-	//Listen for clicks on the main canvas
-	//document.getElementById("canvas").addEventListener("click", clickFunction);
-	$("#canvas").on("click", clickFunction);
 	
-	//Only run this if the user actually has a mouse
-	if (true) {
-		var nodeOld = root;
+	var nodeOld = root;
+	
+	//Listen for mouse moves on the main canvas
+	var mousemoveFunction = function(e){
+		//Figure out where the mouse click occurred.
+		var mouseX = e.offsetX; //e.layerX;
+		var mouseY = e.offsetY; //e.layerY;
 		
-		//Listen for mouse moves on the main canvas
-		var mousemoveFunction = function(e){
-			//Figure out where the mouse click occurred.
-			var mouseX = e.offsetX; //e.layerX;
-			var mouseY = e.offsetY; //e.layerY;
-			
-			// Get the corresponding pixel color on the hidden canvas and look up the node in our map.
-			// This will return that pixel's color
-			var col = hiddenContext.getImageData(mouseX, mouseY, 1, 1).data;
-			//Our map uses these rgb strings as keys to nodes.
-			var colString = "rgb(" + col[0] + "," + col[1] + ","+ col[2] + ")";
-			var node = colToCircle[colString];
+		// Get the corresponding pixel color on the hidden canvas and look up the node in our map.
+		// This will return that pixel's color
+		var col = hiddenContext.getImageData(mouseX, mouseY, 1, 1).data;
+		//Our map uses these rgb strings as keys to nodes.
+		var colString = "rgb(" + col[0] + "," + col[1] + ","+ col[2] + ")";
+		var node = colToCircle[colString];
 
-			//Only change the popover if the user mouses over something new
-			if(node !== nodeOld) {
-				//Remove all previous popovers
-				$('.popoverWrapper').remove(); 
-				$('.popover').each(function() {
-						$('.popover').remove(); 	
-				 }); 
-				//Only continue when the user mouses over an actual node
-				if(node) {
-					//Only show a popover for the leaf nodes
-					if(typeof node.ID !== "undefined") {
-						//Needed for placement
-						var nodeX = ((node.x - zoomInfo.centerX) * zoomInfo.scale) + centerX,
-							nodeY = ((node.y - zoomInfo.centerY) * zoomInfo.scale) + centerY,
-							nodeR = node.r * zoomInfo.scale;
-						
-						//Create the wrapper div for the popover
-						var div = document.createElement('div');
-						div.setAttribute('class', 'popoverWrapper');
-						document.getElementById('chart').appendChild(div);
+		//Only change the popover if the user mouses over something new
+		if(node !== nodeOld) {
+			//Remove all previous popovers
+			$('.popoverWrapper').remove(); 
+			$('.popover').each(function() {
+					$('.popover').remove(); 	
+			 }); 
+			//Only continue when the user mouses over an actual node
+			if(node) {
+				//Only show a popover for the leaf nodes
+				if(typeof node.ID !== "undefined") {
+					//Needed for placement
+					var nodeX = ((node.x - zoomInfo.centerX) * zoomInfo.scale) + centerX,
+						nodeY = ((node.y - zoomInfo.centerY) * zoomInfo.scale) + centerY,
+						nodeR = node.r * zoomInfo.scale;
+					
+					//Create the wrapper div for the popover
+					var div = document.createElement('div');
+					div.setAttribute('class', 'popoverWrapper');
+					document.getElementById('chart').appendChild(div);
 
-						//Position the wrapper right above the circle
-						$(".popoverWrapper").css({
-							'position':'absolute',
-							'top':nodeY-nodeR,
-							'left':nodeX+padding*5/4
+					//Position the wrapper right above the circle
+					$(".popoverWrapper").css({
+						'position':'absolute',
+						'top':nodeY-nodeR,
+						'left':nodeX+padding*5/4
+					});
+					
+					//Show the tooltip
+					$(".popoverWrapper").popover({
+						placement: 'auto top',
+						container: 'body',
+						trigger: 'manual',
+						html : true,
+						animation:false,
+						content: function() { 
+							return "<span class='nodeTooltip'>" + node.name + "</span>"; }
 						});
-						
-						//Show the tooltip
-						$(".popoverWrapper").popover({
-							placement: 'auto top',
-							container: 'body',
-							trigger: 'manual',
-							html : true,
-							animation:false,
-							content: function() { 
-								return "<span class='nodeTooltip'>" + node.name + "</span>"; }
-							});
-						$(".popoverWrapper").popover('show');
-					}//if -> typeof node.ID !== "undefined"
-				}//if -> node
-			}//if -> node !== nodeOld
-			
-			nodeOld = node;
-		}//function mousemoveFunction
+					$(".popoverWrapper").popover('show');
+				}//if -> typeof node.ID !== "undefined"
+			}//if -> node
+		}//if -> node !== nodeOld
 		
-		//document.getElementById("canvas").addEventListener("mousemove", mousemoveFunction);
-		$("#canvas").on("mousemove", mousemoveFunction);
+		nodeOld = node;
+	}//function mousemoveFunction
 	
-	}//if !mobileSize
+	//document.getElementById("canvas").addEventListener("mousemove", mousemoveFunction);
 
 	
 	//Based on the generous help by Stephan Smola
@@ -824,7 +738,7 @@ function drawAll(dataValues, IDbyName, nodeData) {
 	drawCanvas(hiddenContext, true);
 	//Draw the legend
 	var scaleFactor = 1; //dummy value
-	createLegend(scaleFactor);
+	<!-- createLegend(scaleFactor); -->
 	//Slowly fade in so the scaleFactor is set to the correct value in the mean time :)
 	d3.select(".legendWrapper").transition().duration(1000).delay(500).style("opacity", 1);
 	
@@ -847,26 +761,6 @@ function drawAll(dataValues, IDbyName, nodeData) {
 		
 }//drawAll
 
-	
-////////////////////////////////////////////////////////////// 
-//////////////////// Other Functions /////////////////////////
-////////////////////////////////////////////////////////////// 
-
-//Needed in the global scope
-var searchEvent = function(occupation) { };
-	
-//If there is a scroll bar then its fine
-//But if there is no scrollbar prevent one from occuring when the user opens the search box
-//Otherwise the visual will seem to move to the left for a bit and that looks rather odd
-var noScrollBar = ($(document).height() > $(window).height() ? false : true);
-if(noScrollBar) {
-	//Prevent scroll bars from forming
-	document.documentElement.style.overflow = 'hidden';  // firefox, chrome
-	document.body.scroll = "no"; // ie only
-}//if
-
-//Generates the next color in the sequence, going from 0,0,0 to 255,255,255.
-//From: https://bocoup.com/weblog/2d-picking-in-canvas
 var nextCol = 1;
 function genColor(){
 	var ret = [];
@@ -903,76 +797,5 @@ function getLines(ctx, text, maxWidth, fontSize, titleFont) {
 	return lines;
 }//function getLines
 
-////////////////////////////////////////////////////////////// 
-///////////// Function | The legend creation /////////////////
-////////////////////////////////////////////////////////////// 
-
-function createLegend(scaleFactor) {
-	var legendSizes = [10,20,30],
-		commaFormat = d3.format(',');
-		
-	//d3.select("#legendRowWrapper").style("opacity", 0);
-	
-	var width = $("#legendCircles").width(),
-		height = legendSizes[2]*2*1.2;
-
-	var	legendCenter = -10,
-		legendBottom = height,
-		legendLineLength = legendSizes[2]*1.3,
-		textPadding = 5
-		
-	//Create SVG for the legend
-	var svg = d3.select("#legendCircles").append("svg")
-		.attr("width", width)
-		.attr("height", height)
-	  .append("g")
-		.attr("class", "legendWrapper")
-		.attr("transform", "translate(" + width / 2 + "," + 0 + ")")
-		.style("opacity", 0);
-	
-	//Draw the circles
-	svg.selectAll(".legendCircle")
-		.data(legendSizes)
-		.enter().append("circle")
-		.attr('r', function(d) { return d; })
-		.attr('class',"legendCircle")
-		.attr('cx', legendCenter)
-		.attr('cy', function(d) { return legendBottom-d; });
-	//Draw the line connecting the top of the circle to the number
-	svg.selectAll(".legendLine")
-		.data(legendSizes)
-		.enter().append("line")
-		.attr('class',"legendLine")
-		.attr('x1', legendCenter)
-		.attr('y1', function(d) { return legendBottom-2*d; })
-		.attr('x2', legendCenter + legendLineLength)
-		.attr('y2', function(d) { return legendBottom-2*d; });	
-	//Place the value next to the line
-	svg.selectAll(".legendText")
-		.data(legendSizes)
-		.enter().append("text")
-		.attr('class',"legendText")
-		.attr('x', legendCenter + legendLineLength + textPadding)
-		.attr('y', function(d) { return legendBottom-2*d; })
-		.attr('dy', '0.3em')
-		.text(function(d) { return commaFormat(Math.round(scaleFactor * d * d / 10)*10); });
-		
-}//createLegend
 </script>
-
-    </div>
-
-	<div class="index_page">
-	
-	</div>
-	
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../static/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-
-    <script src="../static/js/vendor/bootstrap.min.js"></script>
-
-    <script src="../static/js/plugins.js"></script>
-    <script src="../static/js/main.js"></script>
-
-</body>
-</html>
+{% endblock %}
