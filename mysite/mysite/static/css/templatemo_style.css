@@ -128,7 +128,7 @@ article { margin-top: 15px; margin-bottom: 15px; }
 #right_container .row { clear: both; padding-top: 0px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px; }
 #right_container .col-md-7 { padding-left: 0px; }
 
-#right_container h2 { color: #f55b1f; }
+#right_container h2 { color: #f55b1f; font-size:25px;position:relative;left:-260px;}
 #right_container h3 { color: #f55b1f; }
 
 #templatemo_footer { color: #FFFFFF; font-size: 0.8em; text-align: center; font-family: Arial, sans-serif; }

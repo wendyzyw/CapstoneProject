@@ -1,0 +1,75 @@
+{
+    "name": "Sources",
+    "color": "#d8c51d",
+    "percent": "",
+    "children": [
+    {
+        "name": "Traffic",
+        "color": "#16c1d3",
+        "percent": "17.5%",
+        "children": [
+            {
+            "name": "Trucks",
+            "size": 1287.8589,
+            "color": "#81c9cc", 
+            "percent": "70.9%"
+            },
+            {
+            "name": "Cars",
+            "size": 480.1538,
+            "color": "#79b5b5",
+            "percent": "26.4%"
+            },
+            {
+            "name": "Buses",
+            "size": 48.87407,
+            "color": "#6bd6d6", 
+            "percent": "2.7%"
+            }
+        ]
+    },
+    {
+        "name": "Buildings",
+        "color": "#1ead5e",
+        "percent": "49.5%",
+        "children": [
+            {"name": "Commercial Cooking", "size": 2105.119, "percent": "40.9%", "color": "#80c49b"},
+            {"name": "Construction Dust", "size": 480.4541, "percent": "9.3%","color": "#aadb9e"},
+            {"name": "Distillate Oil", "size": 17.16, "percent": "0.3%", "color": "#80c49b"},
+            {"name": "Natural Gas", "size": 1176.93, "percent": "22.9%", "color": "#9ff4c1"},
+            {"name": "Residual Oil", "size": 297.5, "percent": "5.8%", "color": "#98ef86"},
+            {"name": "Wood", "size": 1069.649, "percent": "20.8%", "color": "#aeef84"}
+        ]
+    },
+    {
+        "name": "Electric Generation", 
+        "color": "#c95b55",
+        "percent": "7.4%",
+        "children": [
+            {"name": "Electric Generation", "size": 773.8826, "percent": "100%", "color": "#d87d7d"}
+        ]
+    },
+    {
+        "name": "Road Dust",
+        "color": "#dd7812",
+        "percent": "6.7%",
+        "children": [
+            {"name": "Road Dust", "size": 651.3404, "percent": "100%", "color": "#d6975f"}
+        ]
+    },
+    {
+        "name": "Non-Road",
+        "color": "#7f7975",
+        "percent": "19.0%",
+        "children": [
+            {"name": "Aviation", "size": 124.9522, "percent": "6.3%", "color": "#bab1ab"},
+            {"name": "Marine Vessels", "size": 298.7242, "percent": "15.2%", "color": "#a3948d"},
+            {"name": "Non Road Equipment", "size": 1547.863, "percent": "78.5%", "color": "#ada18e"}
+        ]
+    }
+    ]
+}
+
+
+            
+    
