@@ -30,6 +30,7 @@ urlpatterns = [
 	path('keywords', views.keywords, name='keywords'),
 	path('social_network', views.social_network, name='social_network'),
 	path('time_heatmap', views.time_heatmap, name='time_heatmap'),
+	path('bubble',views.get_hashtag_list, name='bubble')
 	# social media login
 	path('oauth', include('social_django.urls', namespace='social')), 
 ]

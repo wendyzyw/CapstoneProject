@@ -435,6 +435,59 @@ def time_heatmap(request):
 
 	return render(request, 'heatmap.html', {'heatmapData': heatmapData})
 
+def get_hashtag_list(request):
+	user = request.user
+	twitter_account = user.social_auth.get(provider='twitter')
+	twitter_json = twitter_account.extra_data
+	# retriev user timeline
+	auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
+	auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
+	api = tweepy.API(auth)
+
+	lemmatizer = WordNetLemmatizer()
+	stop_words = set(stopwords.words('english'))
+	tweet_text = []
+	#facebook_token = 'EAACEdEose0cBAHr03FDFLi5mt6fXJZBB4eHehYMm41FXIyoZAmqSw4DicBzJVpRmXcecvdnGJgGAu2aghZAfuDRMZA8jnWfXNnCNPopMBW6GFzZCLS0M8Kt9ndEb5VZC3kEIasDXKBfXN2raZC38vzJ90DeuhnZC2znS1MSZBdaUVZAKoafNukRKj6gzDVmCAPiJOjSuoL4aHkMgZDZD'
+	#person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
+
+	#posts = requests.get(person).json().get('data')
+	#for post in posts:
+		#sentence = post.get('message')
+		#if sentence != None:
+			#tweet_text.append(sentence)
+
+	for tweet in tweepy.Cursor(api.user_timeline).items():
+		tweet_text.append(tweet._json['text'])
+	BOW = {}
+	hashtag_list = []
+	word_list = []
+	http_list = []
+	string_list = []
+	for sentence in tweet_text:
+		sentence = preprocess(sentence.lower())
+		for word in sentence:
+			ret_match = re.match('https?://\S+', word);
+			if word.startswith('#'):
+				hashtag_list.append(word)
+			elif (ret_match):
+				http_list.append(word)
+			else:
+				word = remove_non_ascii_2(word)
+				if word not in string.punctuation:
+					word_list.append(word)
+
+	for word in hashtag_list:
+		word = lemmatizer.lemmatize(word)
+		if word not in stop_words and word != ' ':
+			BOW[word] = BOW.get(word, 0) + 1
+		sorted(BOW.items(), key=lambda t: t[1], reverse=True)
+	for word in BOW:
+		string_item = {'text': word, 'count': BOW[word]}
+		string_list.append(string_item)
+	Json_string_list = json.dumps(string_list)
+	return render(request, 'bubble.html', {'Json_string_list': Json_string_list})
+
+
 def twitter_login(request):
 	# step 1: send req token request to twitter
 	resp, content = client.request(request_token_url, "POST")
