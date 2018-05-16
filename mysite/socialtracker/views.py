@@ -35,7 +35,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordChangeView, \
 from social_django.models import UserSocialAuth
 
 # my app
-from .models import Profile, UserInfo
+from .models import Profile, User
 from .forms import LoginForm, ChangepassForm, EdituserinfoForm, RegisterForm, MyPasswordResetForm
 
 ####################################
@@ -57,7 +57,7 @@ def index(request):
 
 
 def login(request):
-    UserInfo.objects.filter(username='ElfWx').delete()
+    User.objects.filter(username='ElfWx').delete()
     if request.method == "POST":
         uf = LoginForm(request.POST)
         if uf.is_valid():
@@ -92,7 +92,7 @@ def register(request):
                 return render(request, 'signup.html', {'uf': uf, 'message': 'please confirm your new password!'})
             else:
                 try:
-                    UserInfo.objects.create_user(username=username, password=password, email=email,
+                    User.objects.create_user(username=username, password=password, email=email,
                                                  phone='0', first_name=first_name, last_name=last_name)
                     return login(request)
                 except:
@@ -175,7 +175,7 @@ def manage2(request):
             city = request.POST.get('city', '')
             email = request.POST.get('email', '')
             username = request.user.username
-            UserInfo.objects.filter(username=username).update(first_name=first_name, last_name=last_name,
+            User.objects.filter(username=username).update(first_name=first_name, last_name=last_name,
                                                               address=address, phone=phone, zip_code=zip_code,
                                                               gender=gender,
                                                               state=state, city=city, email=email)
