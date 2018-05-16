@@ -54,26 +54,26 @@ def index(request):
 	return render(request, 'index.html')
 
 
-def login(request):
-	UserInfo.objects.filter(username='ElfWx').delete()
-		if request.method == "POST":
-			uf = LoginForm(request.POST)
-			if uf.is_valid():
-				username = request.POST.get('username', '')
-				password = request.POST.get('password', '')
-				user = auth.authenticate(username=username, password=password)
-				if user is not None and user.is_active:
-					auth_login(request, user)
-					return render(request, 'account-home.html')
-				else:
-					return render(request, 'Login.html',
-								  {'uf': uf, 'message': 'username or password is not correct, please check or signup!'})
-			else:
-				return render(request, 'Login.html', {'uf': uf,
-													  'message': 'please fill in all the information or note the format of entered password!'})
-		else:
-			uf = LoginForm()
-			return render(request, 'Login.html', {'uf': uf})
+# def login(request):
+	# UserInfo.objects.filter(username='ElfWx').delete()
+	# if request.method == "POST":
+		# uf = LoginForm(request.POST)
+		# if uf.is_valid():
+			# username = request.POST.get('username', '')
+			# password = request.POST.get('password', '')
+			# user = auth.authenticate(username=username, password=password)
+			# if user is not None and user.is_active:
+				# auth_login(request, user)
+				# return render(request, 'account-home.html')
+			# else:
+				# return render(request, 'Login.html',
+							  # {'uf': uf, 'message': 'username or password is not correct, please check or signup!'})
+		# else:
+			# return render(request, 'Login.html', {'uf': uf,
+												  # 'message': 'please fill in all the information or note the format of entered password!'})
+	# else:
+		# uf = LoginForm()
+		# return render(request, 'Login.html', {'uf': uf})
 
 
 # def register(request):
@@ -724,22 +724,22 @@ def twitter_authenticated(request):
 	return HttpResponseRedirect('/socialtracker/account')
 
 
-# Enter email address to reset password
-class MyPasswordResetView(PasswordResetView):
-    template_name = 'password_reset.html'
-    form_class = MyPasswordResetForm
+# # Enter email address to reset password
+# class MyPasswordResetView(PasswordResetView):
+    # template_name = 'password_reset.html'
+    # form_class = MyPasswordResetForm
 
 
-# Email Sent
-class MyPasswordResetDone(PasswordResetDoneView):
-    template_name = 'password_reset_done.html'
+# # Email Sent
+# class MyPasswordResetDone(PasswordResetDoneView):
+    # template_name = 'password_reset_done.html'
 
 
-# Reset the password without requirement of the old password
-class MyPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'password_reset_confirm.html'
+# # Reset the password without requirement of the old password
+# class MyPasswordResetConfirmView(PasswordResetConfirmView):
+    # template_name = 'password_reset_confirm.html'
 
 
-# Password changed and go back to login
-class MyPasswordResetCompleteView(PasswordResetCompleteView):
-    template_name = 'password_reset_complete.html'
+# # Password changed and go back to login
+# class MyPasswordResetCompleteView(PasswordResetCompleteView):
+    # template_name = 'password_reset_complete.html'

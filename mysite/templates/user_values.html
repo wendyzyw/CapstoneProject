@@ -3,22 +3,24 @@
 {% load staticfiles %}
 
 {% block content_block %}
-<div id="navbar-test">
-	<ul class="form" style="float:left; margin-top: 50px;">
-		<li><a style="background: #efefef; border-left:6px solid RED; color: BLACK;" class="active" href={% url 'data' %}>Personality</a></li>
-		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Tone Analysis</a></li>
-		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'keywords' %}>Words Use</a></li>
-		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
-		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'time_heatmap' %}>Life Pattern</a></li>
-	</ul>
-</div>
+<div class="row">
+	<div id="navbar-test" class="col-md-2">
+		<ul class="form" style="float:left; margin-top: 50px;">
+			<li><a style="background: #efefef; border-left:6px solid RED; color: BLACK;" class="active" href={% url 'data' %}>Personality</a></li>
+			<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Tone Analysis</a></li>
+			<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'keywords' %}>Words Use</a></li>
+			<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
+			<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'time_heatmap' %}>Life Pattern</a></li>
+		</ul>
+	</div>
 
-<div>
-	<div class="radarChart" id="needs"></div>
-</div>
-<!-- vertical menu -->
-<div class="col-lg-2" id="media-nav">
-	
+	<div class="col-md-7">
+		<div class="radarChart" id="needs"></div>
+	</div>
+	<!-- vertical menu -->
+	<div class="col-md-3">
+		
+	</div>
 </div>
 
 <nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px;">

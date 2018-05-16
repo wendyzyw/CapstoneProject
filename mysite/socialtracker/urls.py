@@ -11,7 +11,7 @@ urlpatterns = [
 	path('', include('social_django.urls',namespace='social')),
 	path('', views.index, name='index'),
 	#normal login
-	path('login', views.login, name='login'),
+	# path('login', views.login, name='login'),
 	path('signup', views.signup, name='signup'),
 	path('forgetPw', views.forgetPw, name='forgetPw'),
 	# url(r'^twitter_login/?$', views.twitter_login, name="twitter_login"),
