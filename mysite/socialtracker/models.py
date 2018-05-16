@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 
 
 # class UserInfo(AbstractUser):
@@ -38,6 +38,8 @@ class User(models.Model):
     state = models.CharField(max_length=100, blank=True)
     zip_code = models.CharField(max_length=100, blank=True)
     gender = models.CharField(max_length=100, blank=True)
+
+    objects = UserManager()
 
     def __str__(self):
         return self.username
