@@ -968,8 +968,8 @@ footer .connect-us ul li a:hover {
 ul.form {
 		position:relative;
 		background:#fff;
-		width:150px;
-		margin:0;
+		width:120px;
+		margin:auto;
 		padding:0;
 		list-style: none;
 		overflow:hidden;
@@ -982,19 +982,10 @@ ul.form {
 		-moz-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
 		box-shadow:  3px 3px 15px rgba(0, 0, 0, 0.5);	
 	}
-	
-	.data-leftnav {
-		background-color: #6C5B7B;
-	}
-	
-	.data-leftnav .active{
-		background-color: #efefef;
-	}
 
 	.form li a {
-		width:140px;
-		padding-right:0px;
-		margin-right:0px;
+		width:100px;
+		padding-left:20px;
 		height:50px;
 		line-height:50px;
 		display:block;
@@ -1003,7 +994,7 @@ ul.form {
 		text-decoration:none;
 		text-transform:uppercase;
 		font-size:14px;
-		color:WHITE;
+		color:#686868;
 		
 		-webkit-transition:all 0.2s linear;
 		-moz-transition:all 0.2s linear;
@@ -1013,15 +1004,26 @@ ul.form {
 
 	.form li a:hover {
 		background:#efefef;
-		color: BLACK;
 	}
 
-	.form li a.data-leftnav-link {
-		border-left:6px solid #fff;
+	.form li a.profile {
+		border-left:5px solid #fff;
 	}
+
+	.form li a.messages {
+			border-left:5px solid #fff;
+	}
+		
+	.form li a.settings {
+			border-left:5px solid #fff;
+	}
+
+	.form li a.logout {
+			border-left:5px solid #fff;
+	}	
 
 	.form li a:active {
-		border-left:6px solid RED;
+		border-left:5px solid RED;
 	}
 
 	.form li:first-child a:hover, .form li:first-child a {
@@ -1040,7 +1042,9 @@ ul.form {
 		color:#ea4f35;
 	}
 
-	.form li {
+	.form i {
+		margin-right:15px;
+		
 		-webkit-transition:all 0.2s linear;
 		-moz-transition:all 0.2s linear;
 		-o-transition:all 0.2s linear;
