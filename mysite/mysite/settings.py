@@ -203,3 +203,12 @@ STATIC_ROOT = os.path.join(os.path.dirname(__file__),'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# send emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'lorikeetanalysis@gmail.com'
+EMAIL_HOST_PASSWORD = '12345@qwert'
+DEFAULT_FROM_EMAIL = 'LorikeetAnalysis <lorikeetanalysis.gmail.com>'
