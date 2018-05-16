@@ -243,10 +243,10 @@ def user_preferences(request):
                 consumption_preference5 = consumption_preference4.replace('Likely to', ' ')
                 unlikely.append(consumption_preference5)
     for i in range(0, 4):
-        r = random.randint(0, len(likely))
+        r = random.randint(0, len(likely)-1)
         final_likely.append(likely[r])
     for i in range(0, 4):
-        r = random.randint(0, len(unlikely))
+        r = random.randint(0, len(unlikely)-1)
         final_unlikely.append(unlikely[r])
     return render(request, 'user_preferences.html', {'likely': final_likely, 'unlikely': final_unlikely})
 

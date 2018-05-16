@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a803c44e-2cb0-4049-84ec-d408022f75a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/db.sqlite3" afterPath="$PROJECT_DIR$/mysite/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/mysite/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/socialtracker/admin.py" afterPath="$PROJECT_DIR$/mysite/socialtracker/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/socialtracker/models.py" afterPath="$PROJECT_DIR$/mysite/socialtracker/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/socialtracker/views.py" afterPath="$PROJECT_DIR$/mysite/socialtracker/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/templates/signup.html" afterPath="$PROJECT_DIR$/mysite/templates/signup.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/static/css/templatemo_style.css" afterPath="$PROJECT_DIR$/mysite/static/css/templatemo_style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/static/css/vendor.min.css" afterPath="$PROJECT_DIR$/mysite/static/css/vendor.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/templates/Manage1_privacy.html" afterPath="$PROJECT_DIR$/mysite/templates/Manage1_privacy.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/templates/Manage2_Personal.html" afterPath="$PROJECT_DIR$/mysite/templates/Manage2_Personal.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/templates/account-home.html" afterPath="$PROJECT_DIR$/mysite/templates/account-home.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -54,11 +55,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/socialtracker/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="791">
-              <caret line="189" column="0" lean-forward="false" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+            <state relative-caret-position="258">
+              <caret line="249" column="41" lean-forward="true" selection-start-line="249" selection-start-column="41" selection-end-line="249" selection-end-column="41" />
               <folding>
                 <element signature="e#9#31#0" expanded="true" />
               </folding>
@@ -66,24 +67,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/socialtracker/urls.py">
+      <file leaf-file-name="templatemo_style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/static/css/templatemo_style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="29" column="54" lean-forward="false" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
+            <state relative-caret-position="289">
+              <caret line="134" column="0" lean-forward="true" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/socialtracker/forms.py">
+      <file leaf-file-name="vendor.min.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/static/css/vendor.min.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2354">
-              <caret line="107" column="20" lean-forward="false" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="226">
+              <caret line="192" column="17" lean-forward="true" selection-start-line="192" selection-start-column="17" selection-end-line="192" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -110,31 +109,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/mysite/settings.py">
+      <file leaf-file-name="Manage2_Personal.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/templates/Manage2_Personal.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="135" column="32" lean-forward="false" selection-start-line="135" selection-start-column="32" selection-end-line="135" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/manage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/templates/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="36" column="15" lean-forward="false" selection-start-line="36" selection-start-column="15" selection-end-line="36" selection-end-column="15" />
+            <state relative-caret-position="321">
+              <caret line="43" column="127" lean-forward="false" selection-start-line="43" selection-start-column="127" selection-end-line="43" selection-end-column="127" />
               <folding />
             </state>
           </provider>
@@ -148,6 +127,26 @@
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Manage1_privacy.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/templates/Manage1_privacy.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="855">
+              <caret line="40" column="14" lean-forward="false" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="account-home.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/templates/account-home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="267">
+              <caret line="32" column="42" lean-forward="true" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -194,10 +193,15 @@
         <option value="$PROJECT_DIR$/mysite/socialtracker/forms.py" />
         <option value="$PROJECT_DIR$/mysite/socialtracker/urls.py" />
         <option value="$PROJECT_DIR$/mysite/mysite/settings.py" />
-        <option value="$PROJECT_DIR$/mysite/socialtracker/views.py" />
         <option value="$PROJECT_DIR$/mysite/socialtracker/admin.py" />
         <option value="$PROJECT_DIR$/mysite/socialtracker/models.py" />
         <option value="$PROJECT_DIR$/mysite/templates/signup.html" />
+        <option value="$PROJECT_DIR$/mysite/socialtracker/views.py" />
+        <option value="$PROJECT_DIR$/mysite/static/css/templatemo_style.css" />
+        <option value="$PROJECT_DIR$/mysite/static/css/vendor.min.css" />
+        <option value="$PROJECT_DIR$/mysite/templates/Manage2_Personal.html" />
+        <option value="$PROJECT_DIR$/mysite/templates/Manage1_privacy.html" />
+        <option value="$PROJECT_DIR$/mysite/templates/account-home.html" />
       </list>
     </option>
   </component>
@@ -252,6 +256,19 @@
               <item name="CapstoneProject" type="462c0819:PsiDirectoryNode" />
               <item name="mysite" type="462c0819:PsiDirectoryNode" />
               <item name="socialtracker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CapstoneProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CapstoneProject" type="462c0819:PsiDirectoryNode" />
+              <item name="mysite" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CapstoneProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CapstoneProject" type="462c0819:PsiDirectoryNode" />
+              <item name="mysite" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CapstoneProject" type="b2602c69:ProjectViewProjectNode" />
@@ -541,7 +558,7 @@
         <state relative-caret-position="2354">
           <caret line="107" column="20" lean-forward="false" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -610,11 +627,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mysite/socialtracker/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="791">
-          <caret line="189" column="0" lean-forward="false" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+        <state relative-caret-position="258">
+          <caret line="249" column="41" lean-forward="true" selection-start-line="249" selection-start-column="41" selection-end-line="249" selection-end-column="41" />
           <folding>
             <element signature="e#9#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/static/css/templatemo_style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="134" column="0" lean-forward="true" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/static/css/vendor.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="192" column="17" lean-forward="true" selection-start-line="192" selection-start-column="17" selection-end-line="192" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/templates/Manage2_Personal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="43" column="127" lean-forward="false" selection-start-line="43" selection-start-column="127" selection-end-line="43" selection-end-column="127" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/templates/Manage1_privacy.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="40" column="14" lean-forward="false" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/templates/account-home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="32" column="42" lean-forward="true" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>

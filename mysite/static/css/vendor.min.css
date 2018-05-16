@@ -189,7 +189,7 @@ audio, canvas, iframe, img, svg, video {
 	vertical-align: middle
 }
 audio, canvas, img, video {
-	max-width: 100 % ;
+	max-width: 95%;
 	height: auto;
 	box-sizing: border-box
 }
