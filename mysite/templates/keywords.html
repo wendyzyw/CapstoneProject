@@ -131,13 +131,15 @@ a:hover {
 }
 </style>
 
-<ul class="form" style="float:left; margin-top: 50px;">
-	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Personality</a></li>
-	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Tone Analysis</a></li>
-	<li class="data-leftnav" id="#keywords"><a class="data-leftnav-link" href={% url 'keywords' %}>Words Use</a></li>
-	<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
-	<li class="data-leftnav"><a class="data-leftnav-link" href="#">Life Pattern</a></li>
-</ul>
+<div id="navbar-test">
+	<ul class="form" style="float:left; margin-top: 50px;">
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'data' %}>Personality</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Tone Analysis</a></li>
+		<li><a style="background: #efefef; border-left:6px solid RED; color: BLACK;" class="active" href={% url 'keywords' %}>Words Use</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'time_heatmap' %}>Life Pattern</a></li>
+	</ul>
+</div>
 
 <div class="row text-center" style="margin-top: 40px;">
 	<div class="col-lg-8">
@@ -156,6 +158,18 @@ a:hover {
 <div class="col-lg-2" id="media-nav">
 	
 </div>
+
+<nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px; ">
+	<div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;">
+		<div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav bottom-nav">
+			<li><a href={% url 'keywords' %}>Keywords Extraction</a></li>
+			<li><a href={% url 'bubble' %}>Word Cloud</a></li>
+			<li><a href={% url 'bubble' %}>Hashtags Analysis</a></li>
+		  </ul>
+		</div>
+	</div>
+</nav>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="../static/js/bootstrap-combobox.js"></script>

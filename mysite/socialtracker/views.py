@@ -10,6 +10,9 @@ import simplejson
 import facebook
 import requests
 import random
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+import nltk
 from watson_developer_cloud import PersonalityInsightsV3, ToneAnalyzerV3
 from watson_developer_cloud import WatsonApiException 
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
@@ -388,7 +391,7 @@ def data(request):
 	except UserSocialAuth.DoesNotExist:
 		facebook_account is None
 
-	return render(request, 'data.html', { 'radarData': radarData })
+	return render(request, 'user_needs.html', { 'radarData': radarData })
 	
 def social_network(request):
 	# get friends from twitter

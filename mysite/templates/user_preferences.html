@@ -44,12 +44,15 @@
 }
 </style>
 
-<ul class="form" style="float:left; margin-top: 50px;">
-	<li><a class="profile" href="#" style="background-image:url(../static/img/fb.png); background-size:contain;"></a></li>
-	<li><a class="messages" href={% url 'social_network' %} style="background-image:url(../static/img/tw.png); background-size:contain;"></a></li>
-	<li><a class="settings" href={% url 'keywords' %} style="background-image:url(../static/img/re.png); background-size:contain;"></a></li>
-	<li><a class="logout" href={% url 'tone_analysis' %} style="background-image:url(../static/img/tu.png); background-size:contain;"></a></li>
-</ul>
+<div id="navbar-test">
+	<ul class="form" style="float:left; margin-top: 50px;">
+		<li class="data-leftnav"><a style="background: #efefef; border-left:6px solid RED; color: BLACK;" href={% url 'data' %}>Personality</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Tone Analysis</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'keywords' %}>Words Use</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'time_heatmap' %}>Life Pattern</a></li>
+	</ul>
+</div>
 
             <div class="row">
                     <div class="row">
@@ -60,7 +63,7 @@
 		               {% endfor %}
 
                     </div>
-            <div/>
+            </div>
 
 
             <div class="row">
@@ -71,7 +74,7 @@
 		               {% endfor %}
 
                     </div>
-            <div/>
+            </div>
 
 
 <!-- vertical menu -->

@@ -120,7 +120,7 @@ p {
 }
 
 .navbar-nav>li>a {
-	color: #fff!important;
+	color: #fff;
 	font-size: 13px;
 	font-weight: 300;
 	text-transform: uppercase;
@@ -1036,7 +1036,7 @@ ul.form {
 		border-radius: 0 0 5px 5px;
 	}
 
-	.form li a:hover i {
+	.form li a:hover {
 		color:#ea4f35;
 	}
 
