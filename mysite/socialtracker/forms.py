@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm
-from .models import UserInfo
+# from .models import UserInfo
+from django.contrib.auth.models import User
 
 pwd_min_length = 8
 
@@ -102,7 +103,7 @@ class MyPasswordResetForm(PasswordResetForm):
     # email not registered warning
     def clean_email(self):
         email = self.cleaned_data.get('email', '')
-        if not UserInfo.objects.filter(email=email):
+        if not User.objects.filter(email=email):
             raise forms.ValidationError('The email address is not registered!')
         return email
 

@@ -3,22 +3,21 @@
 {% load staticfiles %}
 
 {% block content_block %}
-<div class="container media">
-  <ul class="form" style="float:right">
-	<li><a class="profile" href="#" style="background-image:url(../static/img/tw.png); background-size:contain;"></a></li>
+<div>
+<ul class="form" style="float:left; margin-top: 50px;">
+	<li><a class="profile" href="#" style="background-image:url(../static/img/fb.png); background-size:contain;"></a></li>
 	<li><a class="messages" href={% url 'social_network' %} style="background-image:url(../static/img/tw.png); background-size:contain;"></a></li>
 	<li><a class="settings" href={% url 'keywords' %} style="background-image:url(../static/img/re.png); background-size:contain;"></a></li>
 	<li><a class="logout" href={% url 'tone_analysis' %} style="background-image:url(../static/img/tu.png); background-size:contain;"></a></li>
-  </ul>
-	<div>
-		<div class="radarChart" id="needs"></div>
-	</div>
-</div>
+</ul>
 
+<div>
+</div>
+	<div class="radarChart" id="needs"></div>
+</div>
 <!-- vertical menu -->
 <div class="col-lg-2" id="media-nav">
 	
-</ul>
 </div>
 
 <nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px;">
@@ -37,20 +36,20 @@
 
 <script src="../static/js/radarChart.js"></script>
 <script>
-
+      
 /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
 
 	var margin = {top: 80, right: 100, bottom: 100, left: 100},
 		width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
 		height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
-
+			
 	{% autoescape off %}
 	var data = [{{radarData}}];
 	{% endautoescape %}
 
 	var color = d3.scale.ordinal()
 		.range(["#EDC951","#CC333F","#00A0B0"]);
-
+		
 	var radarChartOptions = {
 	  w: 300,
 	  h: 300,
@@ -60,9 +59,10 @@
 	  roundStrokes: true,
 	  color: color
 	};
-
+	
 	//Call function to draw the Radar chart
 	RadarChart(".radarChart", data, radarChartOptions);
+	
 
 </script>
 {% endblock %}

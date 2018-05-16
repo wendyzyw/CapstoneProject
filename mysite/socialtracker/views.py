@@ -10,9 +10,14 @@ import time
 import simplejson
 import tweepy
 import requests
+import facebook
 from datetime import datetime
-from watson_developer_cloud import PersonalityInsightsV3
+
+from nltk import WordNetLemmatizer
+from watson_developer_cloud import PersonalityInsightsV3, NaturalLanguageUnderstandingV1, ToneAnalyzerV3
 from watson_developer_cloud import WatsonApiException
+from watson_developer_cloud.natural_language_understanding_v1 \
+    import Features, KeywordsOptions, ConceptsOptions
 
 # Django Import
 from django.shortcuts import render, redirect
@@ -26,47 +31,49 @@ from django.contrib.auth.views import PasswordResetView, PasswordChangeView, \
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Social_Django Import
 from social_django.models import UserSocialAuth
 
 # App Import
 from .forms import LoginForm, ChangepassForm, EdituserinfoForm, RegisterForm, MyPasswordResetForm
-from .models import UserInfo, TwitterProfile, FackbookProfile, GithubProfile
 
-# Create your views here.
+# from .models import UserInfo, TwitterProfile, FackbookProfile, GithubProfile
 
 
 # app name
 app_name = 'socialtracker'
+
+
 # twitter login authentication
-consumer = oauth.Consumer(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
-client = oauth.Client(consumer)
-
-# step 1
-request_token_url = 'https://api.twitter.com/oauth/request_token'
-# step 2
-authenticate_url = 'https://api.twitter.com/oauth/authenticate'
-# step 3
-access_token_url = 'https://api.twitter.com/oauth/access_token'
-
-
-def twitter_login(request):
-    # step 1: send req token request to twitter
-    resp, content = client.request(request_token_url, "POST")
-    if resp['status'] != '200':
-        raise Exception("Request token request fail.")
-
-    # step 2: store req token in a session
-    print("In Log in :")
-    print(request.session.items())
-    request_token = request.session['request_token'] = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
-
-    # #step 3: redirect to authentication url
-    url = "%s?oauth_token=%s" % (authenticate_url, request.session['request_token']['oauth_token'])
-    return HttpResponseRedirect(url)
-
-
+# consumer = oauth.Consumer(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+# client = oauth.Client(consumer)
+#
+# # step 1
+# request_token_url = 'https://api.twitter.com/oauth/request_token'
+# # step 2
+# authenticate_url = 'https://api.twitter.com/oauth/authenticate'
+# # step 3
+# access_token_url = 'https://api.twitter.com/oauth/access_token'
+#
+#
+# def twitter_login(request):
+#     # step 1: send req token request to twitter
+#     resp, content = client.request(request_token_url, "POST")
+#     if resp['status'] != '200':
+#         raise Exception("Request token request fail.")
+#
+#     # step 2: store req token in a session
+#     print("In Log in :")
+#     print(request.session.items())
+#     request_token = request.session['request_token'] = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
+#
+#     # #step 3: redirect to authentication url
+#     url = "%s?oauth_token=%s" % (authenticate_url, request.session['request_token']['oauth_token'])
+#     return HttpResponseRedirect(url)
+#
+#
 @login_required(login_url='/socialtracker/')
 def twitter_logout(request):
     print(request.session.items())
@@ -75,50 +82,52 @@ def twitter_logout(request):
     return HttpResponseRedirect('/socialtracker')
 
 
-def twitter_authenticated(request):
-    # step 1: use the oauth-token to build new client
-    token = oauth.Token(request.session['request_token']['oauth_token'],
-                        request.session['request_token']['oauth_token_secret'])
-    token.set_verifier(request.GET['oauth_verifier'])
-    client = oauth.Client(consumer, token)
-
-    # step 2: request the access token from twitter
-    resp, content = client.request(access_token_url, "POST")
-    if resp['status'] != '200':
-        print(content)
-        raise Exception("Access token request fail")
-
-    # step 3: store user id with screen name
-    access_token = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
-    try:
-        user = UserInfo.objects.get(username=access_token['screen_name'])
-    except UserInfo.DoNotExist:
-        # creat user if not already exist
-        user = UserInfo.objects.create_user(access_token['screen_name'], '%s@twitter.com' % access_token['screen_name'],
-                                        password=access_token['oauth_token_secret'])
-        print("After created")
-        print(user)
-
-        profile = TwitterProfile()
-        profile.user = user
-        profile.t_token = access_token['oauth_token']
-        profile.t_secret = access_token['oauth_token_secret']
-        profile.save()
-
-    # step 4: authenticate user and log them in
-    # auth_user = twt_authenticate(username=access_token['screen_name'],
-    # password=access_token['oauth_token_secret'])
-    twt_login(request, user, 'django.contrib.auth.backends.ModelBackend')
-
-    # auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
-    # auth.set_access_token(access_token['oauth_token'], access_token['oauth_token_secret'])
-    # api = tweepy.API(auth)
-
-    # for status in tweepy.Cursor(api.user_timeline, screen_name=access_token['screen_name']).items():
-    # print(status._json['text'])
-
-    # return HttpResponseRedirect('/socialtracker/account')
-    return HttpResponseRedirect('/%s/account' % app_name)
+#
+#
+# def twitter_authenticated(request):
+#     # step 1: use the oauth-token to build new client
+#     token = oauth.Token(request.session['request_token']['oauth_token'],
+#                         request.session['request_token']['oauth_token_secret'])
+#     token.set_verifier(request.GET['oauth_verifier'])
+#     client = oauth.Client(consumer, token)
+#
+#     # step 2: request the access token from twitter
+#     resp, content = client.request(access_token_url, "POST")
+#     if resp['status'] != '200':
+#         print(content)
+#         raise Exception("Access token request fail")
+#
+#     # step 3: store user id with screen name
+#     access_token = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
+#     try:
+#         user = User.objects.get(username=access_token['screen_name'])
+#     except User.DoNotExist:
+#         # creat user if not already exist
+#         user = User.objects.create_user(access_token['screen_name'], '%s@twitter.com' % access_token['screen_name'],
+#                                         password=access_token['oauth_token_secret'])
+#         print("After created")
+#         print(user)
+#
+#         profile = TwitterProfile()
+#         profile.user = user
+#         profile.t_token = access_token['oauth_token']
+#         profile.t_secret = access_token['oauth_token_secret']
+#         profile.save()
+#
+#     # step 4: authenticate user and log them in
+#     # auth_user = twt_authenticate(username=access_token['screen_name'],
+#     # password=access_token['oauth_token_secret'])
+#     twt_login(request, user, 'django.contrib.auth.backends.ModelBackend')
+#
+#     # auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+#     # auth.set_access_token(access_token['oauth_token'], access_token['oauth_token_secret'])
+#     # api = tweepy.API(auth)
+#
+#     # for status in tweepy.Cursor(api.user_timeline, screen_name=access_token['screen_name']).items():
+#     # print(status._json['text'])
+#
+#     # return HttpResponseRedirect('/socialtracker/account')
+#     return HttpResponseRedirect('/%s/account' % app_name)
 
 
 # The main page.
@@ -140,8 +149,8 @@ def register(request):
                 return render(request, 'signup.html', {'uf': uf, 'message': 'please confirm your new password!'})
             else:
                 try:
-                    UserInfo.objects.create_user(username=username, password=password, email=email,
-                                                 phone='0', first_name=first_name, last_name=last_name)
+                    User.objects.create_user(username=username, password=password, email=email,
+                                             phone='0', first_name=first_name, last_name=last_name)
                     return login(request)
                 except:
                     return render(request, 'signup.html', {'uf': uf, 'message': 'user has existed！'})
@@ -156,12 +165,13 @@ def register(request):
 
 def login(request):
     if request.method == "POST":
-        uf = LoginForm(request.POST, instance=profile)
+        uf = LoginForm(request.POST)
         if uf.is_valid():
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
             user = auth.authenticate(username=username, password=password)
             if user is not None and user.is_active:
+                twt_login(request, user)
                 request.session['username'] = user.username
                 request.session['password'] = user.password
                 request.session['first_name'] = user.first_name
@@ -235,11 +245,11 @@ def manage2(request):
             state = request.POST.get('state', '')
             city = request.POST.get('city', '')
             username = request.session.get('username')
-            UserInfo.objects.filter(username=username).update(first_name=first_name, last_name=last_name,
-                                                              address=address, phone=phone, zip_code=zip_code,
-                                                              gender=gender,
-                                                              state=state, city=city)
-            user = UserInfo.objects.get(username=username)
+            User.objects.filter(username=username).update(first_name=first_name, last_name=last_name,
+                                                          address=address, phone=phone, zip_code=zip_code,
+                                                          gender=gender,
+                                                          state=state, city=city)
+            user = User.objects.get(username=username)
             request.session['username'] = user.username
             request.session['first_name'] = user.first_name
             request.session['last_name'] = user.last_name
@@ -268,13 +278,16 @@ def manage3(request):
 
     try:
         twitter_account = user.social_auth.get(provider='twitter')
+        print('twitter_account = ', twitter_account)
         if twitter_account is not None:
+            print(twitter_account)
             twitter_json = twitter_account.extra_data
             twitter_name = twitter_json['access_token']['screen_name']
             twitter_date = time.strftime('%d/%m/%Y %H:%M:%S', time.gmtime(twitter_json['auth_time']))
 
     except UserSocialAuth.DoesNotExist:
         twitter_account = None
+        print('twitter_account = ', twitter_account)
 
     try:
         facebook_account = user.social_auth.get(provider='facebook')
@@ -290,9 +303,13 @@ def manage3(request):
 
     can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
 
-    social_backend = request.session['social_auth_last_login_backend']
+    # social_backend = request.session['social_auth_last_login_backend']
+    # return render(request, 'Manage3_social.html',
+    #               {'social_backend': social_backend, 'twitter_account': twitter_account, 'twitter_date': twitter_date,
+    #                'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date,
+    #                'facebook_id': facebook_id, 'can_disconnect': can_disconnect})
     return render(request, 'Manage3_social.html',
-                  {'social_backend': social_backend, 'twitter_account': twitter_account, 'twitter_date': twitter_date,
+                  {'twitter_account': twitter_account, 'twitter_date': twitter_date,
                    'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date,
                    'facebook_id': facebook_id, 'can_disconnect': can_disconnect})
 
@@ -316,72 +333,6 @@ def password(request):
     else:
         form = PasswordForm(request.user)
     return render(request, 'password.html', {'form': form})
-
-
-@login_required(login_url='/socialtracker/')
-def data(request):
-    user = request.user
-    radarData = []
-    try:
-        twitter_account = user.social_auth.get(provider='twitter')
-        if twitter_account is not None:
-            twitter_json = twitter_account.extra_data
-
-            # retriev user timeline from twitter
-            auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
-            auth.set_access_token(twitter_json['access_token']['oauth_token'],
-                                  twitter_json['access_token']['oauth_token_secret'])
-            api = tweepy.API(auth)
-            data = api.user_timeline()
-            reqJson = []
-
-            for each in data:
-                temp = {'content': each.text, 'contenttype': "text/plain", 'id': each.id, 'language': 'en'}
-                reqJson.append(temp)
-
-            json_input = {'contentItems': reqJson}
-
-
-            try:
-                personality_insights = PersonalityInsightsV3(
-                    version='2017-10-13',
-                    username='9576f431-9a16-435e-85d3-d9dcf455969d',
-                    password='0HOzAgnxjz3d'
-                )
-
-                profile = personality_insights.profile(
-                    content=json_input, content_type='application/json',
-                    raw_scores=True, consumption_preferences=True)
-                # print(json.dumps(profile["values"], indent=2))
-
-                personality = profile["personality"]
-                needs = profile["needs"]
-                values = profile["values"]
-                # behavior = profile["behavior"]
-                # print("h4")
-                consumption_preferences = profile["consumption_preferences"]
-
-                # format the values data to pipeline for radar chart
-                radarObj = []
-                for eachNeed in needs:
-                    temp = {"axis": "Need " + eachNeed["name"], "value": round(eachNeed["raw_score"], 2),
-                            "percentile": round(eachNeed["percentile"], 2)}
-                    radarObj.append(temp)
-                radarData = simplejson.dumps(radarObj)
-
-                # store into session
-                request.session['user_values'] = values
-                request.session['user_needs'] = needs
-                request.session['user_personality'] = personality
-
-
-            except WatsonApiException as ex:
-                print("Method failed with status code " + str(ex.code) + ": " + ex.message)
-
-    except:
-        twitter_account = None
-
-    return render(request, 'data.html', {'radarData': radarData})
 
 
 # Enter email address to reset password
@@ -415,6 +366,122 @@ class MyPasswordResetCompleteView(PasswordResetCompleteView):
     # template_name = 'password_reset_complete.html'
 
 
+# main page for analysis
+@login_required(login_url='/socialtracker/')
+def data(request):
+    user = request.user
+    facebook_account = None
+    twitter_account = None
+    radarData = []
+    try:
+        twitter_account = user.social_auth.get(provider='twitter')
+        if twitter_account is not None:
+            twitter_json = twitter_account.extra_data
+
+            # retriev user timeline
+            auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+            auth.set_access_token(twitter_json['access_token']['oauth_token'],
+                                  twitter_json['access_token']['oauth_token_secret'])
+            # store twitter tokens to request.session
+            request.session['twitter_token'] = twitter_json['access_token']['oauth_token']
+            request.session['twitter_secret'] = twitter_json['access_token']['oauth_token_secret']
+            api = tweepy.API(auth)
+            data = api.user_timeline()
+
+            # format timeline data from twitter for request format to PersonalityInsightsV3 api
+            reqJson = []
+            for each in data:
+                temp = {'content': each.text, 'contenttype': "text/plain", 'id': each.id, 'language': 'en'}
+                reqJson.append(temp)
+            json_input = {'contentItems': reqJson}
+
+            try:
+                ###############################################################
+                personality_insights = PersonalityInsightsV3(
+                    version='2017-10-13',
+                    username='9576f431-9a16-435e-85d3-d9dcf455969d',
+                    password='0HOzAgnxjz3d'
+                )
+
+                profile = personality_insights.profile(
+                    content=json_input, content_type='application/json',
+                    raw_scores=True, consumption_preferences=True)
+                # print(json.dumps(profile["values"], indent=2))
+
+                personality = profile["personality"]
+                needs = profile["needs"]
+                values = profile["values"]
+                # behavior = profile["behavior"]
+                # print("h4")
+                consumption_preferences = profile["consumption_preferences"]
+
+                # format the values data to pipeline for radar chart
+                radarObj = []
+                for eachNeed in needs:
+                    temp = {"axis": "Need " + eachNeed["name"], "value": round(eachNeed["raw_score"], 2),
+                            "percentile": round(eachNeed["percentile"], 2)}
+                    radarObj.append(temp)
+                radarData = simplejson.dumps(radarObj)
+
+                # store into session
+                request.session['user_values'] = values
+                request.session['user_needs'] = needs
+                request.session['user_personality'] = personality
+                request.session['preferences'] = consumption_preferences
+
+                ###############################################################
+                reqStrList = []
+                for each in data:
+                    reqStrList.append(each.text)
+                reqStr = '. '.join(reqStrList)
+
+                tone_analyzer = ToneAnalyzerV3(
+                    version='2016-05-19',
+                    username='6c984f2f-56ea-4a07-a59c-9c86e5b5d00f',
+                    password='GlMwVmKrNpwt'
+                )
+                tone_analyzer.set_default_headers({'x-watson-learning-opt-out': "true"})
+
+                content_type = 'application/json'
+                tone = tone_analyzer.tone({"text": reqStr}, content_type)
+
+                # print(json.dumps(tone, indent=2))
+                request.session['tone'] = tone
+                ###############################################################
+                natural_language_understanding = NaturalLanguageUnderstandingV1(
+                    username='fc0c4c4c-a1aa-4428-b624-1d995c7d4183',
+                    password='m6QGBRl7hG3w',
+                    version='2018-03-16')
+
+                response = natural_language_understanding.analyze(
+                    text=reqStr,
+                    features=Features(
+                        concepts=ConceptsOptions(
+                            limit=10)))
+
+            # print(json.dumps(response, indent=2))
+
+            except WatsonApiException as ex:
+                print("Method failed with status code " + str(ex.code) + ": " + ex.message)
+
+    except:
+        twitter_account = None
+
+    ###########################################################################
+    # retrieve facebook account information
+    try:
+        facebook_account = user.social_auth.get(provider='facebook')
+        if facebook_account is not None:
+            facebook_json = facebook_account.extra_data
+            request.session['facebook_token'] = facebook_json['access_token']
+
+    except UserSocialAuth.DoesNotExist:
+        facebook_account is None
+
+    return render(request, 'data.html', {'radarData': radarData})
+
+
+# sunburst user personality
 def user_personality(request):
     personality = request.session['user_personality']
     sbData = {'name': 'Sources', 'color': "#d8c51d", 'percent': '', 'children': []}
@@ -458,6 +525,7 @@ def user_personality(request):
     return render(request, 'user_personality.html', {'sbData': sbData})
 
 
+# radar chart for user values
 def user_values(request):
     values = request.session['user_values']
     radarObj = []
@@ -470,75 +538,217 @@ def user_values(request):
     return render(request, 'user_values.html', {'radarData': radarData})
 
 
-# create a dictionary to count user's posts number from Twitter and Facebook.
-def tf_count():
-    days = list(range(1,8))
-    hours = list(range(1,25))
-    dic = {}
-    for day in days:
-        for hour in hours:
-            dic[str(day)+str(hour)] = 0
-    return dic
+# sentiment for key words
+def keywords(request):
+    return render(request, 'keywords.html')
 
 
-def user_post_count(request):
+# curve for tone analysis
+def tone_analysis(request):
+    tone = request.session['tone']
+    document_tone = tone['document_tone']
+    sentences_tone = tone['sentences_tone']
+
+    # build data structure to stores aggregated scores for all 13 tones
+    allTones = []
+    t1 = {'Id': 1, 'DisplayName': 'Anger', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': []}
+    t2 = {'Id': 2, 'DisplayName': 'Disgust', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': []}
+    t3 = {'Id': 3, 'DisplayName': 'Fear', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': []}
+    t4 = {'Id': 4, 'DisplayName': 'Joy', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': []}
+    t5 = {'Id': 5, 'DisplayName': 'Sadness', 'category': 'Emotion Tone', 'IndexScore': 0.0, 'AllText': []}
+    t6 = {'Id': 6, 'DisplayName': 'Analytical', 'category': 'Language Tone', 'IndexScore': 0.0, 'AllText': []}
+    t7 = {'Id': 7, 'DisplayName': 'Confident', 'category': 'Language Tone', 'IndexScore': 0.0, 'AllText': []}
+    t8 = {'Id': 8, 'DisplayName': 'Tentative', 'category': 'Language Tone', 'IndexScore': 0.0, 'AllText': []}
+    t9 = {'Id': 9, 'DisplayName': 'Openness', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+    t10 = {'Id': 10, 'DisplayName': 'Conscientiousness', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+    t11 = {'Id': 11, 'DisplayName': 'Extraversion', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+    t12 = {'Id': 12, 'DisplayName': 'Agreeableness', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+    t13 = {'Id': 13, 'DisplayName': 'Emotional Range', 'category': 'Social Tone', 'IndexScore': 0.0, 'AllText': []}
+    allTones.extend([t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13])
+
+    # calculate aggregated score for each tone
+    for sentence in sentences_tone:
+        categories = sentence['tone_categories']
+        emotion = categories[0]['tones']
+        language = categories[1]['tones']
+        social = categories[2]['tones']
+        counter1 = 0
+        for each in emotion:
+            allTones[counter1]['IndexScore'] += each['score']
+            counter1 += 1
+        counter2 = 5
+        for each in language:
+            allTones[counter2]['IndexScore'] += each['score']
+            counter2 += 1
+        counter3 = 8
+        for each in social:
+            allTones[counter3]['IndexScore'] += each['score']
+            counter3 += 1
+    # print(allTones)
+
+    return render(request, 'toneAnalysis.html', {'tone_data': allTones})
+
+
+# force directed graph for social network
+def social_network(request):
+    # get friends from twitter
+    consumer_key = settings.TWITTER_TOKEN
+    consumer_secret = settings.TWITTER_SECRET
+    access_token = request.session['twitter_token']
+    access_token_secret = request.session['twitter_secret']
+
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+
+    auth.set_access_token(access_token, access_token_secret)
+
+    api = tweepy.API(auth)
+
+    my_followers = api.followers()
+    my_friends = api.friends()
+    my = api.me()
+    friends = []
+    edges = []
+    info = dict(nodes=friends, links=edges)
+    user = {'id': my.screen_name, 'group': 1}
+    twitter_dict = {'id': 'twitter', 'group': 2}
+    facebook_dict = {'id': 'facebook', 'group': 3}
+    tumblr_dict = {'id': 'tumblr', 'group': 6}
+    reddit_dict = {'id': 'reddit', 'group': 7}
+    edges1 = {'source': my.screen_name, 'target': 'facebook', 'value': 2}
+    edges2 = {'source': my.screen_name, 'target': 'twitter', 'value': 2}
+    edges3 = {'source': my.screen_name, 'target': 'tumblr', 'value': 2}
+    edges4 = {'source': my.screen_name, 'target': 'reddit', 'value': 2}
+    friends.append(twitter_dict)
+    friends.append(user)
+    friends.append(facebook_dict)
+    friends.append(tumblr_dict)
+    friends.append(reddit_dict)
+    for follower in my_followers:
+        for friend in my_friends:
+            if friend.id == follower.id:
+                temp = {'id': friend.screen_name, 'group': 4}
+                friends.append(temp)
+    for line in friends:
+        if line['id'] != 'facebook' and line['id'] != 'twitter' and line['id'] != my.screen_name and line[
+            'id'] != 'tumblr' and line['id'] != 'reddit':
+            temp2 = {'source': 'twitter', 'target': line['id'], 'value': 2}
+            edges.append(temp2)
+    edges.append(edges1)
+    edges.append(edges2)
+    edges.append(edges3)
+    edges.append(edges4)
+    # get friends from facebook
+    token = request.session['facebook_token']
+    graph = facebook.GraphAPI(access_token=token)
+    facebook_friends = graph.get_connections(id='me', connection_name='friends')
+    for post in facebook_friends["data"]:
+        temp3 = {'id': post["name"], 'group': 5}
+        friends.append(temp3)
+    for post2 in facebook_friends["data"]:
+        temp4 = {'source': 'facebook', 'target': post2["name"], 'value': 2}
+        edges.append(temp4)
+    # return JsonResponse(info,safe = False)
+    return render(request, 'social_network.html', {'network_info': info})
+
+
+# heat map for number of posts
+def time_heatmap(request):
     user = request.user
-    tfCount = tf_count()
-    # count  number of Tweets
-    try:
-        twitter_account = user.social_auth.get(provider='twitter')
-        if twitter_account is not None:
-            twitter_json = twitter_account.extra_data
+    twitter_account = user.social_auth.get(provider='twitter')
+    twitter_json = twitter_account.extra_data
+    # retriev user timeline
+    auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+    auth.set_access_token(twitter_json['access_token']['oauth_token'],
+                          twitter_json['access_token']['oauth_token_secret'])
+    api = tweepy.API(auth)
+    data = api.user_timeline()
+    array = [[0] * 24 for _ in range(7)]
 
-            # retriev user timeline from twitter
-            auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
-            auth.set_access_token(twitter_json['access_token']['oauth_token'],
-                                  twitter_json['access_token']['oauth_token_secret'])
-            api = tweepy.API(auth)
-            data = api.user_timeline()
+    for each in data:
+        created_time = each.created_at
+        weekday = created_time.isoweekday()
+        hour = created_time.hour
+        if hour == 0:
+            hour = 24
+        array[weekday - 1][hour - 1] += 1
 
+    facebook_token = request.session['facebook_token']
 
-            for each in data:
-                created_time = each.created_at
-                weekday = created_time.isoweekday()
-                hour = created_time.hour
-                if hour == 0:
-                    hour = 24
-                tfCount[str(weekday) + str(hour)] += 1
-    except:
-        twitter_account = None
+    person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
 
-    # cont number of Fackbook posts
-    try:
-        fackbook_account = user.social_auth.get(provider='facebook')
-        if fackbook_account is not None:
-            fackbook_json = fackbook_account.extra_data
-            # temperory fackbook token
-            facebook_token = 'EAACEdEose0cBAHH9KlhGpDtH1mvJQrPuhXqlSGZC88FfccdGizFZBZC2ODs9jRul1UJeSW968GLn7ClfM7KhrtXYx2ZBZBcpXZAvujH0F4gTPagF6YVa72gkOMYg0eaT6r6LPEUh49iDKHXUNrwZCZA6UZBpDuzekqNWJK36YKog3LtZB27t6R174ekCGXCR0QJT8xZADO8PGisEgZDZD'
-            person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
-            f_posts = requests.get(person).json().get('data')
-            for post in f_posts:
-                message = post.get('message')
-                created_time = post.get('created_time')
-                datetime_object = datetime.strptime(created_time, '%Y-%m-%dT%H:%M:%S+%f')
+    posts = requests.get(person).json().get('data')
+    for post in posts:
+        message = post.get('message')
+        created_time = post.get('created_time')
+        datetime_object = datetime.strptime(created_time, '%Y-%m-%dT%H:%M:%S+%f')
 
-                if message != None:
-                    weekday = datetime_object.isoweekday()
-                    hour = datetime_object.hour
-                    if hour == 0:
-                        hour = 24
-                    string = str(weekday) + str(hour)
-                    # print('string = ', string)
-                    tfCount[string] += 1
-    except:
-        fackbook_account = None
-    request.session['user_postNum'] = tfCount
-    return render(request, 'data.html', {'heatmapData': tfCount})
+        if message != None:
+            weekday = datetime_object.isoweekday()
+            hour = datetime_object.hour
+            if hour == 0:
+                hour = 24
+            array[weekday - 1][hour - 1] += 1
+
+    tf_list = []
+    for i in range(7):
+        for j in range(24):
+            ele = {'day': i + 1, 'hour': j + 1, 'value': array[i][j]}
+            tf_list.append(ele)
+
+    heatmapData = simplejson.dumps(tf_list)
+
+    return render(request, 'heatmap.html', {'heatmapData': heatmapData})
 
 
-def user_post_num(request):
-    post_num = request.session['user_postNum']
-    heatmapData = simplejson.dumps(post_num)
-    return render(request, 'data.html', {'heatmapData': heatmapData})
+def get_hashtag_list(request):
+    user = request.user
+    twitter_account = user.social_auth.get(provider='twitter')
+    twitter_json = twitter_account.extra_data
+    # retriev user timeline
+    auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
+    auth.set_access_token(twitter_json['access_token']['oauth_token'],
+                          twitter_json['access_token']['oauth_token_secret'])
+    api = tweepy.API(auth)
 
+    lemmatizer = WordNetLemmatizer()
+    stop_words = set(stopwords.words('english'))
+    tweet_text = []
+    # facebook_token = 'EAACEdEose0cBAHr03FDFLi5mt6fXJZBB4eHehYMm41FXIyoZAmqSw4DicBzJVpRmXcecvdnGJgGAu2aghZAfuDRMZA8jnWfXNnCNPopMBW6GFzZCLS0M8Kt9ndEb5VZC3kEIasDXKBfXN2raZC38vzJ90DeuhnZC2znS1MSZBdaUVZAKoafNukRKj6gzDVmCAPiJOjSuoL4aHkMgZDZD'
+    # person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
 
+    # posts = requests.get(person).json().get('data')
+    # for post in posts:
+    # sentence = post.get('message')
+    # if sentence != None:
+    # tweet_text.append(sentence)
+
+    for tweet in tweepy.Cursor(api.user_timeline).items():
+        tweet_text.append(tweet._json['text'])
+    BOW = {}
+    hashtag_list = []
+    word_list = []
+    http_list = []
+    string_list = []
+    for sentence in tweet_text:
+        sentence = preprocess(sentence.lower())
+        for word in sentence:
+            ret_match = re.match('https?://\S+', word);
+            if word.startswith('#'):
+                hashtag_list.append(word)
+            elif (ret_match):
+                http_list.append(word)
+            else:
+                word = remove_non_ascii_2(word)
+                if word not in string.punctuation:
+                    word_list.append(word)
+
+    for word in hashtag_list:
+        word = lemmatizer.lemmatize(word)
+        if word not in stop_words and word != ' ':
+            BOW[word] = BOW.get(word, 0) + 1
+        sorted(BOW.items(), key=lambda t: t[1], reverse=True)
+    for word in BOW:
+        string_item = {'text': word, 'count': BOW[word]}
+        string_list.append(string_item)
+    Json_string_list = simplejson.dumps(string_list)
+    return render(request, 'bubble.html', {'Json_string_list': Json_string_list})

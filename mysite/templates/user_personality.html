@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content_block %}
+<ul class="form" style="float:left; margin-top: 50px;">
+	<li><a class="profile" href="#" style="background-image:url(../static/img/fb.png); background-size:contain;"></a></li>
+	<li><a class="messages" href={% url 'social_network' %} style="background-image:url(../static/img/tw.png); background-size:contain;"></a></li>
+	<li><a class="settings" href={% url 'keywords' %} style="background-image:url(../static/img/re.png); background-size:contain;"></a></li>
+	<li><a class="logout" href={% url 'tone_analysis' %} style="background-image:url(../static/img/tu.png); background-size:contain;"></a></li>
+</ul>
+
+<div class="row">
+	<div id="sunburst" class="col-md-8"></div>
+	<div style="width: 420px; float:right; margin-top: -400px;">
+		<div id="sequence"></div>
+	</div>
+</div>
+
+<!-- vertical menu -->
+<div class="col-lg-2" id="media-nav">
+	
+</div>
+
+<nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px;">
+	<div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;">
+		<div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav bottom-nav">
+			<li><a href={% url 'data' %}>Needs</a></li>
+			<li><a href={% url 'user_values' %}>Values</a></li>
+			<li><a href={% url 'user_personality' %}>Personality</a></li>
+			<li><a href="#">Behavior</a></li>
+			<li><a href="#">Preferences</a></li>
+		  </ul>
+		</div>
+	</div>
+</nav>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>   
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+<script src="../static/js/sunburstChart.js"></script>
+<script>
+var margin = {
+  top: 10,
+  right: 20,
+  bottom: 10,
+  left: 20
+};
+
+var w = 480 - margin.left - margin.right,
+    h = 480 - margin.top - margin.bottom,
+    radius = (Math.min(w, h) / 2) - 10,
+	color_palettes = ['#4abdac', '#fc4a1a', '#f7b733', '#f03b20', '#feb24c', '#ffeda0', '#007849', '#0375b4', '#ffce00', '#373737', '#dcd0c0', '#c0b283', '#e37222', '#07889b', '#eeaa7b', '#062f4f', '#813772', '#b82601', '#565656', '#76323f', '#c09f80'];
+
+var formatNumber = d3.format(",d");
+
+var percentBase = 100;
+
+var x = d3.scale.linear().range([0, 2 * Math.PI]);
+
+var y = d3.scale.linear().range([0, radius]);
+
+var partition = d3.layout.partition().value(function(d) { return d.size; });
+  
+var color = d3.scale.linear().domain([0, 0.5, 1]).range(color_palettes);
+  
+{% autoescape off %}
+var root = {{sbData}};
+console.log(root);
+{% endautoescape %}
+
+drawSunburst("#sunburst","#sequence",root);
+
+</script>
+{% endblock %}

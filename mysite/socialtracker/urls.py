@@ -3,11 +3,12 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-
-    # path('', include('social_django.urls', namespace='social')),  # ???
+    # social media login
+    path('', include('social_django.urls', namespace='social')),
+    # main page
     path('', views.index, name='index'),
+    # normal login
     path('login', views.login, name='login'),
-    # path('dataview', views.dataview, name='dataview'),
     path('account', views.account, name='account'),
     path('manage1', views.manage1, name='manage1'),
     path('manage2', views.manage2, name='manage2'),  # change password
@@ -39,7 +40,14 @@ urlpatterns = [
     path('reset/done/',
          views.MyPasswordResetCompleteView.as_view(),
          name='password_reset_complete'),
-    # social media login
-    path('oauth/', include('social_django.urls', namespace='social')),
+
+    # data visualiazation
+    path('user_values', views.user_values, name='user_values'),
+    path('user_personality', views.user_personality, name='user_personality'),
+    path('tone_analysis', views.tone_analysis, name='tone_analysis'),
+    path('keywords', views.keywords, name='keywords'),
+    path('social_network', views.social_network, name='social_network'),
+    path('time_heatmap', views.time_heatmap, name='time_heatmap'),
+    path('bubble',views.get_hashtag_list, name='bubble'),
 
 ]

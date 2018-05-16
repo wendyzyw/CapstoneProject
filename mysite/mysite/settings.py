@@ -48,7 +48,16 @@ TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
 
 SOCIAL_AUTH_TWITTER_KEY = 'AZU8kwktk3IHLdOPjhgZqtiOk'
 SOCIAL_AUTH_TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
+SOCIAL_AUTH_TWITTER_SCOPE = ['email']
 
+# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+# SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+#    'fields': 'id, name, email, age_range'
+# }
+# SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+
+
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
 # Application definition
 
 INSTALLED_APPS = [
@@ -104,6 +113,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
     'social_core.pipeline.social_auth.associate_by_email',
+    # 'mysite.pipeline.update_user_social_data',
 )
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
@@ -143,7 +153,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'socialtracker.UserInfo'
+# AUTH_USER_MODEL = 'socialtracker.UserInfo'
+
 
 # in case of a custom namespace
 SOCIAL_AUTH_URL_NAMESPACE = 'social'

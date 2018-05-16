@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content_block %}
+<ul class="form" style="float:left; margin-top: 50px;">
+	<li><a class="profile" href="#" style="background-image:url(../static/img/fb.png); background-size:contain;"></a></li>
+	<li><a class="messages" href={% url 'social_network' %} style="background-image:url(../static/img/tw.png); background-size:contain;"></a></li>
+	<li><a class="settings" href={% url 'keywords' %} style="background-image:url(../static/img/re.png); background-size:contain;"></a></li>
+	<li><a class="logout" href={% url 'tone_analysis' %} style="background-image:url(../static/img/tu.png); background-size:contain;"></a></li>
+	<li><a class="logout" href={% url 'time_heatmap' %} style="background-image:url(../static/img/tu.png); background-size:contain;"></a></li>
+</ul>
+
+<div class="row">
+	<div id="graph">
+
+	</div>
+	
+	<div id="tool_tip">
+		<div class="tt_score uk_position_relative">
+			<div class="arrow_left">
+				<img class="orange" src="../static/img/arrow-left-orange.png" style="height:53px;"></img>
+			</div>
+			<div class="color_bg"></div>
+			<span></span>
+			
+			<div class="arrow_right">
+				<img class="orange" src="../static/img/arrow-right-orange.png"></img>
+			</div>
+		</div>
+		
+		<div class="tt_stats uk_position_relative">
+			<div class="tt_brand"></div>
+		</div>
+	</div>
+</div>
+
+<!-- vertical menu -->
+<div class="col-lg-2" id="media-nav">
+	
+</div>
+
+<!-- <nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px;"> -->
+	<!-- <div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;"> -->
+		<!-- <div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1"> -->
+		  <!-- <ul class="nav navbar-nav bottom-nav"> -->
+			<!-- <li><a href={% url 'data' %}>Needs</a></li> -->
+			<!-- <li><a href={% url 'user_values' %}>Values</a></li> -->
+			<!-- <li><a href={% url 'user_personality' %}>Personality</a></li> -->
+			<!-- <li><a href="#">Behavior</a></li> -->
+			<!-- <li><a href="#">Preferences</a></li> -->
+		  <!-- </ul> -->
+		<!-- </div> -->
+	<!-- </div> -->
+<!-- </nav> -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+<script src="../static/js/multiCurves.js"></script>
+
+<script>
+{% autoescape off %}
+var data = {{ tone_data }};
+console.log(data);
+{% endautoescape %}
+
+var endcolor = {
+		purple: "#8f01bf",
+		lightblue: "#0096D1",
+		orange: "#F24533",
+		red: "#EC1C24",
+		brand_purple: "#6e24c3",
+		brand_pink: "#bb0d77"
+	};
+var gradients = {
+	positive: {
+		oneten: "#9804B0",
+		twoten: "#A206A0",
+		threeten: "#AB0991",
+		fourten: "#B40C81",
+		fiveten: "#BE0F72",
+		sixten: "#C71162",
+		seventen: "#D01453",
+		eightten: "#D91743",
+		nineten: "#E31934",
+		tenten: endcolor.red
+	},
+	negative: {
+		oneten: "#8110C1",
+		twoten: "#721FC3",
+		threeten: "#642EC4",
+		fourten: "#563DC6",
+		fiveten: "#484CC8",
+		sixten: "#395ACA",
+		seventen: "#2B69CC",
+		eightten: "#1D78CD",
+		nineten: "#0E87CF",
+		tenten: endcolor.lightblue
+	}
+};
+
+CurveGen(data, 0);
+
+
+</script>
+{% endblock %}
