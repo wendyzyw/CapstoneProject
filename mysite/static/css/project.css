@@ -190,4 +190,24 @@ label.control-label { color: #fff; }
     color: #fff;
 }
 .padding-top-15 { padding-top: 15px; }
+.color-black { color: #000; }
+.color-white { color: #fff; }
+#id_email {
+    width: 500px;
+    height: 30px;
+}
+#id_new_password1 {
+	width: 450px;
+    height: 30px;
+}
+#id_new_password2 {
+	width: 450px;
+    height: 30px;
+}
+.text-left{ text-align: left; }
+.padding-left-35{ padding-left: 35px; }
+.button-left {
+	text-align: left;
+	padding-left: 20px;
+}
 
