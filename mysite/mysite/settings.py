@@ -24,14 +24,14 @@ SECRET_KEY = 'qmp0zuh2g%4o)gyr3x#y3*qyl8anpqb80b!%kdy%f8+p9zusiv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lorikeetanalysis.net','localhost']
-#
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lorikeetanalysis.net','localhost']
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 
 # Application definition
 
@@ -160,8 +160,8 @@ AUTHENTICATION_BACKENDS = (
 TWITTER_TOKEN = 'AZU8kwktk3IHLdOPjhgZqtiOk'
 TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
 
-# SOCIAL_AUTH_LOGIN_REDIRECT_URL = "https://lorikeetanalysis.net/socialtracker/account"
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/socialtracker/account"
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "https://lorikeetanalysis.net/socialtracker/account"
+# SOCIAL_AUTH_LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/socialtracker/account"
 SOCIAL_AUTH_TWITTER_KEY = 'AZU8kwktk3IHLdOPjhgZqtiOk'
 SOCIAL_AUTH_TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
 SOCIAL_AUTH_FACEBOOK_KEY = '213217539436188'

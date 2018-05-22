@@ -1,21 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Bubble Chart</title>
-  <meta charset="utf-8">
+{% extends 'base.html' %}
 
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,200italic,600italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+{% load staticfiles %}
 
-  <script src="http://phuonghuynh.github.io/js/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="http://phuonghuynh.github.io/js/bower_components/d3/d3.min.js"></script>
-  <script src="http://phuonghuynh.github.io/js/bower_components/d3-transform/src/d3-transform.js"></script>
-  <script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/extarray.js"></script>
-  <script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/misc.js"></script>
-  <script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/micro-observer.js"></script>
-  <script src="http://phuonghuynh.github.io/js/bower_components/microplugin/src/microplugin.js"></script>
-  <script src="http://phuonghuynh.github.io/js/bower_components/bubble-chart/src/bubble-chart.js"></script>
-  <script src="http://phuonghuynh.github.io/js/bower_components/bubble-chart/src/plugins/lines/lines.js"></script>
-  <script>
+{% block content_block %}
+<style>
+.bubbleChart {
+  min-width: 100px;
+  max-width: 700px;
+  height: 700px;
+  margin: 0 auto;
+}
+.bubbleChart svg{
+  background: #000000;
+}
+</style>
+
+<div id="navbar-test">
+	<ul class="form" style="float:left; margin-top: 50px;">
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'data' %}>Personality</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Tone Analysis</a></li>
+		<li><a style="background: #efefef; border-left:6px solid RED; color: BLACK;" class="active" href={% url 'keywords' %}>Words Use</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'time_heatmap' %}>Life Pattern</a></li>
+	</ul>
+</div>
+
+<div class="bubbleChart"></div>
+
+<nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px; ">
+	<div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;">
+		<div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav bottom-nav">
+			<li><a href={% url 'keywords' %}>Keywords Extraction</a></li>
+			<li><a href={% url 'wordcloud' %}>Word Cloud</a></li>
+			<li><a href={% url 'bubble' %}>Hashtags Analysis</a></li>
+		  </ul>
+		</div>
+	</div>
+</nav>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://phuonghuynh.github.io/js/bower_components/d3/d3.min.js"></script>
+<script src="http://phuonghuynh.github.io/js/bower_components/d3-transform/src/d3-transform.js"></script>
+<script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/extarray.js"></script>
+<script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/misc.js"></script>
+<script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/micro-observer.js"></script>
+<script src="http://phuonghuynh.github.io/js/bower_components/microplugin/src/microplugin.js"></script>
+<script src="http://phuonghuynh.github.io/js/bower_components/bubble-chart/src/bubble-chart.js"></script>
+<script src="http://phuonghuynh.github.io/js/bower_components/bubble-chart/src/plugins/lines/lines.js"></script>
+<script>
       {% autoescape off %}
       var words = {{Json_string_list}};
       {% endautoescape %}
@@ -108,8 +141,6 @@
   });
 });
 
-  </script>
-   <script>
        d3.svg.BubbleChart.define("central-click", function (options) {
   var self = this;
 
@@ -153,21 +184,7 @@
     };
   })();
 });
-       </script>
-  <style>
-    .bubbleChart {
-      min-width: 100px;
-      max-width: 700px;
-      height: 700px;
-      margin: 0 auto;
-    }
-    .bubbleChart svg{
-      background: #000000;
-    }
-  </style>
-</head>
-<body style="background: #000000">
-<div class="bubbleChart"/>
+</script>
+{% endblock %}
 
-</body>
-</html>
+

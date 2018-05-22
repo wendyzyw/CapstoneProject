@@ -3,6 +3,22 @@
 {% load staticfiles %}
 
 {% block content_block %}
+<style>
+	div.tooltip {	
+		position: absolute;			
+		text-align: center;			
+		width: 60px;					
+		height: 28px;					
+		padding: 2px;				
+		font: 12px sans-serif;		
+		background: lightsteelblue;	
+		border: 0px;		
+		border-radius: 8px;			
+		pointer-events: none;			
+	}
+
+</style>
+
 <div class="row">
 	<div id="navbar-test" class="col-md-2">
 		<ul class="form" style="float:left; margin-top: 50px;">
@@ -27,11 +43,10 @@
 	<div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;">
 		<div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav bottom-nav">
-			<li><a href={% url 'data' %}>Needs</a></li>
-			<li><a href={% url 'user_values' %}>Values</a></li>
-			<li><a href={% url 'user_personality' %}>Personality</a></li>
-			<li><a href="#">Behavior</a></li>
-			<li><a href={% url 'user_preferences' %}>Preferences</a></li>
+			<li><a style="color: WHITE;" href={% url 'data' %}>Needs</a></li>
+			<li><a  style="color: RED; font-weight: bold;" href={% url 'user_values' %}>Values</a></li>
+			<li><a style="color: WHITE;" href={% url 'user_personality' %}>Personality</a></li>
+			<li><a style="color: WHITE;" href={% url 'user_preferences' %}>Preferences</a></li>
 		  </ul>
 		</div>
 	</div>

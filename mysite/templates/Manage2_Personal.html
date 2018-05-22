@@ -4,65 +4,56 @@
 
 {% block account_block %}
 <div class="row"><div class="col col-md-12"><h2>Update Your Details</h2></div></div>
-<form role="form" action="#" method="post">
 	<div class="row">
 		<div class="col-md-5">
+            {% if message %}
+                  <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            <form role="form" action="#" method="post">{% csrf_token %}
 			<div class="form-group left-inner-addon">
 				<span class="glyphicon glyphicon-user"></span>
-				<input name="Firstname" type="text" class="form-control" id="input_Firstname" placeholder="First Name" >
+				<input name="first_name" type="text" class="form-control" id="first_name" placeholder="First Name" value="{{ user.first_name }}">
 			</div>
 			<div class="form-group left-inner-addon">
 				<span class="glyphicon glyphicon-user"></span>
-				<input name="Lastname" type="text" class="form-control" id="input_Lastname" placeholder="Last Name">
+				<input name="last_name" type="text" class="form-control" id="last_name" placeholder="Last Name" value="{{ user.last_name}}">
 			</div>
 			<div class="form-group left-inner-addon">
 				<span class="glyphicon glyphicon-envelope"></span>
-				<input name="email" type="email" class="form-control" id="input_email" placeholder="Email Address">
+				<input name="email" type="email" class="form-control" id="email" placeholder="Email Address" value="{{ user.email }}" readonly>
 			</div>
 			<div class="form-group left-inner-addon">
 				<span class="glyphicon glyphicon-earphone"></span>
-				<input name="phone" type="tel" class="form-control" id="input_tel" placeholder="Phone">
+				<input name="phone" type="tel" class="form-control" id="phone" placeholder="Phone" value="{{ user.phone }}">
 			</div>
 			<div class="form-group left-inner-addon">
 				<span class="glyphicon glyphicon-home"></span>
-				<input name="Address" type="text" class="form-control" id="input_Address" placeholder="Address">
+				<input name="address" type="text" class="form-control" id="address" placeholder="Address" value="{{ user.address}}">
 			</div>
 			<div class="form-group left-inner-addon">
 					<span class="glyphicon glyphicon-home"></span>
-					<input name="City" type="text" class="form-control" id="input_City" placeholder="City">
+					<input name="city" type="text" class="form-control" id="city" placeholder="City" value="{{ user.city}}">
 			</div>
 			<div class="form-group left-inner-addon">
-				<div class="col-md-18 selectContainer">
-				<select name="state" class="form-control selectpicker" >
-					<option value=" " >Please select your state</option>
-					<option>VIC</option>
-                                        <option>NSW</option>
-                                        <option>ACT</option>
-                                        <option>QLD</option>
-                                        <option>TAS</option>
-                                        <option>SA</option>
-                                        <option>WA</option>
-                                        <option>NT</option>
-				</select>
-				</div>
+				<span class="glyphicon glyphicon-home"></span>
+				<input name="state" type="text" class="form-control" id="state" placeholder="State" value="{{ user.state}}">
 			</div>
+
 			<div class="form-group left-inner-addon">
 					<span class="glyphicon glyphicon-home"></span>
-					<input name="Zip Code" type="text" class="form-control" id="input_Zipcode" placeholder="Zip Code">
+					<input name="zip_code" type="text" class="form-control" id="zip_code" placeholder="Zip Code" value="{{ user.zip_code}}">
 			</div>
 			<div class="form-group left-inner-addon">
 					  <label>
 						 <font size="3" color="White">Are you Male or Female?</font>
-					 </label>
+					  </label>
 			  <div class="radio">
 					 <label>
-						 <input type="radio" name="hosting" value="Male" />
+						 <input type="radio" name="gender" value="Male" />
 						 <font size="3" color="White">Male</font>
 					 </label>
-				 </div>
-			  <div class="radio">
 					 <label>
-						 <input type="radio" name="hosting" value="Female" />
+						 <input type="radio" name="gender" value="Female" />
 						  <font size="3" color="White">FeMale</font>
 					 </label>
 
@@ -74,7 +65,7 @@
 					<button type="submit" class="btn btn-warning" >Update <span class="glyphicon glyphicon-send"></span></button>
 				</div>
 			</div>
+            </form>
 		</div>
 	</div><!-- row -->
-</form>
 {% endblock %}

@@ -1,4 +1,6 @@
 function RadarChart(id, data, options) {
+	var intro_needs = {'Excitement': 'Want to get out there and live life, have upbeat emotions, and want to have fun.', 'Harmony': 'Appreciate other people, their viewpoints, and their feelings.', 'Curiosity':	'Have a desire to discover, find out, and grow.',  'Ideal': 'Desire perfection and a sense of community.', 'Closeness':	'Relish being connected to family and setting up a home.', 'Self-expression': 'Enjoy discovering and asserting their own identities.', 'Liberty': 'Have a desire for fashion and new things, as well as the need for escape.', 'Love': 'Enjoy social contact, whether one-to-one or one-to-many. Any brand that is involved in bringing people together taps this need.', 'Practicality':	'Have a desire to get the job done, a desire for skill and efficiency, which can include physical expression and experience.', 'Stability':	'Seek equivalence in the physical world. They favor the sensible, the tried and tested.', 'Challenge': 'Have an urge to achieve, to succeed, and to take on challenges.', 'Structure': 'Exhibit groundedness and a desire to hold things together. They need things to be well organized and under control.'};
+	
 	console.log(data);
 	var cfg = {
 	 w: 400,				//Width of the circle
@@ -9,7 +11,7 @@ function RadarChart(id, data, options) {
 	 labelFactor: 1.25, 	//How much farther than the radius of the outer circle should the labels be placed
 	 wrapWidth: 60, 		//The number of pixels after which a label needs to be given a new line
 	 opacityArea: 0.35, 	//The opacity of the area of the blob
-	 dotRadius: 4, 			//The size of the colored circles of each blog
+	 dotRadius: 6, 			//The size of the colored circles of each blog
 	 opacityCircles: 0.1, 	//The opacity of the circles of each blob
 	 strokeWidth: 2, 		//The width of the stroke around each blob
 	 roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
@@ -222,7 +224,7 @@ function RadarChart(id, data, options) {
 				.text(d.value)
 				.style("font-size", "13px")
 				.transition().duration(200)
-				.style('opacity', 1);
+				.style('opacity', 1);				
 		})
 		.on("mouseout", function(){
 			tooltip.transition().duration(200)

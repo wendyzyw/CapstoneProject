@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content_block %}
+
+<div id="navbar-test">
+	<ul class="form" style="float:left; margin-top: 50px;">
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'data' %}>Personality</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Tone Analysis</a></li>
+		<li class="data-leftnav" id="#keywords"><a class="data-leftnav-link" href={% url 'keywords' %}>Words Use</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
+		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'time_heatmap' %}>Life Pattern</a></li>
+	</ul>
+</div>
+    <!-- Title -->
+<div id='wordcloud',></div>
+<div class="container media">
+
+<nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px; ">
+	<div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;">
+		<div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav bottom-nav">
+			<li><a style="color: WHITE;" href={% url 'keywords' %}>Keywords Extraction</a></li>
+			<li><a style="color: RED; font-weight: bold;" href={% url 'wordcloud' %}>Word Cloud</a></li>
+			<li><a style="color: WHITE;" href={% url 'bubble' %}>Hashtags Analysis</a></li>
+		  </ul>
+		</div>
+	</div>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+<script src="../static/js/d3.layout.cloud.js"></script>
+<script src="../static/js/d3.wordcloud.js"></script>
+
+<script>
+{% autoescape off %}
+var words = {{Json_string_list}};
+{% endautoescape %}
+
+console.log(words);
+
+d3.wordcloud().size([700, 500]).fill(d3.scale.category20())
+				 .words(words)
+				 .onwordclick(function(d, i) {
+					  if (d.href) { window.location = d.href; }
+				  })
+				 .start();
+</script>
+{% endblock %}

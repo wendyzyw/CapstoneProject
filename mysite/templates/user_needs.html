@@ -3,34 +3,35 @@
 {% load staticfiles %}
 
 {% block content_block %}
-<div id="navbar-test">
-	<ul class="form" style="float:left; margin-top: 50px;">
-		<li><a style="background: #efefef; border-left:6px solid RED; color: BLACK;" class="active" href={% url 'data' %}>Personality</a></li>
-		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Tone Analysis</a></li>
-		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'keywords' %}>Words Use</a></li>
-		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
-		<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'time_heatmap' %}>Life Pattern</a></li>
-	</ul>
-</div>
+<div class="row">
+	<div id="navbar-test" class="col-md-2">
+		<ul class="form" style="float:left; margin-top: 50px;">
+			<li><a style="background: #efefef; border-left:6px solid RED; color: BLACK;" class="active" href={% url 'data' %}>Personality</a></li>
+			<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'tone_analysis' %}>Tone Analysis</a></li>
+			<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'keywords' %}>Words Use</a></li>
+			<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'social_network' %}>Social Network</a></li>
+			<li class="data-leftnav"><a class="data-leftnav-link" href={% url 'time_heatmap' %}>Life Pattern</a></li>
+		</ul>
+	</div>
 
-<div>
-	<div class="radarChart" id="needs"></div>
-</div>
+	<div class="col-md-7">
+		<div class="radarChart" id="needs"></div>
+	</div>
 
-<!-- vertical menu -->
-<div class="col-lg-2" id="media-nav">
-	
+	<!-- vertical menu -->
+	<div class="col-md-3">
+		
+	</div>
 </div>
 
 <nav class="navbar navbar-fixed-bottom navbar-inverse bottom-box" style="border: 0px;">
 	<div class="container nav-box col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#2F4F4F; margin-top: 20px; margin-bottom: 20px;">
 		<div class="collapse navbar-collapse bottom-nav" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav bottom-nav">
-			<li><a href={% url 'data' %}>Needs</a></li>
-			<li><a href={% url 'user_values' %}>Values</a></li>
-			<li><a href={% url 'user_personality' %}>Personality</a></li>
-			<li><a href="#">Behavior</a></li>
-			<li><a href={% url 'user_preferences' %}>Preferences</a></li>
+			<li><a style="color: RED; font-weight: bold;" href={% url 'data' %}>Needs</a></li>
+			<li><a style="color: WHITE;" href={% url 'user_values' %}>Values</a></li>
+			<li><a style="color: WHITE;" href={% url 'user_personality' %}>Personality</a></li>
+			<li><a style="color: WHITE;" href={% url 'user_preferences' %}>Preferences</a></li>
 		  </ul>
 		</div>
 	</div>
