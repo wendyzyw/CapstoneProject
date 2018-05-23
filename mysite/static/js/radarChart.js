@@ -1,5 +1,26 @@
-function RadarChart(id, data, options) {
-	var intro_needs = {'Excitement': 'Want to get out there and live life, have upbeat emotions, and want to have fun.', 'Harmony': 'Appreciate other people, their viewpoints, and their feelings.', 'Curiosity':	'Have a desire to discover, find out, and grow.',  'Ideal': 'Desire perfection and a sense of community.', 'Closeness':	'Relish being connected to family and setting up a home.', 'Self-expression': 'Enjoy discovering and asserting their own identities.', 'Liberty': 'Have a desire for fashion and new things, as well as the need for escape.', 'Love': 'Enjoy social contact, whether one-to-one or one-to-many. Any brand that is involved in bringing people together taps this need.', 'Practicality':	'Have a desire to get the job done, a desire for skill and efficiency, which can include physical expression and experience.', 'Stability':	'Seek equivalence in the physical world. They favor the sensible, the tried and tested.', 'Challenge': 'Have an urge to achieve, to succeed, and to take on challenges.', 'Structure': 'Exhibit groundedness and a desire to hold things together. They need things to be well organized and under control.'};
+function RadarChart(id, data, options, intro_div, is_value) {
+	var intro_needs = {
+		'Need Excitement': 'Want to get out there and live life, have upbeat emotions, and want to have fun.', 
+		'Need Harmony': 'Appreciate other people, their viewpoints, and their feelings.', 
+		'Need Curiosity': 'Have a desire to discover, find out, and grow.',  
+		'Need Ideal': 'Desire perfection and a sense of community.', 
+		'Need Closeness': 'Relish being connected to family and setting up a home.', 
+		'Need Self-expression': 'Enjoy discovering and asserting their own identities.', 
+		'Need Liberty': 'Have a desire for fashion and new things, as well as the need for escape.', 
+		'Need Love': 'Enjoy social contact, whether one-to-one or one-to-many. Any brand that is involved in bringing people together taps this need.', 
+		'Need Practicality':	'Have a desire to get the job done, a desire for skill and efficiency, which can include physical expression and experience.', 
+		'Need Stability': 'Seek equivalence in the physical world. They favor the sensible, the tried and tested.', 
+		'Need Challenge': 'Have an urge to achieve, to succeed, and to take on challenges.', 
+		'Need Structure': 'Exhibit groundedness and a desire to hold things together. They need things to be well organized and under control.'
+	};
+	
+	var intro_values = {
+		'Self-transcendence': '(Helping others) Show concern for the welfare and interests of others.', 
+		'Conservation': '(Tradition) Emphasize self-restriction, order, and resistance to change.', 
+		'Hedonism': '(Taking pleasure in life) Seek pleasure and sensuous gratification for themselves.', 
+		'Self-enhancement': '(Achieving success) Seek personal success for themselves.', 
+		'Openness to change': '(Excitement) Emphasize independent action, thought, and feeling, as well as a readiness for new experiences.'
+	};
 	
 	console.log(data);
 	var cfg = {
@@ -224,7 +245,21 @@ function RadarChart(id, data, options) {
 				.text(d.value)
 				.style("font-size", "13px")
 				.transition().duration(200)
-				.style('opacity', 1);				
+				.style('opacity', 1);
+			
+			d3.select(intro_div).selectAll("*").remove();
+			if (is_value){
+				d3.select(intro_div).append("div")
+					.text(d.axis+":  "+intro_values[d.axis])
+					.style("color", "#000")
+					.style("width", 300+"px")
+					.style("height", 300+"px")
+					.style("padding-top", 100+"px");
+			} else {
+				d3.select(intro_div).append("div")
+					.text(intro_needs[d.axis])
+					.style("color", "#fff");
+			}
 		})
 		.on("mouseout", function(){
 			tooltip.transition().duration(200)
