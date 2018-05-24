@@ -216,3 +216,6 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 'lorikeetanalysis@gmail.com'
 EMAIL_HOST_PASSWORD = '12345@qwert'
 DEFAULT_FROM_EMAIL = 'LorikeetAnalysis <lorikeetanalysis.gmail.com>'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
