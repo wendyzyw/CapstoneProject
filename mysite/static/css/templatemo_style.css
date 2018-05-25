@@ -14,51 +14,6 @@ a:hover, a:focus { color: #CCFF66; }
 	text-align: center;
 }
 
-.templatemo_juice_bg {
-  	background: url(../static/img/templatemo_juice.jpg) no-repeat center center fixed; 
-  	-webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
-  	overflow-x: hidden;
-}
-
-.templatemo_flower_1 {
-	background: url(../static/img/templatemo_flower.jpg) no-repeat center center fixed; 
-  	-webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
-  	overflow-x: hidden;
-}
-
-.templatemo_flower_2 {
-	background: url(../static/img/templatemo_flower2.jpg) no-repeat center center fixed; 
-  	-webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
-  	overflow-x: hidden;
-}
-
-.templatemo_garden_bg {
-  	background: url((../static/img/templatemo_garden.jpg) no-repeat center center fixed; 
-  	-webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
-  	overflow-x: hidden;
-}
-
-.templatemo_padaut_bg {
-  	background: url(../static/img/templatemo_padaut.jpg) no-repeat center center fixed; 
-  	-webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
-  	overflow-x: hidden;
-}
-
 .flexslider { width: 99%; }
 
 .img_left {	float: left; margin-right: 20px; margin-bottom: 15px; }

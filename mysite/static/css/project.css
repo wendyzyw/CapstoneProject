@@ -83,14 +83,7 @@ h3 a:hover{ color:#ffff00; }
 }
 .Hou-bg-black { background-color: #000; }
 .Hou-bg-black h1 { color: #fff; }
-.templatemo-bg-image-1 {
-	background-color: rgb(60,60,60);
-	background-image: url(../images/templatemo-bg-1.jpg);	
-}
-.templatemo-bg-image-2 {
-	background-color: rgb(70, 90, 40);
-	background-image: url(../images/templatemo-bg-2.jpg);
-}
+
 .templatemo-bg-image-1, .templatemo-bg-image-2 {
 	background-repeat: no-repeat;
 	background-position: center center;
