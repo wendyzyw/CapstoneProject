@@ -8,6 +8,7 @@ gunicorn = "*"
 django-heroku = "*"
 python-social-auth = "*"
 social-auth-app-django = "*"
+djangorestframework = "*"
 
 [dev-packages]
 
