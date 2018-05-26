@@ -363,8 +363,7 @@ def user_personality(request):
         trait3 = eachPersonality['children'][2]
         trait4 = eachPersonality['children'][3]
         trait5 = eachPersonality['children'][4]
-        totalScore = trait1['raw_score'] + trait2['raw_score'] + trait3['raw_score'] + trait4['raw_score'] + trait5[
-            'raw_score']
+        totalScore = trait1['raw_score'] + trait2['raw_score'] + trait3['raw_score'] + trait4['raw_score'] + trait5['raw_score']
         child1 = {'name': trait1['name'], 'color': '#d8c51d', 'size': round(trait1['raw_score'], 4),
                   'percentile': round(trait1['percentile'], 4), 'percent': round(trait1['raw_score'] / totalScore, 4)}
         child2 = {'name': trait2['name'], 'color': '#d8c51d', 'size': round(trait2['raw_score'], 4),
@@ -375,11 +374,7 @@ def user_personality(request):
                   'percentile': round(trait4['percentile'], 4), 'percent': round(trait4['raw_score'] / totalScore, 4)}
         child5 = {'name': trait5['name'], 'color': '#d8c51d', 'size': round(trait5['raw_score'], 4),
                   'percentile': round(trait5['percentile'], 4), 'percent': round(trait5['raw_score'] / totalScore, 4)}
-        onePersonality['children'].append(child1)
-        onePersonality['children'].append(child2)
-        onePersonality['children'].append(child3)
-        onePersonality['children'].append(child4)
-        onePersonality['children'].append(child5)
+        onePersonality['children'].extend([child1, child2, child3, child4, child5])
         sbData['children'].append(onePersonality)
         totalScore += eachPersonality['raw_score']
 

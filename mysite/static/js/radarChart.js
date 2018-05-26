@@ -251,14 +251,17 @@ function RadarChart(id, data, options, intro_div, is_value) {
 			if (is_value){
 				d3.select(intro_div).append("div")
 					.text(d.axis+":  "+intro_values[d.axis])
-					.style("color", "#000")
+					.style("color", "#fff")
 					.style("width", 300+"px")
 					.style("height", 300+"px")
 					.style("padding-top", 100+"px");
 			} else {
 				d3.select(intro_div).append("div")
-					.text(intro_needs[d.axis])
-					.style("color", "#fff");
+					.text(d.axis+":  "+intro_needs[d.axis])
+					.style("color", "#fff")
+					.style("width", 300+"px")
+					.style("height", 300+"px")
+					.style("padding-top", 100+"px");
 			}
 		})
 		.on("mouseout", function(){

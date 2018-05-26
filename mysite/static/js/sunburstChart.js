@@ -1,5 +1,47 @@
+var big5_intro = {
+	'Agreeableness': "a person's tendency to be compassionate and cooperative toward others",
+	'Conscientiousness': "a person's tendency to act in an organized or thoughtful way",
+	'Extraversion': "a person's tendency to seek stimulation in the company of others",
+	'Emotional range': "also referred to as Neuroticism or Natural reactions, is the extent to which a person's emotions are sensitive to the person's environment",
+	'Openness': "the extent to which a person is open to experiencing different activities"
+};
+var agreeable = {
+	'Altruism': "Find that helping others is genuinely rewarding, that doing things for others is a form of self-fulfillment rather than self-sacrifice.",
+	'Sympathy': "Empathetic, are tender-hearted and compassionate.",
+	'Cooperation': "Accommodating / Compliance. Dislike confrontation. They are perfectly willing to compromise or to deny their own needs to get along with others.",
+	'Modesty': "Are unassuming, rather self-effacing, and humble. However, they do not necessarily lack self-confidence or self-esteem.",
+	'Uncompromising': "See no need for pretense or manipulation when dealing with others and are therefore candid, frank, and genuine."
+};
+var conscientiousness = {
+	'Cautiousness': "Deliberate. Are disposed to think through possibilities carefully before acting.",
+	'Orderliness': "Are well-organized, tidy, and neat.",
+	'Self-discipline': 'Persistent. Have the self-discipline, or "will-power," to persist at difficult or unpleasant tasks until they are completed.',
+	'Dutifulness': "Have a strong sense of duty and obligation.",
+	'Achievement striving': "Try hard to achieve excellence. Their drive to be recognized as successful keeps them on track as they work hard to accomplish their goals."
+};
+var extraversion = {
+	'Assertiveness': "Like to take charge and direct the activities of others. They tend to be leaders in groups.",
+	'Excitement-seeking': "Are easily bored without high levels of stimulation.",
+	'Cheerfulness': "Experience a range of positive feelings, including happiness, enthusiasm, optimism, and joy.",
+	'Outgoing': "Genuinely like other people and openly demonstrate positive feelings toward others.",
+	'Activity level': "Energetic. Lead fast-paced and busy lives. They do things and move about quickly, energetically, and vigorously, and they are involved in many activities."
+};
+var emotional_range = {
+	'Melancholy': "Depression. Tend to react more readily to life's ups and downs.",
+	'Fiery': "Have a tendency to feel angry.",
+	'Immoderation': "Self-indulgence. Feel strong cravings and urges that they have difficulty resisting, even though they know that they are likely to regret them later. They tend to be oriented toward short-term pleasures and rewards rather than long-term consequences.",
+	'Self-consciousness': "Are sensitive about what others think of them. Their concerns about rejection and ridicule cause them to feel shy and uncomfortable around others; they are easily embarrassed.",
+	'Prone to worry': 'Anxiety. Often feel like something unpleasant, threatening, or dangerous is about to happen. The "fight-or-flight" system of their brains is too easily and too often engaged.'
+};
+var openness = {
+	'Imagination': "View the real world as often too plain and ordinary. They use fantasy not as an escape but as a way of creating for themselves a richer and more interesting inner-world.",
+	'Artistic interests': "Love beauty, both in art and in nature. They become easily involved and absorbed in artistic and natural events. With intellect, this facet is one of the two most important, central aspects of this characteristic.",
+	'Intellect': "Are intellectually curious and tend to think in symbols and abstractions. With artistic interests, this facet is one of the two most important, central aspects of this characteristic.",
+	'Emotionality': "Depths of emotion. Have good access to and awareness of their own feelings.",
+	'Adventurousnes': "Willingness to experiment. Are eager to try new activities and experience different things. They find familiarity and routine boring."
+};
 
-function drawSunburst(plotDiv,bcDiv,data){
+function drawSunburst(plotDiv,bcDiv,data,introDiv){
 	initializeBreadcrumbTrail();
 	// Breadcrumb dimensions: width, height, spacing, width of tip/tail.
 	var b = {
@@ -144,6 +186,34 @@ function drawSunburst(plotDiv,bcDiv,data){
 			.selectAll("path")
 			.filter(function (a) { return c.indexOf(a) >= 0 })
 			.style("opacity", 1);
+			
+		d3.select(introDiv).selectAll("*").remove();
+		display_text = '';
+		if (sequenceArray.length == 1){
+			name = sequenceArray[sequenceArray.length-1].name;
+			display_text = name+': '+big5_intro[name];
+		} else {
+			name1 = sequenceArray[0].name;
+			name2 = sequenceArray[1].name;
+			switch(name1){
+				case 'Agreeableness': 
+					display_text = name2+': '+agreeable[name2]; break;
+				case 'Conscientiousness': 
+					display_text = name2+': '+conscientiousness[name2]; break;
+				case 'Extraversion': 
+					display_text = name2+': '+extraversion[name2]; break;
+				case 'Emotional range': 
+					display_text = name2+': '+emotional_range[name2]; break;
+				case 'Openness': 
+					display_text = name2+': '+openness[name2]; break;
+			}
+		}
+		d3.select(introDiv).append("div")
+				.text(display_text)
+				.style("color", "#fff")
+				.style("width", 300+"px")
+				.style("height", 300+"px")
+				.style("padding-top", 50+"px");
 	}
 	function mouseleave() {
 		d3

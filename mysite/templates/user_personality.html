@@ -17,6 +17,7 @@
 	<div id="sunburst" class="col-md-8"></div>
 	<div style="width: 420px; float:right; margin-top: -400px;">
 		<div id="sequence"></div>
+		<div id="intro"></div>
 	</div>
 </div>
 
@@ -70,10 +71,10 @@ var color = d3.scale.linear().domain([0, 0.5, 1]).range(color_palettes);
   
 {% autoescape off %}
 var root = {{sbData}};
-console.log(root);
+
 {% endautoescape %}
 
-drawSunburst("#sunburst","#sequence",root);
+drawSunburst("#sunburst","#sequence",root,"#intro");
 
 </script>
 {% endblock %}
