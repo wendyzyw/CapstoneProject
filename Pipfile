@@ -10,6 +10,10 @@ python-social-auth = "*"
 social-auth-app-django = "*"
 djangorestframework = "*"
 "oauth2" = "*"
+tweepy = "*"
+facebook-sdk = "*"
+nltk = "*"
+watson-developer-cloud = "*"
 
 [dev-packages]
 
