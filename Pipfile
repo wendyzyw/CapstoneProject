@@ -16,6 +16,7 @@ nltk = "*"
 watson-developer-cloud = "*"
 simplejson = "*"
 requests = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
