@@ -9,6 +9,7 @@ django-heroku = "*"
 python-social-auth = "*"
 social-auth-app-django = "*"
 djangorestframework = "*"
+"oauth2" = "*"
 
 [dev-packages]
 
