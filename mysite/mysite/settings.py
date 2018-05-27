@@ -115,7 +115,17 @@ REST_FRAMEWORK = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
 # }
-DATABASES = { 'default': dj_database_url.config(conn_max_age=600, ssl_require=True) }
+# DATABASES = { 'default': dj_database_url.config(conn_max_age=600, ssl_require=True) }
+DATABASES = {
+	'default': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'dc16fecsg2oakp',
+		'USER': 'ijqauhxxtcbsce',
+		'PASSWORD': 'e1618bcb44ede4a136f9672daff5664b94467d9c9415d584191b68dd2633783e',
+		'HOTS': 'ec2-23-21-129-50.compute-1.amazonaws.com',
+		'PORT':	'5432'
+	}
+}
 
 
 # Password validation
