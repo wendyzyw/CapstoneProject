@@ -1,1 +1,1 @@
-web: python mysite/manage.py runserver 10.13.147.244:8000
+web: python mysite/manage.py runserver 0.0.0.0:8000
