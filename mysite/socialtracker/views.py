@@ -780,7 +780,7 @@ def twitter_login(request):
 def twitter_logout(request):
     auth_logout(request)
     # redirect back to homepage
-    return HttpResponseRedirect('/socialtracker')
+    return HttpResponseRedirect('/')
 
 
 def twitter_authenticated(request):

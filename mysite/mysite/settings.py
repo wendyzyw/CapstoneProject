@@ -161,7 +161,7 @@ AUTHENTICATION_BACKENDS = (
 TWITTER_TOKEN = 'AZU8kwktk3IHLdOPjhgZqtiOk'
 TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "https://lorikeetanalysis.net/socialtracker/account"
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "https://lorikeetanalysis.net/account"
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/socialtracker/account"
 SOCIAL_AUTH_TWITTER_KEY = 'AZU8kwktk3IHLdOPjhgZqtiOk'
 SOCIAL_AUTH_TWITTER_SECRET = '2ihJ6ZrKBl3p0QGADi4Dx3WRf9OZx5IftZZiFFfMmfkUtev6QY'
