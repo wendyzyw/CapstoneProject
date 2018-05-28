@@ -508,7 +508,7 @@ def data(request):
 
                 # print(json.dumps(response, indent=2))
                 request.session['keywords'] = response['keywords']
-				print(response['keywords'])
+                print(response['keywords'])
 
             except WatsonApiException as ex:
                 print("Method failed with status code " + str(ex.code) + ": " + ex.message)
