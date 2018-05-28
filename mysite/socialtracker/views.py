@@ -86,25 +86,23 @@ def index(request):
 
 def login(request):
     # User.objects.filter(username='ElfWx').delete()
-    # if request.method == "POST":
-        # uf = LoginForm(request.POST)
-        # if uf.is_valid():
-            # username = request.POST.get('username', '')
-            # password = request.POST.get('password', '')
-            # user = auth.authenticate(username=username, password=password)
-            # if user is not None and user.is_active:
-                # auth_login(request, user)
-                # return render(request, 'account-home.html')
-            # else:
-                # return render(request, 'Login.html',
-                              # {'uf': uf, 'message': 'username or password is not correct, please check or signup!'})
-        # else:
-            # return render(request, 'Login.html', {'uf': uf,
-                                                  # 'message': 'please fill in all the information or note the format of entered password!'})
-    # else:
-        # uf = LoginForm()
-	# return render(request, 'Login.html', {'uf': uf})
-	return render(request, 'Login.html')
+    if request.method == "POST":
+        uf = LoginForm(request.POST)
+        if uf.is_valid():
+            username = request.POST.get('username', '')
+            password = request.POST.get('password', '')
+            user = auth.authenticate(username=username, password=password)
+            if user is not None and user.is_active:
+                auth_login(request, user)
+                return render(request, 'account-home.html')
+            else:
+                return render(request, 'Login.html',{'uf': uf, 'message': 'username or password is not correct, please check or signup!'})
+        else:
+            return render(request, 'Login.html', {'uf': uf,'message': 'please fill in all the information or note the format of entered password!'})
+    else:
+        uf = LoginForm()
+    return render(request, 'Login.html', {'uf': uf})
+	# return render(request, 'Login.html')
 
 
 def register(request):
