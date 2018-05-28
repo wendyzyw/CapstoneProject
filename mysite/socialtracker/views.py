@@ -291,20 +291,20 @@ def keywords(request):
         id_by_name[keyword['text']] = id
         value_obj = {'key': id, 'values': []}
 		# to avoid keyerror 
-		emotion_value = keyword.get('emotion', default='Empty')
-		if emotion_value is not 'Empty':	
-			sadness = {'ID': id, 'emotion': 'sadness', 'value': emotion_value['sadness']}
-			joy = {'ID': id, 'emotion': 'joy', 'value': emotion_value['joy']}
-			fear = {'ID': id, 'emotion': 'fear', 'value': emotion_value['fear']}
-			disgust = {'ID': id, 'emotion': 'disgust', 'value': emotion_value['disgust']}
-			anger = {'ID': id, 'emotion': 'anger', 'value': emotion_value['anger']}
-		else:
-			sadness = {'ID': id, 'emotion': 'sadness', 'value': 0}
-			joy = {'ID': id, 'emotion': 'sadness', 'value': 0}
-			fear = {'ID': id, 'emotion': 'sadness', 'value': 0}
-			disgust = {'ID': id, 'emotion': 'sadness', 'value': 0}
-			anger = {'ID': id, 'emotion': 'sadness', 'value': 0}
-		
+        emotion_value = keyword.get('emotion', default='Empty')
+        if emotion_value is not 'Empty':	
+            sadness = {'ID': id, 'emotion': 'sadness', 'value': emotion_value['sadness']}
+            joy = {'ID': id, 'emotion': 'joy', 'value': emotion_value['joy']}
+            fear = {'ID': id, 'emotion': 'fear', 'value': emotion_value['fear']}
+            disgust = {'ID': id, 'emotion': 'disgust', 'value': emotion_value['disgust']}
+            anger = {'ID': id, 'emotion': 'anger', 'value': emotion_value['anger']}
+        else:
+            sadness = {'ID': id, 'emotion': 'sadness', 'value': 0}
+            joy = {'ID': id, 'emotion': 'sadness', 'value': 0}
+            fear = {'ID': id, 'emotion': 'sadness', 'value': 0}
+            disgust = {'ID': id, 'emotion': 'sadness', 'value': 0}
+            anger = {'ID': id, 'emotion': 'sadness', 'value': 0}
+         
         value_obj['values'].extend([sadness, joy, fear, disgust, anger])
         data_with_values[id] = value_obj
 
