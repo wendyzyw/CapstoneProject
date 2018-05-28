@@ -297,7 +297,7 @@ def keywords(request):
             joy = {'ID': id, 'emotion': 'joy', 'value': keyword['emotion']['joy']}
             fear = {'ID': id, 'emotion': 'fear', 'value': keyword['emotion']['fear']}
             disgust = {'ID': id, 'emotion': 'disgust', 'value': keyword['emotion']['disgust']}
-        	anger = {'ID': id, 'emotion': 'anger', 'value': keyword['emotion']['anger']}
+            anger = {'ID': id, 'emotion': 'anger', 'value': keyword['emotion']['anger']}
         else:
             sadness = {'ID': id, 'emotion': 'sadness', 'value': 0}
             joy = {'ID': id, 'emotion': 'joy', 'value': 0}
