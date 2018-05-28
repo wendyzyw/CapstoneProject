@@ -290,9 +290,9 @@ def keywords(request):
 
         id_by_name[keyword['text']] = id
         value_obj = {'key': id, 'values': []}
-		
-		# to avoid keyerror if keyword has no emotion key 
-		if 'emotion' in keyword:
+        
+        # to avoid keyerror if keyword has no emotion key 
+        if 'emotion' in keyword:
         	sadness = {'ID': id, 'emotion': 'sadness', 'value': keyword['emotion']['sadness']}
         	joy = {'ID': id, 'emotion': 'joy', 'value': keyword['emotion']['joy']}
         	fear = {'ID': id, 'emotion': 'fear', 'value': keyword['emotion']['fear']}
