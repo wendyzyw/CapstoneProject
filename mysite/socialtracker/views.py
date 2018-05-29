@@ -235,7 +235,7 @@ def manage3(request):
             facebook_name = profile['name']
             
             posts = graph.get_connections(facebook_id, 'feed')
-			print(posts)
+            print(posts)
             fb_texts = []
             while True:
                 try:
