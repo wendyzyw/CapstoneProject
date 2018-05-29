@@ -580,15 +580,17 @@ def social_network(request):
     edges.append(edges3)
     edges.append(edges4)
     # get friends from facebook
-    token = request.session['facebook_token']
-    graph = facebook.GraphAPI(access_token=token)
-    facebook_friends = graph.get_connections(id='me', connection_name='friends')
-    for post in facebook_friends["data"]:
-        temp3 = {'id': post["name"], 'group': 5}
-        friends.append(temp3)
-    for post2 in facebook_friends["data"]:
-        temp4 = {'source': 'facebook', 'target': post2["name"], 'value': 2}
-        edges.append(temp4)
+	
+	if 'facebook_token' in request.session:
+		token = request.session['facebook_token']
+		graph = facebook.GraphAPI(access_token=token)
+		facebook_friends = graph.get_connections(id='me', connection_name='friends')
+		for post in facebook_friends["data"]:
+			temp3 = {'id': post["name"], 'group': 5}
+			friends.append(temp3)
+		for post2 in facebook_friends["data"]:
+			temp4 = {'source': 'facebook', 'target': post2["name"], 'value': 2}
+			edges.append(temp4)
     # return JsonResponse(info,safe = False)
     return render(request, 'social_network.html', {'network_info': info})
 
@@ -613,30 +615,29 @@ def time_heatmap(request):
             hour = 24
         array[weekday - 1][hour - 1] += 1
 
-    facebook_token = request.session['facebook_token']
-    user = 'BillGates'
+	if 'facebook_token' in request.session:
+		facebook_token = request.session['facebook_token']
+		user = 'BillGates'
+		person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
+		posts = requests.get(person).json().get('data')
+		reqJson_f = []
+		for post in posts:
+			message = post.get('message')
+			created_time = post.get('created_time')
+			datetime_object = datetime.strptime(created_time, '%Y-%m-%dT%H:%M:%S+%f')
 
-    person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
+			# print('message = ', message)
+			# print('created_time = ', created_time)
+			# print('datetime = ', datetime_object)
+			# print(type(datetime_object))
+			# print('weekday = ', )
 
-    posts = requests.get(person).json().get('data')
-    reqJson_f = []
-    for post in posts:
-        message = post.get('message')
-        created_time = post.get('created_time')
-        datetime_object = datetime.strptime(created_time, '%Y-%m-%dT%H:%M:%S+%f')
-
-        # print('message = ', message)
-        # print('created_time = ', created_time)
-        # print('datetime = ', datetime_object)
-        # print(type(datetime_object))
-        # print('weekday = ', )
-
-        if message != None:
-            weekday = datetime_object.isoweekday()
-            hour = datetime_object.hour
-            if hour == 0:
-                hour = 24
-            array[weekday - 1][hour - 1] += 1
+			if message != None:
+				weekday = datetime_object.isoweekday()
+				hour = datetime_object.hour
+				if hour == 0:
+					hour = 24
+				array[weekday - 1][hour - 1] += 1
 
     tf_list = []
 
