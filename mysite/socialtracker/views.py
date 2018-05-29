@@ -238,7 +238,7 @@ def manage3(request):
             fb_texts = []
             while True:
                 try:
-					posts_list = posts['data']
+                    posts_list = posts['data']
                     for post in posts_list:
                         if 'message' in post:
                             fb_texts.append(post['message'])
