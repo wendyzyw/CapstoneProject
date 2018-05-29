@@ -233,6 +233,9 @@ def manage3(request):
             args = {'fields' : 'name', }
             profile = graph.get_object('me', **args)
             facebook_name = profile['name']
+            
+            allfeeds = graph.get_all_connections(id=facebook_id, connection_name='feed')
+            print(allfeeds)
 
     except UserSocialAuth.DoesNotExist:
         facebook_account is None
