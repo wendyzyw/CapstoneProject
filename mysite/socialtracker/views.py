@@ -234,8 +234,17 @@ def manage3(request):
             profile = graph.get_object('me', **args)
             facebook_name = profile['name']
             
-            allfeeds = graph.get_all_connections(id=facebook_id, connection_name='feed')
-            print(allfeeds)
+            posts = graph.get_connections(facebook_id, 'feed')
+            fb_texts = []
+            while True:
+                try:
+                    for post in posts:
+                        if 'message' in post:
+                            fb_texts.append(post['message'])
+                    posts = requests.get(posts['paging']['next'].json())
+                except KeyError:
+                    break
+            print(fb_texts)
 
     except UserSocialAuth.DoesNotExist:
         facebook_account is None
