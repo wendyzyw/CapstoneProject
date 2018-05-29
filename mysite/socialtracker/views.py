@@ -25,7 +25,7 @@ from watson_developer_cloud import PersonalityInsightsV3, ToneAnalyzerV3
 from watson_developer_cloud import WatsonApiException
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 \
-	import Features, KeywordsOptions, ConceptsOptions
+    import Features, KeywordsOptions, ConceptsOptions
 
 # Django
 from django.shortcuts import render, redirect
@@ -102,7 +102,7 @@ def login(request):
     else:
         uf = LoginForm()
     return render(request, 'Login.html', {'uf': uf})
-	# return render(request, 'Login.html')
+    # return render(request, 'Login.html')
 
 
 def register(request):
@@ -131,7 +131,7 @@ def register(request):
     else:
         uf = RegisterForm()
         return render(request, 'signup.html', {'uf': uf})
-		
+        
 def forgetPw(request):
     return render(request, 'forget_password.html')
 
@@ -311,7 +311,7 @@ def keywords(request):
             fear = {'ID': id, 'emotion': 'fear', 'value': 0}
             disgust = {'ID': id, 'emotion': 'disgust', 'value': 0}
             anger = {'ID': id, 'emotion': 'anger', 'value': 0}
-             	
+                
         value_obj['values'].extend([sadness, joy, fear, disgust, anger])
         data_with_values[id] = value_obj
 
@@ -580,17 +580,17 @@ def social_network(request):
     edges.append(edges3)
     edges.append(edges4)
     # get friends from facebook
-	
-	if 'facebook_token' in request.session:
-		token = request.session['facebook_token']
-		graph = facebook.GraphAPI(access_token=token)
-		facebook_friends = graph.get_connections(id='me', connection_name='friends')
-		for post in facebook_friends["data"]:
-			temp3 = {'id': post["name"], 'group': 5}
-			friends.append(temp3)
-		for post2 in facebook_friends["data"]:
-			temp4 = {'source': 'facebook', 'target': post2["name"], 'value': 2}
-			edges.append(temp4)
+    
+    if 'facebook_token' in request.session:
+        token = request.session['facebook_token']
+        graph = facebook.GraphAPI(access_token=token)
+        facebook_friends = graph.get_connections(id='me', connection_name='friends')
+        for post in facebook_friends["data"]:
+            temp3 = {'id': post["name"], 'group': 5}
+            friends.append(temp3)
+        for post2 in facebook_friends["data"]:
+            temp4 = {'source': 'facebook', 'target': post2["name"], 'value': 2}
+            edges.append(temp4)
     # return JsonResponse(info,safe = False)
     return render(request, 'social_network.html', {'network_info': info})
 
@@ -615,29 +615,29 @@ def time_heatmap(request):
             hour = 24
         array[weekday - 1][hour - 1] += 1
 
-	if 'facebook_token' in request.session:
-		facebook_token = request.session['facebook_token']
-		user = 'BillGates'
-		person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
-		posts = requests.get(person).json().get('data')
-		reqJson_f = []
-		for post in posts:
-			message = post.get('message')
-			created_time = post.get('created_time')
-			datetime_object = datetime.strptime(created_time, '%Y-%m-%dT%H:%M:%S+%f')
+    if 'facebook_token' in request.session:
+        facebook_token = request.session['facebook_token']
+        user = 'BillGates'
+        person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
+        posts = requests.get(person).json().get('data')
+        reqJson_f = []
+        for post in posts:
+            message = post.get('message')
+            created_time = post.get('created_time')
+            datetime_object = datetime.strptime(created_time, '%Y-%m-%dT%H:%M:%S+%f')
 
-			# print('message = ', message)
-			# print('created_time = ', created_time)
-			# print('datetime = ', datetime_object)
-			# print(type(datetime_object))
-			# print('weekday = ', )
+            # print('message = ', message)
+            # print('created_time = ', created_time)
+            # print('datetime = ', datetime_object)
+            # print(type(datetime_object))
+            # print('weekday = ', )
 
-			if message != None:
-				weekday = datetime_object.isoweekday()
-				hour = datetime_object.hour
-				if hour == 0:
-					hour = 24
-				array[weekday - 1][hour - 1] += 1
+            if message != None:
+                weekday = datetime_object.isoweekday()
+                hour = datetime_object.hour
+                if hour == 0:
+                    hour = 24
+                array[weekday - 1][hour - 1] += 1
 
     tf_list = []
 
@@ -666,114 +666,114 @@ def remove_non_ascii_2(text):
 
 
 def get_string_list(request):
-	user = request.user
-	twitter_account = user.social_auth.get(provider='twitter')
-	twitter_json = twitter_account.extra_data
-	# retriev user timeline
-	auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
-	auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
-	api = tweepy.API(auth)
+    user = request.user
+    twitter_account = user.social_auth.get(provider='twitter')
+    twitter_json = twitter_account.extra_data
+    # retriev user timeline
+    auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
+    auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
+    api = tweepy.API(auth)
 
-	lemmatizer = WordNetLemmatizer()
-	stop_words = set(stopwords.words('english'))
-	tweet_text = []
-	#facebook_token = 'EAACEdEose0cBAHr03FDFLi5mt6fXJZBB4eHehYMm41FXIyoZAmqSw4DicBzJVpRmXcecvdnGJgGAu2aghZAfuDRMZA8jnWfXNnCNPopMBW6GFzZCLS0M8Kt9ndEb5VZC3kEIasDXKBfXN2raZC38vzJ90DeuhnZC2znS1MSZBdaUVZAKoafNukRKj6gzDVmCAPiJOjSuoL4aHkMgZDZD'
-	#person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
+    lemmatizer = WordNetLemmatizer()
+    stop_words = set(stopwords.words('english'))
+    tweet_text = []
+    #facebook_token = 'EAACEdEose0cBAHr03FDFLi5mt6fXJZBB4eHehYMm41FXIyoZAmqSw4DicBzJVpRmXcecvdnGJgGAu2aghZAfuDRMZA8jnWfXNnCNPopMBW6GFzZCLS0M8Kt9ndEb5VZC3kEIasDXKBfXN2raZC38vzJ90DeuhnZC2znS1MSZBdaUVZAKoafNukRKj6gzDVmCAPiJOjSuoL4aHkMgZDZD'
+    #person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
 
-	#posts = requests.get(person).json().get('data')
-	#for post in posts:
-		#sentence = post.get('message')
-		#if sentence != None:
-			#tweet_text.append(sentence)
+    #posts = requests.get(person).json().get('data')
+    #for post in posts:
+        #sentence = post.get('message')
+        #if sentence != None:
+            #tweet_text.append(sentence)
 
-	for tweet in tweepy.Cursor(api.user_timeline).items():
-		tweet_text.append(tweet._json['text'])
+    for tweet in tweepy.Cursor(api.user_timeline).items():
+        tweet_text.append(tweet._json['text'])
 
-	BOW = {}
-	hashtag_list = []
-	word_list = []
-	http_list = []
-	string_list = []
-	for sentence in tweet_text:
-		sentence = preprocess(sentence.lower())
-		for word in sentence:
-			ret_match = re.match('https?://\S+', word);
-			if word.startswith('#'):
-				hashtag_list.append(word)
-			elif (ret_match):
-				http_list.append(word)
-			else:
-				word = remove_non_ascii_2(word)
-				if word not in string.punctuation:
-					word_list.append(word)
-	
-	# WordNetLemmatizer.ensure_loaded()
-	for word in word_list:
-		word = lemmatizer.lemmatize(word)
-		if word not in stop_words and word != ' ':
-			BOW[word] = BOW.get(word, 0) + 1
-		sorted(BOW.items(), key=lambda t: t[1], reverse=True)
-	for word in BOW:
-		string_item = {'text':word, 'size':BOW[word]}
-		string_list.append(string_item)
-	string_list.sort(key=lambda x: x['size'], reverse=True)
-	Json_string_list = json.dumps(string_list)
+    BOW = {}
+    hashtag_list = []
+    word_list = []
+    http_list = []
+    string_list = []
+    for sentence in tweet_text:
+        sentence = preprocess(sentence.lower())
+        for word in sentence:
+            ret_match = re.match('https?://\S+', word);
+            if word.startswith('#'):
+                hashtag_list.append(word)
+            elif (ret_match):
+                http_list.append(word)
+            else:
+                word = remove_non_ascii_2(word)
+                if word not in string.punctuation:
+                    word_list.append(word)
+    
+    # WordNetLemmatizer.ensure_loaded()
+    for word in word_list:
+        word = lemmatizer.lemmatize(word)
+        if word not in stop_words and word != ' ':
+            BOW[word] = BOW.get(word, 0) + 1
+        sorted(BOW.items(), key=lambda t: t[1], reverse=True)
+    for word in BOW:
+        string_item = {'text':word, 'size':BOW[word]}
+        string_list.append(string_item)
+    string_list.sort(key=lambda x: x['size'], reverse=True)
+    Json_string_list = json.dumps(string_list)
 
-	return render(request, 'wordcount.html', {'Json_string_list': Json_string_list})
+    return render(request, 'wordcount.html', {'Json_string_list': Json_string_list})
 
 
 def get_hashtag_list(request):
-	user = request.user
-	twitter_account = user.social_auth.get(provider='twitter')
-	twitter_json = twitter_account.extra_data
-	# retriev user timeline
-	auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
-	auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
-	api = tweepy.API(auth)
+    user = request.user
+    twitter_account = user.social_auth.get(provider='twitter')
+    twitter_json = twitter_account.extra_data
+    # retriev user timeline
+    auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
+    auth.set_access_token(twitter_json['access_token']['oauth_token'],twitter_json['access_token']['oauth_token_secret'])
+    api = tweepy.API(auth)
 
-	lemmatizer = WordNetLemmatizer()
-	stop_words = set(stopwords.words('english'))
-	tweet_text = []
-	#facebook_token = 'EAACEdEose0cBAHr03FDFLi5mt6fXJZBB4eHehYMm41FXIyoZAmqSw4DicBzJVpRmXcecvdnGJgGAu2aghZAfuDRMZA8jnWfXNnCNPopMBW6GFzZCLS0M8Kt9ndEb5VZC3kEIasDXKBfXN2raZC38vzJ90DeuhnZC2znS1MSZBdaUVZAKoafNukRKj6gzDVmCAPiJOjSuoL4aHkMgZDZD'
-	#person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
+    lemmatizer = WordNetLemmatizer()
+    stop_words = set(stopwords.words('english'))
+    tweet_text = []
+    #facebook_token = 'EAACEdEose0cBAHr03FDFLi5mt6fXJZBB4eHehYMm41FXIyoZAmqSw4DicBzJVpRmXcecvdnGJgGAu2aghZAfuDRMZA8jnWfXNnCNPopMBW6GFzZCLS0M8Kt9ndEb5VZC3kEIasDXKBfXN2raZC38vzJ90DeuhnZC2znS1MSZBdaUVZAKoafNukRKj6gzDVmCAPiJOjSuoL4aHkMgZDZD'
+    #person = 'https://graph.facebook.com/v3.0/me/posts?access_token=' + facebook_token
 
-	#posts = requests.get(person).json().get('data')
-	#for post in posts:
-		#sentence = post.get('message')
-		#if sentence != None:
-			#tweet_text.append(sentence)
+    #posts = requests.get(person).json().get('data')
+    #for post in posts:
+        #sentence = post.get('message')
+        #if sentence != None:
+            #tweet_text.append(sentence)
 
-	for tweet in tweepy.Cursor(api.user_timeline).items():
-		tweet_text.append(tweet._json['text'])
-	BOW = {}
-	hashtag_list = []
-	word_list = []
-	http_list = []
-	string_list = []
-	for sentence in tweet_text:
-		sentence = preprocess(sentence.lower())
-		for word in sentence:
-			ret_match = re.match('https?://\S+', word);
-			if word.startswith('#'):
-				hashtag_list.append(word)
-			elif (ret_match):
-				http_list.append(word)
-			else:
-				word = remove_non_ascii_2(word)
-				if word not in string.punctuation:
-					word_list.append(word)
+    for tweet in tweepy.Cursor(api.user_timeline).items():
+        tweet_text.append(tweet._json['text'])
+    BOW = {}
+    hashtag_list = []
+    word_list = []
+    http_list = []
+    string_list = []
+    for sentence in tweet_text:
+        sentence = preprocess(sentence.lower())
+        for word in sentence:
+            ret_match = re.match('https?://\S+', word);
+            if word.startswith('#'):
+                hashtag_list.append(word)
+            elif (ret_match):
+                http_list.append(word)
+            else:
+                word = remove_non_ascii_2(word)
+                if word not in string.punctuation:
+                    word_list.append(word)
 
-	for word in hashtag_list:
-		word = lemmatizer.lemmatize(word)
-		if word not in stop_words and word != ' ':
-			BOW[word] = BOW.get(word, 0) + 1
-		sorted(BOW.items(), key=lambda t: t[1], reverse=True)
-	for word in BOW:
-		string_item = {'text': word, 'count': BOW[word]}
-		string_list.append(string_item)
-		print(string_list)
-	Json_string_list = json.dumps(string_list)
-	return render(request, 'bubble.html', {'Json_string_list': Json_string_list})
+    for word in hashtag_list:
+        word = lemmatizer.lemmatize(word)
+        if word not in stop_words and word != ' ':
+            BOW[word] = BOW.get(word, 0) + 1
+        sorted(BOW.items(), key=lambda t: t[1], reverse=True)
+    for word in BOW:
+        string_item = {'text': word, 'count': BOW[word]}
+        string_list.append(string_item)
+        print(string_list)
+    Json_string_list = json.dumps(string_list)
+    return render(request, 'bubble.html', {'Json_string_list': Json_string_list})
 
 
 def twitter_login(request):
