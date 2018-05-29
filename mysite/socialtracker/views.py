@@ -235,11 +235,11 @@ def manage3(request):
             facebook_name = profile['name']
             
             posts = graph.get_connections(facebook_id, 'feed')
-            print(posts)
             fb_texts = []
             while True:
                 try:
-                    for post in posts:
+					posts_list = posts['data']
+                    for post in posts_list:
                         if 'message' in post:
                             fb_texts.append(post['message'])
                     posts = requests.get(posts['paging']['next'])
