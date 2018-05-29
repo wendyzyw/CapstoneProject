@@ -207,6 +207,7 @@ def manage3(request):
     facebook_account = None
     facebook_date = None
     facebook_id = None
+    facebook_name = None
 
     try:
         twitter_account = user.social_auth.get(provider='twitter')
@@ -225,7 +226,13 @@ def manage3(request):
             facebook_date = time.strftime('%d/%m/%Y %H:%M:%S', time.gmtime(facebook_json['auth_time']))
             facebook_id = facebook_json['id']
             # get image url
-            fb_profile_url = url = "http://graph.facebook.com/%s/picture?type=large" % facebook_id
+            fb_profile_url = url = "https://graph.facebook.com/%s/picture?type=large" % facebook_id
+            access_token = facebook_json['access_token']
+            graph = facebook.GraphAPI(access_token)
+            profile = graph.get_object('me')
+            args = {'fields' : 'name', }
+            profile = graph.get_object('me', **args)
+            facebook_name = profile
 
     except UserSocialAuth.DoesNotExist:
         facebook_account is None
@@ -234,7 +241,7 @@ def manage3(request):
     return render(request, 'Manage3_social.html',
                   {'twitter_account': twitter_account, 'twitter_date': twitter_date,
                    'twitter_name': twitter_name, 'facebook_account': facebook_account, 'facebook_date': facebook_date,
-                   'facebook_id': facebook_id})
+                   'facebook_id': facebook_id, 'facebook_name': facebook_name})
 
 
 def user_preferences(request):
