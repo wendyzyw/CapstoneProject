@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="media-body">
-				<h4 class="media-heading" style="text-align:left;">{{ facebook_account }}</h4>
+				<h4 class="media-heading" style="text-align:left;">{{ facebook_name }}</h4>
 				<p>{{ facebook_date }}</p>
 				<div class="close-box">
 					<form action="{% url 'social:disconnect' 'facebook' %}" method="post">{% csrf_token %}<button class="btn btn-warning" style="padding-top:4px; padding-left:5px;"><i class="fa fa-times"></i></button></form>
