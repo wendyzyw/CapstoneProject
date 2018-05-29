@@ -242,7 +242,7 @@ def manage3(request):
                     for post in posts_list:
                         if 'message' in post:
                             fb_texts.append(post['message'])
-                    posts = requests.get(posts['paging']['next').json()
+                    posts = requests.get(posts['paging']['next']).json()
                 except KeyError:
                     break
             print(fb_texts)
