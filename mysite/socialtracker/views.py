@@ -232,7 +232,7 @@ def manage3(request):
             profile = graph.get_object('me')
             args = {'fields' : 'name', }
             profile = graph.get_object('me', **args)
-            facebook_name = profile
+            facebook_name = profile['name']
 
     except UserSocialAuth.DoesNotExist:
         facebook_account is None
