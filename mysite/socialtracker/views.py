@@ -234,7 +234,8 @@ def manage3(request):
             profile = graph.get_object('me', **args)
             facebook_name = profile['name']
             
-            posts = graph.get_connections(facebook_id, 'feed')
+            posts = graph.get_connections(facebook_id, 'feed').json()
+			print(posts)
             fb_texts = []
             while True:
                 try:
@@ -242,7 +243,7 @@ def manage3(request):
                     for post in posts_list:
                         if 'message' in post:
                             fb_texts.append(post['message'])
-                    posts = requests.get(posts['paging']['next'])
+                    posts = requests.get(posts['paging']['next'].json())
                 except KeyError:
                     break
             print(fb_texts)
