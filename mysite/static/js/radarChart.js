@@ -1,4 +1,4 @@
-function RadarChart(id, data, options, intro_div, value_div, is_value) {
+function RadarChart(id, data, options, intro_div, is_value) {
 	var intro_needs = {
 		'Need Excitement': 'Want to get out there and live life, have upbeat emotions, and want to have fun.', 
 		'Need Harmony': 'Appreciate other people, their viewpoints, and their feelings.', 
@@ -246,12 +246,6 @@ function RadarChart(id, data, options, intro_div, value_div, is_value) {
 				.style("font-size", "13px")
 				.transition().duration(200)
 				.style('opacity', 1);
-				
-			d3.select(value_div).selectAll("*").remove();
-			de.select(value_div).append("div")
-				.text("Score: "+d.value)
-				.style("color", "#fff")
-				.style("padding-top", 10+"px");
 			
 			d3.select(intro_div).selectAll("*").remove();
 			if (is_value){
