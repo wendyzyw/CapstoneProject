@@ -11,10 +11,10 @@
 			<p>Give your own health condition report! </p>
 			<div class="primary-log-button">
 				{% if user.is_authenticated %}
+					<td style="padding-right:30px"><a href={% url 'data' %}>Explore the Analytics</a>
+				{% else %}
 					<td style="padding-right:30px"><a href={% url 'login' %}>Log  In </a>
 					<a href={% url 'signup' %}>Sign Up</a>
-				{% else %}
-					<td style="padding-right:30px"><a href={% url 'data' %}>Explore the Analytics</a>
 				{% endif %}
 			</div>
 
