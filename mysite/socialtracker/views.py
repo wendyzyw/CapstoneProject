@@ -493,7 +493,9 @@ def data(request):
             for each in fb_texts:
                 temp = {'content': each, 'contenttype': "text/plain", 'id': facebook_id, 'language': 'en'}
                 reqJson2.append(temp)
+			print(reqJson2)
             json_input2 = {'contentItems': reqJson2}
+			print(json_input2)
             # format posts data for tone and keywords api
             reqStr2 = '. '.join(fb_texts)
     except UserSocialAuth.DoesNotExist:
