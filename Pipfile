@@ -17,6 +17,7 @@ watson-developer-cloud = "*"
 simplejson = "*"
 requests = "*"
 dj-database-url = "*"
+datetime = "*"
 
 [dev-packages]
 

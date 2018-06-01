@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e9d2c465ac4a1f02aaf35e05253ea71a7bc4905972d1aeed862f4e8a564811ab"
+            "sha256": "6eb1b8ffa69dd192b501a843742c7ab7b2a9d8a6e6187bed4ae983d34b90fe2d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -120,12 +120,19 @@
             ],
             "version": "==2.2.2"
         },
+        "datetime": {
+            "hashes": [
+                "sha256:6a7d0650cf9cfc10b0e152fa6c667176cff7cd68b93040c10aca868d4a4617c0",
+                "sha256:b3d91011caff312274a629b35abd6eb67038f8f92423ad3d9e071c0bf8823226"
+            ],
+            "index": "pypi",
+            "version": "==4.2"
+        },
         "defusedxml": {
             "hashes": [
                 "sha256:24d7f2f94f7f3cb6061acb215685e5125fbcdc40a857eff9de22518820b0a4f4",
                 "sha256:702a91ade2968a82beb0db1e0766a6a273f33d4616a6ce8cde475d8e09853b20"
             ],
-            "markers": "python_version >= '3.0'",
             "version": "==0.5.0"
         },
         "dj-database-url": {
@@ -451,10 +458,10 @@
         },
         "watson-developer-cloud": {
             "hashes": [
-                "sha256:84a482723aaf8beefee99d82b2a08330a2037c19c3048736d53c933072486ecb"
+                "sha256:ad873259c97dff86b18539a3c65ad9b5b48a45a89548a9d1c3c789416bbc1a5d"
             ],
             "index": "pypi",
-            "version": "==1.3.4"
+            "version": "==1.3.5"
         },
         "whitenoise": {
             "hashes": [
