@@ -478,12 +478,14 @@ def data(request):
             access_token = facebook_json['access_token']
             graph = facebook.GraphAPI(access_token)
             posts = graph.get_connections(facebook_id, 'feed')
+            print(posts)
             fb_texts = []
             while True:
                 try:
                     posts_list = posts['data']
                     for post in posts_list:
                         if 'message' in post:
+                            print(post['message'])
                             fb_texts.append(post['message'])
                     posts = requests.get(posts['paging']['next']).json()
                 except KeyError:
