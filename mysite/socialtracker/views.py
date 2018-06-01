@@ -509,7 +509,7 @@ def data(request):
     elif twitter_account is not None:
         json_input = json_input1
         reqStr = reqStr1
-    elif faceboo_account is not None:
+    elif facebook_account is not None:
         json_input = json_input2
         reqStr = reqStr2
     else:
