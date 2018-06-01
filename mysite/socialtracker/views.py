@@ -501,7 +501,7 @@ def data(request):
         reqStr2 = None
     
     # merge data from twitter and facebook together 
-    if (twitter_account is not None) and (faceboo_account is not None):
+    if (twitter_account is not None) and (facebook_account is not None):
         total_json = reqJson1+reqJson2
         json_input = {'contentItems': total_json}
         reqStr = reqStr1+reqStr2
