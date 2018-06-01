@@ -6,7 +6,7 @@ import time
 import json
 import tweepy
 import calendar
-import datetime
+from datetime import datetime
 import simplejson
 import facebook
 import requests
