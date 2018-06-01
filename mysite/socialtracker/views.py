@@ -433,7 +433,7 @@ def data(request):
     facebook_account = None
     twitter_account = None
     radarData = []
-	###########################################################################
+    ###########################################################################
     # retrieve twitter account information
     try:
         twitter_account = user.social_auth.get(provider='twitter')
@@ -456,24 +456,24 @@ def data(request):
                 temp = {'content': each.text, 'contenttype': "text/plain", 'id': each.id, 'language': 'en'}
                 reqJson1.append(temp)
             json_input1 = {'contentItems': reqJson1}
-			# format timeline data for tone and keywords api
-			reqStrList = []
-			for each in data:
-				reqStrList.append(each.text)
-			reqStr1 = '. '.join(reqStrList)
+            # format timeline data for tone and keywords api
+            reqStrList = []
+            for each in data:
+                reqStrList.append(each.text)
+            reqStr1 = '. '.join(reqStrList)
     except:
         twitter_account = None
-		json_input1 = None
-		reqStr1 = None
-			
-	###########################################################################
+        json_input1 = None
+        reqStr1 = None
+            
+    ###########################################################################
     # retrieve facebook account information
     try:
         facebook_account = user.social_auth.get(provider='facebook')
         if facebook_account is not None:
             facebook_json = facebook_account.extra_data
             request.session['facebook_token'] = facebook_json['access_token']
-			facebook_id = facebook_json['id']
+            facebook_id = facebook_json['id']
             access_token = facebook_json['access_token']
             graph = facebook.GraphAPI(access_token)
             posts = graph.get_connections(facebook_id, 'feed')
@@ -487,101 +487,101 @@ def data(request):
                     posts = requests.get(posts['paging']['next']).json()
                 except KeyError:
                     break
-			# format posts data for personality insights api 
-			reqJson2 = []
+            # format posts data for personality insights api 
+            reqJson2 = []
             for each in fb_texts:
                 temp = {'content': each, 'contenttype': "text/plain", 'id': facebook_id, 'language': 'en'}
                 reqJson2.append(temp)
             json_input2 = {'contentItems': reqJson2}
-			# format posts data for tone and keywords api
-			reqStr2 = '. '.join(fb_texts)
+            # format posts data for tone and keywords api
+            reqStr2 = '. '.join(fb_texts)
     except UserSocialAuth.DoesNotExist:
         facebook_account is None
-		json_input2 = None
-		reqStr2 = None
-	
-	# merge data from twitter and facebook together 
-	if (twitter_account is not None) and (faceboo_account is not None):
-		total_json = reqJson1+reqJson2
-		json_input = {'contentItems': total_json}
-		reqStr = reqStr1+reqStr2
-	elif twitter_account is not None:
-		json_input = json_input1
-		reqStr = reqStr1
-	elif faceboo_account is not None:
-		json_input = json_input2
-		reqStr = reqStr2
-	else:
-		json_input = {'contentItems': []}
-		reqStr = []
+        json_input2 = None
+        reqStr2 = None
+    
+    # merge data from twitter and facebook together 
+    if (twitter_account is not None) and (faceboo_account is not None):
+        total_json = reqJson1+reqJson2
+        json_input = {'contentItems': total_json}
+        reqStr = reqStr1+reqStr2
+    elif twitter_account is not None:
+        json_input = json_input1
+        reqStr = reqStr1
+    elif faceboo_account is not None:
+        json_input = json_input2
+        reqStr = reqStr2
+    else:
+        json_input = {'contentItems': []}
+        reqStr = []
 
-	try:
-		###############################################################
-		personality_insights = PersonalityInsightsV3(
-			version='2017-10-13',
-			username='9576f431-9a16-435e-85d3-d9dcf455969d',
-			password='0HOzAgnxjz3d'
-		)
+    try:
+        ###############################################################
+        personality_insights = PersonalityInsightsV3(
+            version='2017-10-13',
+            username='9576f431-9a16-435e-85d3-d9dcf455969d',
+            password='0HOzAgnxjz3d'
+        )
 
-		profile = personality_insights.profile(
-			content=json_input, content_type='application/json',
-			raw_scores=True, consumption_preferences=True)
-		# print(json.dumps(profile["values"], indent=2))
+        profile = personality_insights.profile(
+            content=json_input, content_type='application/json',
+            raw_scores=True, consumption_preferences=True)
+        # print(json.dumps(profile["values"], indent=2))
 
-		personality = profile["personality"]
-		needs = profile["needs"]
-		values = profile["values"]
-		# behavior = profile["behavior"]
-		# print("h4")
-		consumption_preferences = profile["consumption_preferences"]
+        personality = profile["personality"]
+        needs = profile["needs"]
+        values = profile["values"]
+        # behavior = profile["behavior"]
+        # print("h4")
+        consumption_preferences = profile["consumption_preferences"]
 
-		# format the values data to pipeline for radar chart
-		radarObj = []
-		for eachNeed in needs:
-			temp = {"axis": "Need " + eachNeed["name"], "value": round(eachNeed["raw_score"], 2),
-					"percentile": round(eachNeed["percentile"], 2)}
-			radarObj.append(temp)
-		radarData = simplejson.dumps(radarObj)
+        # format the values data to pipeline for radar chart
+        radarObj = []
+        for eachNeed in needs:
+            temp = {"axis": "Need " + eachNeed["name"], "value": round(eachNeed["raw_score"], 2),
+                    "percentile": round(eachNeed["percentile"], 2)}
+            radarObj.append(temp)
+        radarData = simplejson.dumps(radarObj)
 
-		# store into session
-		request.session['user_values'] = values
-		request.session['user_needs'] = needs
-		request.session['user_personality'] = personality
-		request.session['preferences'] = consumption_preferences
+        # store into session
+        request.session['user_values'] = values
+        request.session['user_needs'] = needs
+        request.session['user_personality'] = personality
+        request.session['preferences'] = consumption_preferences
 
-		###############################################################
-		tone_analyzer = ToneAnalyzerV3(
-			version='2016-05-19',
-			username='6c984f2f-56ea-4a07-a59c-9c86e5b5d00f',
-			password='GlMwVmKrNpwt'
-		)
-		tone_analyzer.set_default_headers({'x-watson-learning-opt-out': "true"})
+        ###############################################################
+        tone_analyzer = ToneAnalyzerV3(
+            version='2016-05-19',
+            username='6c984f2f-56ea-4a07-a59c-9c86e5b5d00f',
+            password='GlMwVmKrNpwt'
+        )
+        tone_analyzer.set_default_headers({'x-watson-learning-opt-out': "true"})
 
-		content_type = 'application/json'
-		tone = tone_analyzer.tone({"text": reqStr}, content_type)
+        content_type = 'application/json'
+        tone = tone_analyzer.tone({"text": reqStr}, content_type)
 
-		# print(json.dumps(tone, indent=2))
-		request.session['tone'] = tone
-		
-		###############################################################
-		natural_language_understanding = NaturalLanguageUnderstandingV1(
-			username='fc0c4c4c-a1aa-4428-b624-1d995c7d4183',
-			password='m6QGBRl7hG3w',
-			version='2018-03-16')
+        # print(json.dumps(tone, indent=2))
+        request.session['tone'] = tone
+        
+        ###############################################################
+        natural_language_understanding = NaturalLanguageUnderstandingV1(
+            username='fc0c4c4c-a1aa-4428-b624-1d995c7d4183',
+            password='m6QGBRl7hG3w',
+            version='2018-03-16')
 
-		response = natural_language_understanding.analyze(
-			text=reqStr,
-			features=Features(
-				keywords=KeywordsOptions(
-					emotion=True,
-					sentiment=True,
-					limit=50)))
+        response = natural_language_understanding.analyze(
+            text=reqStr,
+            features=Features(
+                keywords=KeywordsOptions(
+                    emotion=True,
+                    sentiment=True,
+                    limit=50)))
 
-		# print(json.dumps(response, indent=2))
-		request.session['keywords'] = response['keywords']
+        # print(json.dumps(response, indent=2))
+        request.session['keywords'] = response['keywords']
 
-	except WatsonApiException as ex:
-		print("Method failed with status code " + str(ex.code) + ": " + ex.message)
+    except WatsonApiException as ex:
+        print("Method failed with status code " + str(ex.code) + ": " + ex.message)
 
     return render(request, 'user_needs.html', {'radarData': radarData})
 
