@@ -531,7 +531,7 @@ def data(request):
         for eachNeed in needs:
             temp = {"axis": "Need " + eachNeed["name"], "value": round(eachNeed["raw_score"], 2),
                     "percentile": round(eachNeed["percentile"], 2)}
-            tota_score += round(eachNeed["raw_score"], 2)
+            total_score += round(eachNeed["raw_score"], 2)
             radarObj.append(temp)
         print(total_score)
         for eachObj in radarObj:
