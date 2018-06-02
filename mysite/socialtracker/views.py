@@ -790,7 +790,7 @@ def get_string_list(request):
         string_item = {'text':word, 'size':BOW[word]}
         string_list.append(string_item)
     string_list.sort(key=lambda x: x['size'], reverse=True)
-    temp_list = string_list[:50]
+    temp_list = string_list[:100]
     Json_string_list = json.dumps(temp_list)
 
     return render(request, 'wordcount.html', {'Json_string_list': Json_string_list})
