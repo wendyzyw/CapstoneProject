@@ -753,7 +753,7 @@ def get_string_list(request):
     # get facebook posts
     if 'facebook_token' in request.session:
         access_token = request.session['facebook_token']
-        facebook_id = request.session['id']
+        facebook_id = request.session['facebook_id']
         graph = facebook.GraphAPI(access_token)
         posts = graph.get_connections(facebook_id, 'feed')
         
