@@ -527,10 +527,15 @@ def data(request):
 
         # format the values data to pipeline for radar chart
         radarObj = []
+		total_score = 0
         for eachNeed in needs:
             temp = {"axis": "Need " + eachNeed["name"], "value": round(eachNeed["raw_score"], 2),
                     "percentile": round(eachNeed["percentile"], 2)}
+			tota_score += round(eachNeed["raw_score"], 2)
             radarObj.append(temp)
+		print(total_score)
+		for eachObj in radarObj:
+			eachObj['value'] = round(eachObj['value']/total_score, 2)
         radarData = simplejson.dumps(radarObj)
 
         # store into session
@@ -792,7 +797,8 @@ def get_string_list(request):
         string_item = {'text':word, 'size':BOW[word]}
         string_list.append(string_item)
     string_list.sort(key=lambda x: x['size'], reverse=True)
-    Json_string_list = json.dumps(string_list)
+	tempt_list = string_list[:50]
+    Json_string_list = json.dumps(temp_list)
 
     return render(request, 'wordcount.html', {'Json_string_list': Json_string_list})
 
