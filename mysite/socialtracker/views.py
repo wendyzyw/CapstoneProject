@@ -769,7 +769,7 @@ def get_string_list(request):
             except KeyError:
                 break
         
-        for sentence in fb_text:
+        for sentence in fb_texts:
             sentence = preprocess(sentence.lower())
             for word in sentence:
                 ret_match = re.match('https?://\S+', word);
