@@ -410,7 +410,6 @@ def user_values(request):
         temp = {"axis": eachValue["name"], "value": round(eachValue["raw_score"], 2),
                 "percentile": round(eachValue["percentile"], 2)}
         radarObj.append(temp)
-    print(radarObj)
     radarData = simplejson.dumps(radarObj)
 
     return render(request, 'user_values.html', {'radarData': radarData})
@@ -472,7 +471,6 @@ def data(request):
                     posts_list = posts['data']
                     for post in posts_list:
                         if 'message' in post:
-                            print(post['message'])
                             fb_texts.append(post['message'])
                     posts = requests.get(posts['paging']['next']).json()
                 except KeyError:
@@ -527,15 +525,10 @@ def data(request):
 
         # format the values data to pipeline for radar chart
         radarObj = []
-        total_score = 0
         for eachNeed in needs:
             temp = {"axis": "Need " + eachNeed["name"], "value": round(eachNeed["raw_score"], 2),
                     "percentile": round(eachNeed["percentile"], 2)}
-            total_score += round(eachNeed["raw_score"], 2)
             radarObj.append(temp)
-        print(total_score)
-        for eachObj in radarObj:
-            eachObj['value'] = round(eachObj['value']/total_score, 2)
         radarData = simplejson.dumps(radarObj)
 
         # store into session
@@ -797,7 +790,7 @@ def get_string_list(request):
         string_item = {'text':word, 'size':BOW[word]}
         string_list.append(string_item)
     string_list.sort(key=lambda x: x['size'], reverse=True)
-    tempt_list = string_list[:50]
+    temp_list = string_list[:50]
     Json_string_list = json.dumps(temp_list)
 
     return render(request, 'wordcount.html', {'Json_string_list': Json_string_list})
