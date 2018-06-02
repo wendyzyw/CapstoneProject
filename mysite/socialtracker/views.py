@@ -462,7 +462,7 @@ def data(request):
             facebook_json = facebook_account.extra_data
             request.session['facebook_token'] = facebook_json['access_token']
             facebook_id = facebook_json['id']
-			request.session['facebook_id'] = facebook_id
+            request.session['facebook_id'] = facebook_id
             access_token = facebook_json['access_token']
             graph = facebook.GraphAPI(access_token)
             posts = graph.get_connections(facebook_id, 'feed')
@@ -586,7 +586,7 @@ def social_network(request):
     info = dict(nodes=friends, links=edges)
     
     current_user = request.user
-	username = current_user.username
+    username = current_user.username
         
     user = {'id': username, 'group': 1}
     twitter_dict = {'id': 'twitter', 'group': 2}
@@ -722,65 +722,65 @@ def get_string_list(request):
     word_list = []
     http_list = []
     string_list = []
-	lemmatizer = WordNetLemmatizer()
-	stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
+    stop_words = set(stopwords.words('english'))
 
-	# get twitter timeline
-	if 'twitter_token' in request.session:
+    # get twitter timeline
+    if 'twitter_token' in request.session:
         access_token = request.session['twitter_token']
         access_token_secret = request.session['twitter_secret']
-		auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
-		auth.set_access_token(access_token, access_token_secret)
-		api = tweepy.API(auth)
+        auth = tweepy.OAuthHandler(settings.TWITTER_TOKEN,settings.TWITTER_SECRET)
+        auth.set_access_token(access_token, access_token_secret)
+        api = tweepy.API(auth)
 
-		tweet_text = []
-		for tweet in tweepy.Cursor(api.user_timeline).items():
-			tweet_text.append(tweet._json['text'])
+        tweet_text = []
+        for tweet in tweepy.Cursor(api.user_timeline).items():
+            tweet_text.append(tweet._json['text'])
 
-		for sentence in tweet_text:
-			sentence = preprocess(sentence.lower())
-			for word in sentence:
-				ret_match = re.match('https?://\S+', word);
-				if word.startswith('#'):
-					hashtag_list.append(word)
-				elif (ret_match):
-					http_list.append(word)
-				else:
-					word = remove_non_ascii_2(word)
-					if word not in string.punctuation:
-						word_list.append(word)
-	
-	# get facebook posts
-	if 'facebook_token' in request.session:
-		access_token = request.session['facebook_token']
-		facebook_id = request.session['id']
-		graph = facebook.GraphAPI(access_token)
-		posts = graph.get_connections(facebook_id, 'feed')
-		
-		fb_texts = []
-		while True:
-			try:
-				posts_list = posts['data']
-				for post in posts_list:
-					if 'message' in post:
-						print(post['message'])
-						fb_texts.append(post['message'])
-				posts = requests.get(posts['paging']['next']).json()
-			except KeyError:
-				break
-		
-		for sentence in fb_text:
-			sentence = preprocess(sentence.lower())
-			for word in sentence:
-				ret_match = re.match('https?://\S+', word);
-				if word.startswith('#'):
-					hashtag_list.append(word)
-				elif (ret_match):
-					http_list.append(word)
-				else:
-					word = remove_non_ascii_2(word)
-					if word not in string.punctuation:
-						word_list.append(word)
+        for sentence in tweet_text:
+            sentence = preprocess(sentence.lower())
+            for word in sentence:
+                ret_match = re.match('https?://\S+', word);
+                if word.startswith('#'):
+                    hashtag_list.append(word)
+                elif (ret_match):
+                    http_list.append(word)
+                else:
+                    word = remove_non_ascii_2(word)
+                    if word not in string.punctuation:
+                        word_list.append(word)
+    
+    # get facebook posts
+    if 'facebook_token' in request.session:
+        access_token = request.session['facebook_token']
+        facebook_id = request.session['id']
+        graph = facebook.GraphAPI(access_token)
+        posts = graph.get_connections(facebook_id, 'feed')
+        
+        fb_texts = []
+        while True:
+            try:
+                posts_list = posts['data']
+                for post in posts_list:
+                    if 'message' in post:
+                        print(post['message'])
+                        fb_texts.append(post['message'])
+                posts = requests.get(posts['paging']['next']).json()
+            except KeyError:
+                break
+        
+        for sentence in fb_text:
+            sentence = preprocess(sentence.lower())
+            for word in sentence:
+                ret_match = re.match('https?://\S+', word);
+                if word.startswith('#'):
+                    hashtag_list.append(word)
+                elif (ret_match):
+                    http_list.append(word)
+                else:
+                    word = remove_non_ascii_2(word)
+                    if word not in string.punctuation:
+                        word_list.append(word)
     
     # WordNetLemmatizer.ensure_loaded()
     for word in word_list:
