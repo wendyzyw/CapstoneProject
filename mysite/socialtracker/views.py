@@ -582,58 +582,58 @@ def social_network(request):
     # get friends from twitter
     consumer_key = settings.TWITTER_TOKEN
     consumer_secret = settings.TWITTER_SECRET
-	
-	friends = []
+    
+    friends = []
     edges = []
     info = dict(nodes=friends, links=edges)
-	
-	if 'user' in request:
-		current_user = request.user
-		username = current_user.username
-	else: 
-		username = 'me'
-		
-	user = {'id': username, 'group': 1}
-	twitter_dict = {'id': 'twitter', 'group': 2}
-	facebook_dict = {'id': 'facebook', 'group': 3}
-	tumblr_dict = {'id': 'tumblr', 'group': 6}
-	reddit_dict = {'id': 'reddit', 'group': 7}
-	edges1 = {'source': username, 'target': 'facebook', 'value': 2}
-	edges2 = {'source': username, 'target': 'twitter', 'value': 2}
-	edges3 = {'source': username, 'target': 'tumblr', 'value': 2}
-	edges4 = {'source': username, 'target': 'reddit', 'value': 2}
-	friends.append(user)
-	friends.append(twitter_dict)
-	friends.append(facebook_dict)
-	friends.append(tumblr_dict)
-	friends.append(reddit_dict)
-	edges.append(edges1)
-	edges.append(edges2)
-	edges.append(edges3)
-	edges.append(edges4)
-	
-	# get friends from twitter
-	if 'twitter_token' in request.session:
-		access_token = request.session['twitter_token']
-		access_token_secret = request.session['twitter_secret']
-		auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-		auth.set_access_token(access_token, access_token_secret)
-		api = tweepy.API(auth)
+    
+    if 'user' in request:
+        current_user = request.user
+        username = current_user.username
+    else: 
+        username = 'me'
+        
+    user = {'id': username, 'group': 1}
+    twitter_dict = {'id': 'twitter', 'group': 2}
+    facebook_dict = {'id': 'facebook', 'group': 3}
+    tumblr_dict = {'id': 'tumblr', 'group': 6}
+    reddit_dict = {'id': 'reddit', 'group': 7}
+    edges1 = {'source': username, 'target': 'facebook', 'value': 2}
+    edges2 = {'source': username, 'target': 'twitter', 'value': 2}
+    edges3 = {'source': username, 'target': 'tumblr', 'value': 2}
+    edges4 = {'source': username, 'target': 'reddit', 'value': 2}
+    friends.append(user)
+    friends.append(twitter_dict)
+    friends.append(facebook_dict)
+    friends.append(tumblr_dict)
+    friends.append(reddit_dict)
+    edges.append(edges1)
+    edges.append(edges2)
+    edges.append(edges3)
+    edges.append(edges4)
+    
+    # get friends from twitter
+    if 'twitter_token' in request.session:
+        access_token = request.session['twitter_token']
+        access_token_secret = request.session['twitter_secret']
+        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        auth.set_access_token(access_token, access_token_secret)
+        api = tweepy.API(auth)
 
-		my_followers = api.followers()
-		my_friends = api.friends()
-		my = api.me()
-	
-		for follower in my_followers:
-			for friend in my_friends:
-				if friend.id == follower.id:
-					temp = {'id': friend.screen_name, 'group': 4}
-					friends.append(temp)
-		for line in friends:
-			if line['id'] != 'facebook' and line['id'] != 'twitter' and line['id'] != my.screen_name and line[
-				'id'] != 'tumblr' and line['id'] != 'reddit':
-				temp2 = {'source': 'twitter', 'target': line['id'], 'value': 2}
-				edges.append(temp2)
+        my_followers = api.followers()
+        my_friends = api.friends()
+        my = api.me()
+    
+        for follower in my_followers:
+            for friend in my_friends:
+                if friend.id == follower.id:
+                    temp = {'id': friend.screen_name, 'group': 4}
+                    friends.append(temp)
+        for line in friends:
+            if line['id'] != 'facebook' and line['id'] != 'twitter' and line['id'] != my.screen_name and line[
+                'id'] != 'tumblr' and line['id'] != 'reddit':
+                temp2 = {'source': 'twitter', 'target': line['id'], 'value': 2}
+                edges.append(temp2)
 
     # get friends from facebook
     if 'facebook_token' in request.session:
