@@ -464,7 +464,8 @@ def data(request):
             request.session['facebook_id'] = facebook_id
             access_token = facebook_json['access_token']
             graph = facebook.GraphAPI(access_token)
-            posts = graph.get_connections(facebook_id, 'feed')
+            # posts = graph.get_connections(facebook_id, 'feed')
+            posts = graph.get_connections(me, 'feed')
             fb_texts = []
             while True:
                 try:
